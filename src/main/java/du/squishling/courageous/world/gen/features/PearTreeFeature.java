@@ -91,7 +91,7 @@ public class PearTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                             if (Math.abs(k1) != j4 || Math.abs(i2) != j4 || rand.nextInt(2) != 0 && l3 != 0) {
                                 BlockPos blockpos = new BlockPos(j1, l2, l1);
                                 if (isAirOrLeaves(worldIn, blockpos) || isTallPlants(worldIn, blockpos)) {
-                                    this.setLogState(changedBlocks, worldIn, blockpos, this.leaf, boundsIn);
+                                    setLeaves(changedBlocks, worldIn, rand, blockpos, boundsIn);
                                 }
                             }
                         }

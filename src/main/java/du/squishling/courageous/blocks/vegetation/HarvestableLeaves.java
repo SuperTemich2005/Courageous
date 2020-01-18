@@ -54,7 +54,6 @@ public class HarvestableLeaves extends CustomLeaves implements IGrowable {
 
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (state.get(GROWN)) {
-            System.out.println(item.getRegistryName());
             spawnAsEntity(worldIn, pos, new ItemStack(item, worldIn.getRandom().nextInt(max - min) + min));
             worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_SWEET_BERRIES_PICK_FROM_BUSH, SoundCategory.BLOCKS, 1.0F, 0.8F + worldIn.rand.nextFloat() * 0.4F);
             worldIn.setBlockState(pos, state.with(GROWN, false), 2);
