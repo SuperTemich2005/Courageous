@@ -1,0 +1,22 @@
+{
+    "item.courageous.notebook": "Mysterious Notebook",
+    "item.courageous.slimy_steel_broadsword": "Rusty Steel Broadsword",
+
+    "item.courageous.pear": "Pear",
+
+    "block.courageous.weathered_brick": "Weathered Brick",
+
+    "block.courageous.alpine_leaves": "Alpine Leaves",
+    "block.courageous.alpine_sapling": "Alpine Sapling",
+
+    "block.courageous.palm_leaves": "Palm Leaves",
+    "block.courageous.palm_log": "Palm Log",
+    "block.courageous.palm_planks": "Palm Planks",
+    "block.courageous.palm_sapling": "Palm Sapling",
+
+    "block.courageous.pear_leaves": "Pear Tree Leaves",
+
+    "block.courageous.desert_shrub": "Desert Shrub",
+
+    "itemGroup.courageous_tab": "Courageous"
+}

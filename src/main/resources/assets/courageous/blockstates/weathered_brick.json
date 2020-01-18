@@ -1,0 +1,58 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "courageous:block/weathered_brick"
+      },
+      {
+        "model": "courageous:block/weathered_brick",
+        "y": 90
+      },
+      {
+        "model": "courageous:block/weathered_brick",
+        "y": 180
+      },
+      {
+        "model": "courageous:block/weathered_brick",
+        "y": 270
+      },
+      {
+        "model": "courageous:block/weathered_brick",
+        "x": 90
+      },
+      {
+        "model": "courageous:block/weathered_brick",
+        "x": 180
+      },
+      {
+        "model": "courageous:block/weathered_brick",
+        "x": 270
+      },
+      {
+        "model": "courageous:block/weathered_brick",
+        "y": 90,
+        "x": 90
+      },
+      {
+        "model": "courageous:block/weathered_brick",
+        "y": 180,
+        "x": 180
+      },
+      {
+        "model": "courageous:block/weathered_brick",
+        "y": 270,
+        "x": 270
+      },
+      {
+        "model": "courageous:block/weathered_brick",
+        "y": 90,
+        "x": 270
+      },
+      {
+        "model": "courageous:block/weathered_brick",
+        "y": 270,
+        "x": 90
+      }
+    ]
+  }
+}
