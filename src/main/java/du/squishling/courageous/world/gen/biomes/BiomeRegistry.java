@@ -1,9 +1,6 @@
 package du.squishling.courageous.world.gen.biomes;
 
-import du.squishling.courageous.world.gen.biomes.overworld.BiomeAlpineForest;
-import du.squishling.courageous.world.gen.biomes.overworld.BiomeAutumnalForest;
-import du.squishling.courageous.world.gen.biomes.overworld.BiomeLushDesert;
-import du.squishling.courageous.world.gen.biomes.overworld.BiomeSparseAlpineForest;
+import du.squishling.courageous.world.gen.biomes.overworld.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
@@ -24,6 +21,7 @@ import java.util.HashMap;
 @EventBusSubscriber(bus= Bus.MOD)
 public class BiomeRegistry {
 
+    public static Biome FRUIT_FOREST;
     public static Biome AUTUMNAL_FOREST;
 
     public static Biome ALPINE_FOREST;
@@ -33,7 +31,8 @@ public class BiomeRegistry {
 
     @SubscribeEvent
     public static void registerBiomes(final RegistryEvent.Register<Biome> event) {
-        AUTUMNAL_FOREST = registerBiome(new BiomeAutumnalForest(), BiomeType.COOL, "autumnal_forest", 1000, Type.FOREST, Type.COLD, Type.DENSE);
+        FRUIT_FOREST = registerBiome(new BiomeFruitForest(), BiomeType.COOL, "fruitful_forest", 1000, Type.FOREST, Type.COLD, Type.DENSE);
+        AUTUMNAL_FOREST = registerBiome(new BiomeAutumnalForest(), BiomeType.COOL, "autumnal_forest", 12, Type.FOREST, Type.COLD, Type.DENSE);
 
         ALPINE_FOREST = registerBiome(new BiomeAlpineForest(), BiomeType.COOL, "alpine_forest", 12, Type.FOREST, Type.COLD, Type.CONIFEROUS, Type.HILLS);
         SPARSE_ALPINE_FOREST = registerBiome(new BiomeSparseAlpineForest(), BiomeType.COOL, "sparse_alpine_forest", 12, Type.FOREST, Type.COLD, Type.CONIFEROUS, Type.HILLS);

@@ -1,11 +1,11 @@
 {
   "variants": {
     "grown=true": [
-      { "model": "courageous:block/leaves_pear_0" },
-      { "model": "courageous:block/leaves_pear_1" },
-      { "model": "courageous:block/leaves_pear_2" },
-      { "model": "courageous:block/leaves_pear_4" },
-      { "model": "courageous:block/leaves_pear_5" }
+      { "model": "courageous:block/pear_leaves/leaves_pear_0" },
+      { "model": "courageous:block/pear_leaves/leaves_pear_1" },
+      { "model": "courageous:block/pear_leaves/leaves_pear_2" },
+      { "model": "courageous:block/pear_leaves/leaves_pear_4" },
+      { "model": "courageous:block/pear_leaves/leaves_pear_5" }
     ],
     "grown=false": { "model": "block/oak_leaves" }
   }

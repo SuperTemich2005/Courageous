@@ -31,7 +31,7 @@ public class HarvestableLeaves extends CustomLeaves implements IGrowable {
 
     public HarvestableLeaves(String name, Item[] drops, Item item) {
         super(name, drops);
-        this.setDefaultState(this.stateContainer.getBaseState().with(GROWN, true));
+        this.setDefaultState(this.stateContainer.getBaseState().with(GROWN, false));
         this.item = item;
     }
 
