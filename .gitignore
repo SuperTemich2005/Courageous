@@ -13,13 +13,18 @@ out
 *.iml
 .idea
 
-# gradle
-build
-.gradle
-
 # other
 eclipse
 run
 
 # Files from Forge MDK
 forge*changelog.txt
+
+setup_idea.bat
+
+run
+gradle
+build
+4.9
+buildOutputCleanup
+vcsWorkingDirs
