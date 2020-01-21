@@ -1,24 +1,12 @@
 package du.squishling.courageous.world.gen.biomes.overworld;
 
-import du.squishling.courageous.world.gen.biomes.BiomeRegistry;
 import du.squishling.courageous.world.gen.features.ModFeatures;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biome.Category;
-import net.minecraft.world.biome.Biome.RainType;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
-import net.minecraft.world.biome.TaigaBiome;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.GenerationStage.Decoration;
-import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.feature.structure.MineshaftConfig;
-import net.minecraft.world.gen.feature.structure.MineshaftStructure.Type;
-import net.minecraft.world.gen.feature.structure.VillageConfig;
-import net.minecraft.world.gen.placement.*;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 

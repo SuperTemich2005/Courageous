@@ -1,7 +1,5 @@
 package du.squishling.courageous.blocks;
 
-import du.squishling.courageous.Courageous;
-import du.squishling.courageous.items.ItemBase;
 import du.squishling.courageous.items.ModItems;
 import du.squishling.courageous.tabs.Tab;
 import du.squishling.courageous.util.Reference;
@@ -9,11 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
-
-import java.util.ArrayList;
-import java.util.logging.Logger;
 
 public class BlockBase extends Block {
 

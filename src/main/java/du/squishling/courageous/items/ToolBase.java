@@ -1,6 +1,5 @@
 package du.squishling.courageous.items;
 
-import du.squishling.courageous.Courageous;
 import du.squishling.courageous.tabs.Tab;
 import du.squishling.courageous.util.Reference;
 import net.minecraft.block.Block;

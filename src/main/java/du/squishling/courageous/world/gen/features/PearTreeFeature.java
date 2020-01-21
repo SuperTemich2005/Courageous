@@ -3,10 +3,7 @@ package du.squishling.courageous.world.gen.features;
 import com.mojang.datafixers.Dynamic;
 import du.squishling.courageous.blocks.ModBlocks;
 import du.squishling.courageous.blocks.vegetation.HarvestableLeaves;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CocoaBlock;
-import net.minecraft.block.VineBlock;
+import net.minecraft.block.*;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +19,7 @@ import java.util.function.Function;
 
 public class PearTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     private static final BlockState DEFAULT_TRUNK = Blocks.OAK_LOG.getDefaultState();
-    private static final BlockState DEFAULT_LEAF = ModBlocks.PEAR_LEAVES.getDefaultState().with(HarvestableLeaves.GROWN, false);
+    private static final BlockState DEFAULT_LEAF = ModBlocks.PEAR_LEAVES.getDefaultState().with(HarvestableLeaves.GROWN, false).with(LeavesBlock.PERSISTENT, false);
     protected final int minTreeHeight;
     private final boolean vinesGrow;
     private final BlockState trunk;

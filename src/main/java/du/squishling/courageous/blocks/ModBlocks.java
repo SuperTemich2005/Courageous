@@ -5,15 +5,12 @@ import du.squishling.courageous.items.ModItems;
 import du.squishling.courageous.trees.AlpineTree;
 import du.squishling.courageous.trees.PalmTree;
 import du.squishling.courageous.trees.PearTree;
-import du.squishling.courageous.world.gen.features.ModFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.block.trees.OakTree;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.Properties;
 
 import java.util.ArrayList;
 

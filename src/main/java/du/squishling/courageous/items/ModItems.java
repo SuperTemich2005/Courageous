@@ -2,7 +2,6 @@ package du.squishling.courageous.items;
 
 import net.minecraft.item.Food.Builder;
 import net.minecraft.item.Item;
-import net.minecraft.item.SwordItem;
 
 import java.util.ArrayList;
 

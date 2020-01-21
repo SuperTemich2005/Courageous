@@ -3,14 +3,12 @@ package du.squishling.courageous.blocks.vegetation;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -41,6 +39,11 @@ public class HarvestableLeaves extends CustomLeaves implements IGrowable {
 
     public boolean ticksRandomly(BlockState state) {
         return !state.get(GROWN);
+    }
+
+    @Override
+    public void tick(BlockState p_196267_1_, World p_196267_2_, BlockPos p_196267_3_, Random p_196267_4_) {
+        super.tick(p_196267_1_, p_196267_2_, p_196267_3_, p_196267_4_);
     }
 
     public void randomTick(BlockState state, World worldIn, BlockPos pos, Random random) {

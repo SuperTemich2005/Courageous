@@ -1,5 +1,6 @@
 package du.squishling.courageous.tabs;
 
+import du.squishling.courageous.blocks.ModBlocks;
 import du.squishling.courageous.items.ModItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -7,7 +8,7 @@ import net.minecraft.item.ItemStack;
 
 public class Tab extends ItemGroup {
 
-    public static final ItemGroup COURAGEOUS_GROUP = new Tab("courageous_tab", new ItemStack(ModItems.PEAR));
+    public static final ItemGroup COURAGEOUS_GROUP = new Tab("courageous_tab", ModItems.PEAR);
 
     private ItemStack icon;
 
@@ -22,7 +23,7 @@ public class Tab extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModItems.SLIMY_STEEL_BROADSWORD);
+        return new ItemStack(ModBlocks.PEAR_SAPLING);
     }
 
 }
