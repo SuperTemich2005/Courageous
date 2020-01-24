@@ -21,6 +21,7 @@ public class ModFeatures {
     public static final AbstractTreeFeature ALPINE_TREE = new AlpineTreeFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature PALM_TREE = new PalmTreeFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature PEAR_TREE = new PearTreeFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature MAPLE_TREE = new MapleTreeFeature(NoFeatureConfig::deserialize);
 
     public static void registerFeatures() {
         for (Feature feature : FEATURES) ForgeRegistries.FEATURES.register(feature);
@@ -39,8 +40,9 @@ public class ModFeatures {
     }
 
     public static void addFruitForestTrees(Biome biome) {
-        biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR, new MultipleRandomFeatureConfig(new Feature[]{Feature.BIRCH_TREE, Feature.FANCY_TREE}, new IFeatureConfig[]{IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG}, new float[]{0.2F, 0.1F}, Feature.NORMAL_TREE, IFeatureConfig.NO_FEATURE_CONFIG), Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(8, 0.1F, 1)));
+        biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR, new MultipleRandomFeatureConfig(new Feature[]{Feature.BIRCH_TREE, Feature.FANCY_TREE}, new IFeatureConfig[]{IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG}, new float[]{0.2F, 0.1F}, Feature.NORMAL_TREE, IFeatureConfig.NO_FEATURE_CONFIG), Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(5, 0.1F, 1)));
         biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(PEAR_TREE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(3, 0.1F, 1)));
+        biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(MAPLE_TREE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(3, 0.1F, 1)));
     }
 
     public static void addPalmTrees(Biome biome) {

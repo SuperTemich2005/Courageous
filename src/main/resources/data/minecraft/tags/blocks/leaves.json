@@ -1,6 +1,9 @@
 {
     "replace": false,
     "values": [
-        "courageous:palm_leaves"
+        "courageous:palm_leaves",
+        "courageous:alpine_leaves",
+        "courageous:pear_leaves",
+        "courageous:maple_leaves"
     ]
 }

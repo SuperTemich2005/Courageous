@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "axis=y": { "model": "courageous:block/maple_log/maple_log_basic" },
+    "axis=z": {
+      "model": "courageous:block/maple_log/maple_log_basic",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "courageous:block/maple_log/maple_log_basic",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

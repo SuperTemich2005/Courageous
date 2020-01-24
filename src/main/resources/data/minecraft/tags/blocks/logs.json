@@ -1,6 +1,7 @@
 {
     "replace": false,
     "values": [
-        "courageous:palm_log"
+        "courageous:palm_log",
+        "courageous:maple_log"
     ]
 }

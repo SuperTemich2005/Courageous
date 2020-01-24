@@ -3,6 +3,7 @@
     "item.courageous.slimy_steel_broadsword": "Rusty Steel Broadsword",
 
     "item.courageous.pear": "Pear",
+    "item.courageous.maple_syrup": "Maple Syrup",
 
     "block.courageous.weathered_brick": "Weathered Brick",
 
@@ -13,6 +14,10 @@
     "block.courageous.palm_log": "Palm Log",
     "block.courageous.palm_planks": "Palm Planks",
     "block.courageous.palm_sapling": "Palm Sapling",
+
+    "block.courageous.maple_leaves": "Maple Leaves",
+    "block.courageous.maple_log": "Maple Log",
+    "block.courageous.maple_log_syrup": "Maple Syrup Log",
 
     "block.courageous.pear_leaves": "Pear Tree Leaves",
     "block.courageous.pear_sapling": "Pear Tree Sapling",

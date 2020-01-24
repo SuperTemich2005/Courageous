@@ -31,6 +31,10 @@ public class ModBlocks {
     public static final Block PEAR_SAPLING = new CustomSapling("pear_sapling", new PearTree());
     public static final Block PEAR_LEAVES = new HarvestableLeaves("pear_leaves", ModItems.PEAR).setMinMax(1, 2);
 
+    public static final Block MAPLE_LEAVES = new CustomLeaves("maple_leaves");
+    public static final Block MAPLE_LOG = new CustomLog("maple_log", MaterialColor.BROWN);
+    public static final Block MAPLE_LOG_SYRUP = new MapleLog("maple_log_syrup", MaterialColor.BROWN);
+
     public static final Block DESERT_SHRUB = new CustomBush("desert_shrub", Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 16.0D, 13.0D, 14.0D), Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.SAND, Blocks.RED_SAND);
 
 }

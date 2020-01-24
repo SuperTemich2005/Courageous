@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "grown=false,axis=y": { "model": "courageous:block/maple_log/maple_log_growable" },
+    "grown=false,axis=z": {
+      "model": "courageous:block/maple_log/maple_log_growable",
+      "x": 90
+    },
+    "grown=false,axis=x": {
+      "model": "courageous:block/maple_log/maple_log_growable",
+      "x": 90,
+      "y": 90
+    },
+
+    "grown=true,axis=y": { "model": "courageous:block/maple_log/maple_log_grown" },
+    "grown=true,axis=z": {
+      "model": "courageous:block/maple_log/maple_log_grown",
+      "x": 90
+    },
+    "grown=true,axis=x": {
+      "model": "courageous:block/maple_log/maple_log_grown",
+      "x": 90,
+      "y": 90
+    }
+  }
+}
