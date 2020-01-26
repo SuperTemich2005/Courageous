@@ -41,11 +41,6 @@ public class HarvestableLeaves extends CustomLeaves implements IGrowable {
         return !state.get(GROWN);
     }
 
-    @Override
-    public void tick(BlockState p_196267_1_, World p_196267_2_, BlockPos p_196267_3_, Random p_196267_4_) {
-        super.tick(p_196267_1_, p_196267_2_, p_196267_3_, p_196267_4_);
-    }
-
     public void randomTick(BlockState state, World worldIn, BlockPos pos, Random random) {
         super.randomTick(state, worldIn, pos, random);
 

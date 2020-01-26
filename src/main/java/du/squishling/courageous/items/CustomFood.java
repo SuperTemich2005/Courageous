@@ -4,6 +4,7 @@ import du.squishling.courageous.tabs.Tab;
 import du.squishling.courageous.util.Reference;
 import net.minecraft.block.SoundType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Food;
 import net.minecraft.item.Food.Builder;
@@ -59,6 +60,10 @@ public class CustomFood extends Item {
             PlayerEntity player = ((PlayerEntity)entity);
             player.getFoodStats().setFoodLevel(player.getFoodStats().getFoodLevel() + getFood().getHealing());
             player.getFoodStats().setFoodSaturationLevel(player.getFoodStats().getSaturationLevel() + getFood().getSaturation());
+
+            if (this.hasContainerItem()) if (!player.inventory.addItemStackToInventory(new ItemStack(getContainerItem()))) {
+                world.addEntity(new ItemEntity(world, player.posX, player.posY, player.posX, new ItemStack(getContainerItem())));
+            }
         }
 
         for(Pair<EffectInstance, Float> pair : this.getFood().getEffects()) {

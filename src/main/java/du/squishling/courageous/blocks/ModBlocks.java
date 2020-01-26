@@ -34,6 +34,7 @@ public class ModBlocks {
     public static final Block MAPLE_LEAVES = new CustomLeaves("maple_leaves");
     public static final Block MAPLE_LOG = new CustomLog("maple_log", MaterialColor.BROWN);
     public static final Block MAPLE_LOG_SYRUP = new MapleLog("maple_log_syrup", MaterialColor.BROWN);
+    public static final Block MAPLE_PLANKS = new CustomPlanks("maple_planks");
 
     public static final Block DESERT_SHRUB = new CustomBush("desert_shrub", Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 16.0D, 13.0D, 14.0D), Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.SAND, Blocks.RED_SAND);
 

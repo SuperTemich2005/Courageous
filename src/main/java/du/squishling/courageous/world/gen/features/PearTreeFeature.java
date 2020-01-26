@@ -200,7 +200,6 @@ public class PearTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
         if (rand.nextInt(3) == 0) {
             this.setLogState(changedBlocks, worldIn, position, this.leaf.with(HarvestableLeaves.GROWN, true), boundsIn);
         } else this.setLogState(changedBlocks, worldIn, position, this.leaf, boundsIn);
-
     }
 
 }

@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class MapleLog extends CustomLog implements IGrowable {
+public class MapleLog extends CustomLog {
 
     public static final BooleanProperty GROWN = BooleanProperty.create("grown");
 
@@ -38,9 +38,7 @@ public class MapleLog extends CustomLog implements IGrowable {
     public void randomTick(BlockState state, World worldIn, BlockPos pos, Random random) {
         super.randomTick(state, worldIn, pos, random);
 
-        if (!state.get(GROWN) && random.nextInt(5) == 0) {
-            worldIn.setBlockState(pos, state.with(GROWN, true), 2);
-        }
+        if (!state.get(GROWN) && random.nextInt(5) == 0) worldIn.setBlockState(pos, state.with(GROWN, true), 2);
     }
 
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
@@ -58,21 +56,6 @@ public class MapleLog extends CustomLog implements IGrowable {
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(GROWN);
         super.fillStateContainer(builder);
-    }
-
-    @Override
-    public boolean canGrow(IBlockReader iBlockReader, BlockPos blockPos, BlockState blockState, boolean b) {
-        return !blockState.get(GROWN);
-    }
-
-    @Override
-    public boolean canUseBonemeal(World world, Random random, BlockPos blockPos, BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    public void grow(World world, Random random, BlockPos blockPos, BlockState blockState) {
-        world.setBlockState(blockPos, blockState.with(GROWN, true), 2);
     }
 
 }

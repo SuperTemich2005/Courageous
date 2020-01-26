@@ -35,7 +35,23 @@ displayName="Courageous" #mandatory
 # logoFile="examplemod.png" #optional
 
 # A text field displayed in the mod UI
-credits="Thanks to the MCMC Community ( https://discord.gg/KgxDErM/ )" #optional
+credits='''
+Artists
+=======
+TheMasterwight20025#4969
+phoenix_wb#8466
+ilja615#2368
+BeardieButt#7669
+公平 InterPlay#5755
+
+Builders
+========
+公平 InterPlay#5755
+
+Brainstormers
+=============
+https://discord.gg/wtHw4zy
+'''
 
 # A text field displayed in the mod UI
 authors="Squishling" #optional
@@ -62,6 +78,6 @@ A story mod for 1.14.4.
 [[dependencies.courageous]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15.1]"
+    versionRange="[1.14.4]"
     ordering="NONE"
     side="BOTH"
