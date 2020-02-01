@@ -38,15 +38,15 @@ displayName="Courageous" #mandatory
 credits='''
 Artists
 =======
-TheMasterwight20025#4969
-phoenix_wb#8466
-ilja615#2368
-BeardieButt#7669
-公平 InterPlay#5755
+TheMasterwight20025
+phoenix_wb
+ilja615
+BeardieButt
+InterPlay
 
 Builders
 ========
-公平 InterPlay#5755
+InterPlay
 
 Brainstormers
 =============
@@ -58,7 +58,7 @@ authors="Squishling" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-A story mod for 1.14.4.
+Courageous is a mod about making Minecraft survival more realistic, without making it tedious.  The mod adds many new vicious animals to replace monsters, new pottery system, new agricultural systems, and more to enhance your survival experience.  It is a spiritual successor to 'Grit'.
 '''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.

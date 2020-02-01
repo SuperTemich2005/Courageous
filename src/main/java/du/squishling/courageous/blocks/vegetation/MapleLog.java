@@ -31,16 +31,19 @@ public class MapleLog extends CustomLog {
         this.setDefaultState(this.stateContainer.getBaseState().with(GROWN, false).with(LogBlock.AXIS, Axis.Y));
     }
 
+    @Override
     public boolean ticksRandomly(BlockState state) {
         return !state.get(GROWN);
     }
 
+    @Override
     public void randomTick(BlockState state, World worldIn, BlockPos pos, Random random) {
         super.randomTick(state, worldIn, pos, random);
 
         if (!state.get(GROWN) && random.nextInt(5) == 0) worldIn.setBlockState(pos, state.with(GROWN, true), 2);
     }
 
+    @Override
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (state.get(GROWN) && player.getHeldItem(handIn).getItem().equals(Items.GLASS_BOTTLE)) {
             player.getHeldItem(handIn).setCount(player.getHeldItem(handIn).getCount() - 1);
@@ -53,6 +56,7 @@ public class MapleLog extends CustomLog {
         }
     }
 
+    @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(GROWN);
         super.fillStateContainer(builder);

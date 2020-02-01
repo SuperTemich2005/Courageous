@@ -1,8 +1,7 @@
 {
-    "item.courageous.notebook": "Mysterious Notebook",
-    "item.courageous.slimy_steel_broadsword": "Rusty Steel Broadsword",
-
     "item.courageous.pear": "Pear",
+    "item.courageous.orange": "Orange",
+
     "item.courageous.maple_syrup": "Maple Syrup",
 
     "block.courageous.weathered_brick": "Weathered Brick",
@@ -18,6 +17,8 @@
     "block.courageous.maple_leaves": "Maple Leaves",
     "block.courageous.maple_log": "Maple Log",
     "block.courageous.maple_log_syrup": "Maple Syrup Log",
+    "block.courageous.maple_planks": "Maple Planks",
+    "block.courageous.maple_sapling": "Maple Tree Sapling",
 
     "block.courageous.pear_leaves": "Pear Tree Leaves",
     "block.courageous.pear_sapling": "Pear Tree Sapling",

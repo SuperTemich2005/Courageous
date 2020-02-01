@@ -5,7 +5,13 @@
       { "model": "courageous:block/pear_leaves/leaves_pear_1" },
       { "model": "courageous:block/pear_leaves/leaves_pear_2" },
       { "model": "courageous:block/pear_leaves/leaves_pear_4" },
-      { "model": "courageous:block/pear_leaves/leaves_pear_5" }
+      { "model": "courageous:block/pear_leaves/leaves_pear_5" },
+      { "model": "courageous:block/pear_leaves/leaves_pear_6" },
+      { "model": "courageous:block/pear_leaves/leaves_pear_7" },
+      { "model": "courageous:block/pear_leaves/leaves_pear_8" },
+      { "model": "courageous:block/pear_leaves/leaves_pear_9" },
+      { "model": "courageous:block/pear_leaves/leaves_pear_10" },
+      { "model": "courageous:block/pear_leaves/leaves_pear_11" }
     ],
     "grown=false": { "model": "block/oak_leaves" }
   }

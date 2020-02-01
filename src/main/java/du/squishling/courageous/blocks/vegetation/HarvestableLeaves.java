@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class HarvestableLeaves extends CustomLeaves implements IGrowable {
+public class HarvestableLeaves extends CustomLeaves {
 
     public static final BooleanProperty GROWN = BooleanProperty.create("grown");
     private static Item item;
@@ -64,21 +64,6 @@ public class HarvestableLeaves extends CustomLeaves implements IGrowable {
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(GROWN);
         super.fillStateContainer(builder);
-    }
-
-    @Override
-    public boolean canGrow(IBlockReader iBlockReader, BlockPos blockPos, BlockState blockState, boolean b) {
-        return !blockState.get(GROWN);
-    }
-
-    @Override
-    public boolean canUseBonemeal(World world, Random random, BlockPos blockPos, BlockState blockState) {
-        return false;
-    }
-
-    @Override
-    public void grow(World world, Random random, BlockPos blockPos, BlockState blockState) {
-        world.setBlockState(blockPos, blockState.with(GROWN, true), 2);
     }
 
     public HarvestableLeaves setMinMax(int min, int max) {

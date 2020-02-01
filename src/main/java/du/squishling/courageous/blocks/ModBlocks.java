@@ -3,6 +3,7 @@ package du.squishling.courageous.blocks;
 import du.squishling.courageous.blocks.vegetation.*;
 import du.squishling.courageous.items.ModItems;
 import du.squishling.courageous.trees.AlpineTree;
+import du.squishling.courageous.trees.MapleTree;
 import du.squishling.courageous.trees.PalmTree;
 import du.squishling.courageous.trees.PearTree;
 import net.minecraft.block.Block;
@@ -31,6 +32,7 @@ public class ModBlocks {
     public static final Block PEAR_SAPLING = new CustomSapling("pear_sapling", new PearTree());
     public static final Block PEAR_LEAVES = new HarvestableLeaves("pear_leaves", ModItems.PEAR).setMinMax(1, 2);
 
+    public static final Block MAPLE_SAPLING = new CustomSapling("maple_sapling", new MapleTree());
     public static final Block MAPLE_LEAVES = new CustomLeaves("maple_leaves");
     public static final Block MAPLE_LOG = new CustomLog("maple_log", MaterialColor.BROWN);
     public static final Block MAPLE_LOG_SYRUP = new MapleLog("maple_log_syrup", MaterialColor.BROWN);
