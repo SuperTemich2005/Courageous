@@ -5,7 +5,7 @@ import du.squishling.courageous.items.ModItems;
 import du.squishling.courageous.util.ModBlockColors;
 import du.squishling.courageous.util.ModItemColors;
 import du.squishling.courageous.util.Reference;
-import du.squishling.courageous.world.gen.features.ModFeatures;
+import du.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;

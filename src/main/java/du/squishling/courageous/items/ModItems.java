@@ -11,8 +11,12 @@ public class ModItems {
 
     public static ArrayList<Item> ITEMS = new ArrayList<Item>();
 
-    public static final Item PEAR = new CustomFood("pear", new Builder().hunger(1).saturation(0.2f).fastToEat().build());
-    public static final Item ORANGE = new CustomFood("orange", new Builder().hunger(2).saturation(0.3f).fastToEat().build());
+    public static final Item PEAR = new CustomFood("pear", 4, 0.4f);
+    public static final Item ORANGE = new CustomFood("orange",3, 0.3f);
+    public static final Item PLUM = new CustomFood("plum",3, 0.3f);
+    public static final Item LEMON = new CustomFood("lemon", 1, 0.15f);
+    public static final Item AVOCADO = new CustomFood("avocado", 2, 0.1f);
+    public static final Item KIWI_FRUIT = new CustomFood("kiwi_fruit", 3, 0.35f);
 
     public static final Item MAPLE_SYRUP = new CustomFood("maple_syrup", new Builder().hunger(1).saturation(0.4f).setAlwaysEdible().effect(new EffectInstance(Effects.SPEED, 60), 0).build()).drink();
 

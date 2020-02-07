@@ -1,57 +1,66 @@
-package du.squishling.courageous.world.gen.biomes.overworld;
+package du.squishling.courageous.world.gen.biomes;
 
-import du.squishling.courageous.world.gen.features.ModFeatures;
+import du.squishling.courageous.world.gen.ModFeatures;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
-public class BiomeFruitForest extends Biome {
+public class BiomeLushDesert extends Biome {
 
-    public BiomeFruitForest() {
-        super((new Builder()).surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
-                .category(Category.FOREST)
-
-                .depth(0.1F)
-                .scale(0.2F)
-
-                .temperature(0.7F)
-                .downfall(0.8F)
+    public BiomeLushDesert() {
+        super(new Builder().surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.DIRT.getDefaultState()))
+                .category(Category.DESERT)
                 .precipitation(RainType.RAIN)
+                .downfall(0.1f)
 
-                .waterColor(4159204)
-                .waterFogColor(329011)
+                .temperature(2f)
 
-                .parent((String)null));
+                .depth(0.2f)
+                .scale(0.2f)
 
-        ModFeatures.addUndergroundFeatures(this);
-        ModFeatures.addFruitForestTrees(this);
+                .waterColor(0x5fcfdf)
+                .waterFogColor(0x58bdcc)
+
+                .parent((String) null));
 
         DefaultBiomeFeatures.addLakes(this);
-        DefaultBiomeFeatures.addDoubleFlowers(this);
         DefaultBiomeFeatures.addSedimentDisks(this);
-        DefaultBiomeFeatures.addDefaultFlowers(this);
-        DefaultBiomeFeatures.addGrass(this);
-        DefaultBiomeFeatures.addMushrooms(this);
         DefaultBiomeFeatures.addReedsAndPumpkins(this);
         DefaultBiomeFeatures.addSprings(this);
-        DefaultBiomeFeatures.addFreezeTopLayer(this);
+        DefaultBiomeFeatures.addStructures(this);
+
+        ModFeatures.addUndergroundFeatures(this);
+        ModFeatures.addDesertStructures(this);
+        ModFeatures.addPillagerOutpost(this);
+
+        ModFeatures.addPalmTrees(this);
+        ModFeatures.addDesertVegetation(this);
 
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.PIG, 10, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.CHICKEN, 10, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.COW, 8, 4, 4));
-        this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.WOLF, 5, 4, 4));
+        this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.RABBIT, 4, 2, 3));
         this.addSpawn(EntityClassification.AMBIENT, new SpawnListEntry(EntityType.BAT, 10, 8, 8));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.SPIDER, 100, 4, 4));
-        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ZOMBIE, 95, 4, 4));
-        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ZOMBIE_VILLAGER, 5, 1, 1));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.SKELETON, 100, 4, 4));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.CREEPER, 100, 4, 4));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.SLIME, 100, 4, 4));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ENDERMAN, 10, 1, 4));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.WITCH, 5, 1, 1));
+        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ZOMBIE, 19, 4, 4));
+        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ZOMBIE_VILLAGER, 1, 1, 1));
+        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.HUSK, 80, 4, 4));
+    }
+
+    @Override
+    public int getGrassColor(BlockPos p_180627_1_) {
+        return 0x53c11b;
     }
 
 }

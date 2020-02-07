@@ -2,6 +2,7 @@ package du.squishling.courageous.world.gen.features;
 
 import com.mojang.datafixers.Dynamic;
 import du.squishling.courageous.blocks.ModBlocks;
+import du.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;

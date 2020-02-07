@@ -2,8 +2,8 @@ package du.squishling.courageous.world.gen.features;
 
 import com.mojang.datafixers.Dynamic;
 import du.squishling.courageous.blocks.ModBlocks;
-import du.squishling.courageous.blocks.vegetation.HarvestableLeaves;
 import du.squishling.courageous.blocks.vegetation.MapleLog;
+import du.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.*;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.util.Direction;

@@ -2,16 +2,14 @@ package du.squishling.courageous.blocks;
 
 import du.squishling.courageous.blocks.vegetation.*;
 import du.squishling.courageous.items.ModItems;
-import du.squishling.courageous.trees.AlpineTree;
-import du.squishling.courageous.trees.MapleTree;
-import du.squishling.courageous.trees.PalmTree;
-import du.squishling.courageous.trees.PearTree;
+import du.squishling.courageous.trees.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 
 import java.util.ArrayList;
 
@@ -31,6 +29,24 @@ public class ModBlocks {
 
     public static final Block PEAR_SAPLING = new CustomSapling("pear_sapling", new PearTree());
     public static final Block PEAR_LEAVES = new HarvestableLeaves("pear_leaves", ModItems.PEAR).setMinMax(1, 2);
+
+    public static final Block APPLE_SAPLING = new CustomSapling("apple_sapling", new PearTree());
+    public static final Block APPLE_LEAVES = new HarvestableLeaves("apple_leaves", Items.APPLE).setMinMax(1, 2);
+
+    public static final Block KIWI_FRUIT_SAPLING = new CustomSapling("kiwi_fruit_sapling", new PearTree());
+    public static final Block KIWI_FRUIT_LEAVES = new HarvestableLeaves("kiwi_fruit_leaves", ModItems.KIWI_FRUIT).setMinMax(1, 2);
+
+    public static final Block LEMON_SAPLING = new CustomSapling("lemon_sapling", new PearTree());
+    public static final Block LEMON_LEAVES = new HarvestableLeaves("lemon_leaves", ModItems.LEMON).setMinMax(1, 2);
+
+    public static final Block AVOCADO_SAPLING = new CustomSapling("avocado_sapling", new PearTree());
+    public static final Block AVOCADO_LEAVES = new HarvestableLeaves("avocado_leaves", ModItems.AVOCADO).setMinMax(1, 2);
+
+    public static final Block PLUM_SAPLING = new CustomSapling("plum_sapling", new PearTree());
+    public static final Block PLUM_LEAVES = new HarvestableLeaves("plum_leaves", ModItems.PLUM).setMinMax(1, 2);
+
+    public static final Block ORANGE_SAPLING = new CustomSapling("orange_sapling", new OrangeTree());
+    public static final Block ORANGE_LEAVES = new HarvestableLeaves("orange_leaves", ModItems.ORANGE).setMinMax(1, 2);
 
     public static final Block MAPLE_SAPLING = new CustomSapling("maple_sapling", new MapleTree());
     public static final Block MAPLE_LEAVES = new CustomLeaves("maple_leaves");

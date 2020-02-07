@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "grown=true": [
+      { "model": "courageous:block/orange_leaves/orange_leaves_0" },
+      { "model": "courageous:block/orange_leaves/orange_leaves_1" },
+      { "model": "courageous:block/orange_leaves/orange_leaves_2" },
+      { "model": "courageous:block/orange_leaves/orange_leaves_3" }
+    ],
+    "grown=false": { "model": "block/oak_leaves" }
+  }
+}

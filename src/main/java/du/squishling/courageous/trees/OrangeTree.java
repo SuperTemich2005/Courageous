@@ -8,12 +8,12 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class PearTree extends Tree {
+public class OrangeTree extends Tree {
 
     @Nullable
     @Override
     protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
-        return ModFeatures.PEAR_TREE;
+        return ModFeatures.ORANGE_TREE;
     }
 
 }

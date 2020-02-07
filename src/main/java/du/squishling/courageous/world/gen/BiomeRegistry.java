@@ -1,6 +1,6 @@
-package du.squishling.courageous.world.gen.biomes;
+package du.squishling.courageous.world.gen;
 
-import du.squishling.courageous.world.gen.biomes.overworld.*;
+import du.squishling.courageous.world.gen.biomes.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
@@ -26,6 +26,8 @@ public class BiomeRegistry {
     public static Biome ALPINE_FOREST;
     public static Biome SPARSE_ALPINE_FOREST;
 
+    public static Biome TUNDRA;
+
     public static Biome LUSH_DESERT;
 
     @SubscribeEvent
@@ -35,6 +37,8 @@ public class BiomeRegistry {
 
         ALPINE_FOREST = registerBiome(new BiomeAlpineForest(), BiomeType.COOL, "alpine_forest", 12, Type.FOREST, Type.COLD, Type.CONIFEROUS, Type.HILLS);
         SPARSE_ALPINE_FOREST = registerBiome(new BiomeSparseAlpineForest(), BiomeType.COOL, "sparse_alpine_forest", 12, Type.FOREST, Type.COLD, Type.CONIFEROUS, Type.HILLS);
+
+        TUNDRA = registerBiome(new BiomeTundra(), BiomeType.ICY, "tundra", 12, Type.COLD, Type.SPARSE, Type.DRY, Type.PLAINS, Type.SNOWY);
 
         LUSH_DESERT = registerBiome(new BiomeLushDesert(), BiomeType.DESERT, "lush_desert", 10, Type.LUSH, Type.DRY, Type.HILLS, Type.HOT);
     }

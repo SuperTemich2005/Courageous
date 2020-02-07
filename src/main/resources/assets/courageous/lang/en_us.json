@@ -1,6 +1,10 @@
 {
     "item.courageous.pear": "Pear",
     "item.courageous.orange": "Orange",
+    "item.courageous.plum": "Plum",
+    "item.courageous.lemon": "Lemon",
+    "item.courageous.avocado": "Avocado",
+    "item.courageous.kiwi_fruit": "Kiwi Fruit",
 
     "item.courageous.maple_syrup": "Maple Syrup",
 
@@ -22,6 +26,24 @@
 
     "block.courageous.pear_leaves": "Pear Tree Leaves",
     "block.courageous.pear_sapling": "Pear Tree Sapling",
+
+    "block.courageous.apple_leaves": "Apple Tree Leaves",
+    "block.courageous.apple_sapling": "Apple Tree Sapling",
+
+    "block.courageous.orange_leaves": "Orange Tree Leaves",
+    "block.courageous.orange_sapling": "Orange Tree Sapling",
+
+    "block.courageous.plum_leaves": "Plum Tree Leaves",
+    "block.courageous.plum_sapling": "Plum Tree Sapling",
+
+    "block.courageous.kiwi_fruit_leaves": "Kiwi Fruit Tree Leaves",
+    "block.courageous.kiwi_fruit_sapling": "Kiwi Fruit Tree Sapling",
+
+    "block.courageous.avocado_leaves": "Avocado Tree Leaves",
+    "block.courageous.avocado_sapling": "Avocado Tree Sapling",
+
+    "block.courageous.lemon_leaves": "Lemon Tree Leaves",
+    "block.courageous.lemon_sapling": "Lemon Tree Sapling",
 
     "block.courageous.desert_shrub": "Desert Shrub",
 

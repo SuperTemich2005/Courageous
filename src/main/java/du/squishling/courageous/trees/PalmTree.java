@@ -1,6 +1,6 @@
 package du.squishling.courageous.trees;
 
-import du.squishling.courageous.world.gen.features.ModFeatures;
+import du.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;

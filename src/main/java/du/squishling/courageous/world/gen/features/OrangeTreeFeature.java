@@ -18,26 +18,26 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
 
-public class PearTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
+public class OrangeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     private static final BlockState DEFAULT_TRUNK = Blocks.OAK_LOG.getDefaultState();
-    private static final BlockState DEFAULT_LEAF = ModBlocks.PEAR_LEAVES.getDefaultState().with(HarvestableLeaves.GROWN, false).with(LeavesBlock.PERSISTENT, false);
+    private static final BlockState DEFAULT_LEAF = ModBlocks.ORANGE_LEAVES.getDefaultState().with(HarvestableLeaves.GROWN, false).with(LeavesBlock.PERSISTENT, false);
     protected final int minTreeHeight;
     private final boolean vinesGrow;
     private final BlockState trunk;
     private final BlockState leaf;
 
-    public PearTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn) {
+    public OrangeTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn) {
         this(configFactoryIn, false, 4, DEFAULT_TRUNK, DEFAULT_LEAF, false);
     }
 
-    public PearTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn, boolean doBlockNotifyOnPlace, int minTreeHeightIn, BlockState trunkState, BlockState leafState, boolean vinesGrowIn) {
+    public OrangeTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn, boolean doBlockNotifyOnPlace, int minTreeHeightIn, BlockState trunkState, BlockState leafState, boolean vinesGrowIn) {
         super(configFactoryIn, doBlockNotifyOnPlace);
         this.minTreeHeight = minTreeHeightIn;
         this.trunk = trunkState;
         this.leaf = leafState;
         this.vinesGrow = vinesGrowIn;
 
-        this.setRegistryName("pear_tree");
+        this.setRegistryName("orange_tree");
         ModFeatures.FEATURES.add(this);
     }
 
