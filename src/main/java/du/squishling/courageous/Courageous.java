@@ -2,6 +2,7 @@ package du.squishling.courageous;
 
 import du.squishling.courageous.blocks.ModBlocks;
 import du.squishling.courageous.items.ModItems;
+import du.squishling.courageous.util.config.ConfigHandler;
 import du.squishling.courageous.util.ModBlockColors;
 import du.squishling.courageous.util.ModItemColors;
 import du.squishling.courageous.util.Reference;
@@ -11,12 +12,15 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,10 +28,13 @@ import org.apache.logging.log4j.Logger;
 public class Courageous {
 
     public static Courageous instance;
-    private static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
+    public static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
 
     public Courageous() {
         instance = this;
+
+        ModLoadingContext.get().registerConfig(Type.COMMON, ConfigHandler.COMMON_SPEC);
+        ModLoadingContext.get().registerConfig(Type.CLIENT, ConfigHandler.CLIENT_SPEC);
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientRegistry);
@@ -75,4 +82,5 @@ public class Courageous {
         }
 
     }
+
 }

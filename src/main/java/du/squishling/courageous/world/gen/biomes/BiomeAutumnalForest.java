@@ -27,11 +27,12 @@ public class BiomeAutumnalForest extends Biome {
                 .parent((String)null));
 
         ModFeatures.addUndergroundFeatures(this);
+        ModFeatures.addAutumnalTrees(this);
+        ModFeatures.addFallenLeaves(this);
 
         DefaultBiomeFeatures.addLakes(this);
         DefaultBiomeFeatures.addDoubleFlowers(this);
         DefaultBiomeFeatures.addSedimentDisks(this);
-        DefaultBiomeFeatures.addForestTrees(this);
         DefaultBiomeFeatures.addDefaultFlowers(this);
         DefaultBiomeFeatures.addGrass(this);
         DefaultBiomeFeatures.addMushrooms(this);

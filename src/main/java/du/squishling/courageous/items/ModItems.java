@@ -20,4 +20,6 @@ public class ModItems {
 
     public static final Item MAPLE_SYRUP = new CustomFood("maple_syrup", new Builder().hunger(1).saturation(0.4f).setAlwaysEdible().effect(new EffectInstance(Effects.SPEED, 60), 0).build()).drink();
 
+    public static final Item MUD_BALL = new ItemBase("mud_ball");
+
 }

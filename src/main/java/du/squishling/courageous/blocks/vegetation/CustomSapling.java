@@ -12,6 +12,9 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 
@@ -21,6 +24,8 @@ public class CustomSapling extends SaplingBlock implements IGrowable {
 
     private Tree tree;
 
+    private VoxelShape shape;
+
     public CustomSapling(String name, Tree tree) {
         super(tree, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().sound(SoundType.PLANT).hardnessAndResistance(0));
         this.setRegistryName(Reference.MOD_ID, name);
@@ -29,6 +34,16 @@ public class CustomSapling extends SaplingBlock implements IGrowable {
         ModItems.ITEMS.add(new BlockItem(this, new Item.Properties().group(Tab.COURAGEOUS_GROUP)).setRegistryName(new ResourceLocation(Reference.MOD_ID, name)));
 
         this.tree = tree;
+    }
+
+    public Block setShape(VoxelShape shape) {
+        this.shape = shape;
+
+        return this;
+    }
+
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return shape;
     }
 
     public CustomSapling(String name, AbstractTreeFeature tree) {

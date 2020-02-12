@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "courageous:block/plum_sapling"
+  }
+}

@@ -1,17 +1,27 @@
 package du.squishling.courageous.world.gen.biomes;
 
+import du.squishling.courageous.world.gen.BiomeRegistry;
 import du.squishling.courageous.world.gen.ModFeatures;
+import du.squishling.courageous.world.gen.surface.TundraSurfaceBuilder;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.world.gen.PerlinNoiseGenerator;
+import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+
+import java.util.Random;
 
 public class BiomeTundra extends Biome {
 
+    private static PerlinNoiseGenerator noiseGen = new PerlinNoiseGenerator(new Random(6378l), 6);
+
     public BiomeTundra() {
-        super(new Builder().surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
+        super(new Builder().surfaceBuilder(
+                new ConfiguredSurfaceBuilder(BiomeRegistry.TUNDRA_SURFACE_BUILDER, SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG)
+        )
                 .category(Category.ICY)
                 .precipitation(RainType.RAIN)
                 .downfall(0.3f)
@@ -19,7 +29,7 @@ public class BiomeTundra extends Biome {
                 .temperature(0.3f)
 
                 .depth(0.2f)
-                .scale(0.1f)
+                .scale(0.05f)
 
                 .waterColor(0x02367e)
                 .waterFogColor(0x2158a5)
@@ -34,6 +44,8 @@ public class BiomeTundra extends Biome {
         DefaultBiomeFeatures.addStructures(this);
 
         ModFeatures.addUndergroundFeatures(this);
+        ModFeatures.addFallenLeaves(this);
+        ModFeatures.addFallenSnow(this);
 
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.CHICKEN, 10, 4, 4));
@@ -50,8 +62,9 @@ public class BiomeTundra extends Biome {
     }
 
     @Override
-    public int getGrassColor(BlockPos p_180627_1_) {
-        return 0xab672f;
+    public int getGrassColor(BlockPos pos) {
+        if (noiseGen.getValue(pos.getX(), pos.getZ()) > 0) return 0xab552f;
+        return 0xab7a2f;
     }
 
     @Override

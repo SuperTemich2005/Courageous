@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "courageous:maple_log_syrup"
+    }
+  ],
+  "result": {
+    "item": "courageous:maple_planks",
+    "count": 4
+  }
+}

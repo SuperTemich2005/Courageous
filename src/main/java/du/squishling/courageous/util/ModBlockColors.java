@@ -47,7 +47,7 @@ public class ModBlockColors implements IBlockColor {
         registerAllFoliage (
             ModBlocks.ALPINE_LEAVES, ModBlocks.PEAR_LEAVES,    ModBlocks.ORANGE_LEAVES,
             ModBlocks.APPLE_LEAVES,  ModBlocks.AVOCADO_LEAVES, ModBlocks.KIWI_FRUIT_LEAVES,
-            ModBlocks.LEMON_LEAVES,  ModBlocks.PLUM_LEAVES
+            ModBlocks.LEMON_LEAVES,  ModBlocks.PLUM_LEAVES,    ModBlocks.FALLEN_LEAVES
         );
 
         for (Block block : BLOCKS.keySet()) Minecraft.getInstance().getBlockColors().register(INSTANCE, block);

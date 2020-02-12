@@ -8,7 +8,9 @@
 
     "item.courageous.maple_syrup": "Maple Syrup",
 
-    "block.courageous.weathered_brick": "Weathered Brick",
+    "item.courageous.mud_ball": "Mud Ball",
+
+    "block.courageous.fallen_leaves": "Fallen Leaves",
 
     "block.courageous.alpine_leaves": "Alpine Leaves",
     "block.courageous.alpine_sapling": "Alpine Sapling",
@@ -17,6 +19,11 @@
     "block.courageous.palm_log": "Palm Log",
     "block.courageous.palm_planks": "Palm Planks",
     "block.courageous.palm_sapling": "Palm Sapling",
+
+    "block.courageous.redwood_leaves": "Redwood Leaves",
+    "block.courageous.redwood_log": "Redwood Log",
+    "block.courageous.redwood_planks": "Redwood Planks",
+    "block.courageous.redwood_sapling": "Redwood Sapling",
 
     "block.courageous.maple_leaves": "Maple Leaves",
     "block.courageous.maple_log": "Maple Log",
@@ -46,6 +53,9 @@
     "block.courageous.lemon_sapling": "Lemon Tree Sapling",
 
     "block.courageous.desert_shrub": "Desert Shrub",
+    "block.courageous.steppe_grass": "Steppe Grass",
+
+    "block.courageous.mud": "Mud",
 
     "itemGroup.courageous_tab": "Courageous"
 }

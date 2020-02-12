@@ -36,7 +36,13 @@ public class ModItemColors implements IItemColor {
     public static void registerItemColors() {
         registerItem(ModBlocks.ALPINE_LEAVES, 0x446852);
         registerItem(ModBlocks.PALM_LEAVES, 0xe1ff43);
+
         registerItem(ModBlocks.PEAR_LEAVES, 0x59ae30);
+        registerItem(ModBlocks.ORANGE_LEAVES, 0x59ae30);
+        registerItem(ModBlocks.LEMON_LEAVES, 0x59ae30);
+
+        registerItem(ModBlocks.FALLEN_LEAVES, 0x59ae30);
+
         for (Item item : ITEMS.keySet()) Minecraft.getInstance().getItemColors().register(INSTANCE, item);
         for (Block item : BLOCKS.keySet()) Minecraft.getInstance().getItemColors().register(INSTANCE, item);
     }

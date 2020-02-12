@@ -1,9 +1,15 @@
 package du.squishling.courageous.world.gen;
 
+import du.squishling.courageous.Courageous;
+import du.squishling.courageous.util.config.ConfigHandler;
 import du.squishling.courageous.world.gen.biomes.*;
+import du.squishling.courageous.world.gen.surface.ChaparralSurfaceBuilder;
+import du.squishling.courageous.world.gen.surface.TundraSurfaceBuilder;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
@@ -25,31 +31,60 @@ public class BiomeRegistry {
 
     public static Biome ALPINE_FOREST;
     public static Biome SPARSE_ALPINE_FOREST;
+    public static Biome TEMPERATE_RAINFOREST;
+
+    public static Biome REDWOOD_FOREST;
 
     public static Biome TUNDRA;
 
     public static Biome LUSH_DESERT;
+    public static Biome STEPPE;
+    public static Biome CHAPARRAL;
+
+    public static Biome WETLANDS;
+
+    public static SurfaceBuilder<SurfaceBuilderConfig> TUNDRA_SURFACE_BUILDER = new TundraSurfaceBuilder(SurfaceBuilderConfig::deserialize);
+    public static SurfaceBuilder<SurfaceBuilderConfig> CHAPARRAL_SURFACE_BUILDER = new ChaparralSurfaceBuilder(SurfaceBuilderConfig::deserialize);
 
     @SubscribeEvent
     public static void registerBiomes(final RegistryEvent.Register<Biome> event) {
-        FRUIT_FOREST = registerBiome(new BiomeFruitForest(), BiomeType.COOL, "fruitful_forest", 1000, Type.FOREST, Type.COLD, Type.DENSE);
-        AUTUMNAL_FOREST = registerBiome(new BiomeAutumnalForest(), BiomeType.COOL, "autumnal_forest", 12, Type.FOREST, Type.COLD, Type.DENSE);
+        FRUIT_FOREST = registerBiome(new BiomeFruitForest(), BiomeType.COOL, "fruitful_forest", 15, Type.FOREST, Type.COLD, Type.DENSE);
+        AUTUMNAL_FOREST = registerBiome(new BiomeAutumnalForest(), BiomeType.COOL, "autumnal_forest", 16, Type.FOREST, Type.COLD, Type.DENSE);
 
-        ALPINE_FOREST = registerBiome(new BiomeAlpineForest(), BiomeType.COOL, "alpine_forest", 12, Type.FOREST, Type.COLD, Type.CONIFEROUS, Type.HILLS);
-        SPARSE_ALPINE_FOREST = registerBiome(new BiomeSparseAlpineForest(), BiomeType.COOL, "sparse_alpine_forest", 12, Type.FOREST, Type.COLD, Type.CONIFEROUS, Type.HILLS);
+        ALPINE_FOREST = registerBiome(new BiomeAlpineForest(), BiomeType.COOL, "alpine_forest", 11, Type.FOREST, Type.COLD, Type.CONIFEROUS, Type.HILLS);
+        SPARSE_ALPINE_FOREST = registerBiome(new BiomeSparseAlpineForest(), BiomeType.COOL, "sparse_alpine_forest", 8, Type.FOREST, Type.COLD, Type.CONIFEROUS, Type.HILLS);
+        TEMPERATE_RAINFOREST = registerBiome(new BiomeTemperateRainforest(), BiomeType.COOL, "temperate_rainforest", 13, Type.FOREST, Type.CONIFEROUS, Type.HILLS, Type.DENSE);
+
+        REDWOOD_FOREST = registerBiome(new BiomeRedwoodForest(), BiomeType.COOL, "redwood_forest", 1000, Type.FOREST, Type.CONIFEROUS, Type.WET, Type.DENSE);
 
         TUNDRA = registerBiome(new BiomeTundra(), BiomeType.ICY, "tundra", 12, Type.COLD, Type.SPARSE, Type.DRY, Type.PLAINS, Type.SNOWY);
 
-        LUSH_DESERT = registerBiome(new BiomeLushDesert(), BiomeType.DESERT, "lush_desert", 10, Type.LUSH, Type.DRY, Type.HILLS, Type.HOT);
+        LUSH_DESERT = registerBiome(new BiomeLushDesert(), BiomeType.DESERT, "lush_desert", 10, Type.LUSH, Type.DRY, Type.HILLS, Type.HOT, Type.SANDY);
+        STEPPE = registerBiome(new BiomeSteppe(), BiomeType.DESERT, "steppe", 12, Type.PLAINS, Type.DRY, Type.SPARSE, Type.HOT, Type.SAVANNA, Type.SANDY);
+        CHAPARRAL = registerBiome(new BiomeChaparral(), BiomeType.DESERT, "chaparral", 13, Type.HILLS, Type.HOT, Type.SPARSE, Type.SANDY, Type.PLAINS);
+
+        WETLANDS = registerBiome(new BiomeWetlands(), BiomeType.COOL, "wetlands", 15, Type.SPARSE, Type.SWAMP, Type.WET, Type.WATER);
     }
 
     public static Biome registerBiome(Biome biome, BiomeManager.BiomeType biomeType, String name, int weight, BiomeDictionary.Type... types) {
         biome.setRegistryName(name);
         ForgeRegistries.BIOMES.register(biome);
+        BiomeDictionary.addTypes(biome, types);
+        Courageous.LOGGER.info(name + " registered");
+
+        Courageous.LOGGER.warn("bbb " + ConfigHandler.COMMON.spawnAutumnalForest.get());
+
+        if (!ConfigHandler.COMMON.spawnBiomes.get() ||
+                (name == "fruitful_forest"      && !ConfigHandler.COMMON.spawnFruitfulForest    .get()) ||
+                (name == "autumnal_forest"      && !ConfigHandler.COMMON.spawnAutumnalForest    .get()) ||
+                (name == "alpine_forest"        && !ConfigHandler.COMMON.spawnAlpineForest      .get()) ||
+                (name == "sparse_alpine_forest" && !ConfigHandler.COMMON.spawnSparseAlpineForest.get()) ||
+                (name == "tundra"               && !ConfigHandler.COMMON.spawnTundra            .get()) ||
+                (name == "lush_desert"          && !ConfigHandler.COMMON.spawnLushDesert        .get())
+        ) return biome;
+
         BiomeManager.addSpawnBiome(biome);
         BiomeManager.addBiome(biomeType, new BiomeEntry(biome, weight));
-        BiomeDictionary.addTypes(biome, types);
-        System.out.println(name + " registered");
 
         return biome;
     }

@@ -1,6 +1,7 @@
 package du.squishling.courageous.blocks.vegetation;
 
 import du.squishling.courageous.items.ModItems;
+import du.squishling.courageous.util.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
@@ -45,15 +46,15 @@ public class MapleLog extends CustomLog {
 
     @Override
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (state.get(GROWN) && player.getHeldItem(handIn).getItem().equals(Items.GLASS_BOTTLE)) {
+        if (Reference.isServer(worldIn)) if (state.get(GROWN) && player.getHeldItem(handIn).getItem().equals(Items.GLASS_BOTTLE)) {
             player.getHeldItem(handIn).setCount(player.getHeldItem(handIn).getCount() - 1);
             if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.MAPLE_SYRUP))) spawnAsEntity(worldIn, pos, new ItemStack(ModItems.MAPLE_SYRUP, 1));
             worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ENTITY_GENERIC_DRINK, SoundCategory.BLOCKS, 1.0F, 0.8F + worldIn.rand.nextFloat() * 0.4F);
             worldIn.setBlockState(pos, state.with(GROWN, false), 2);
             return true;
-        } else {
-            return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
         }
+
+        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 
     @Override

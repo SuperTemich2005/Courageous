@@ -6,12 +6,10 @@ import net.minecraft.block.SoundType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Food;
+import net.minecraft.item.*;
 import net.minecraft.item.Food.Builder;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -52,23 +50,23 @@ public class CustomFood extends Item {
 
     @Override
     public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity entity) {
-        entity.playSound(sound, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
-        world.playSound((PlayerEntity)null, entity.posX, entity.posY, entity.posZ, sound, SoundCategory.NEUTRAL, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
-        stack.shrink(1);
+        if (Reference.isServer(world)) {
+            entity.playSound(sound, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
+            world.playSound((PlayerEntity)null, entity.posX, entity.posY, entity.posZ, sound, SoundCategory.NEUTRAL, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
+            stack.shrink(1);
 
-        if (entity instanceof PlayerEntity) {
-            PlayerEntity player = ((PlayerEntity)entity);
-            player.getFoodStats().setFoodLevel(player.getFoodStats().getFoodLevel() + getFood().getHealing());
-            player.getFoodStats().setFoodSaturationLevel(player.getFoodStats().getSaturationLevel() + getFood().getSaturation());
+            if (entity instanceof PlayerEntity) {
+                PlayerEntity player = ((PlayerEntity)entity);
+                player.getFoodStats().setFoodLevel(player.getFoodStats().getFoodLevel() + getFood().getHealing());
+                player.getFoodStats().setFoodSaturationLevel(player.getFoodStats().getSaturationLevel() + getFood().getSaturation());
 
-            if (this.hasContainerItem()) if (!player.inventory.addItemStackToInventory(new ItemStack(getContainerItem()))) {
-                world.addEntity(new ItemEntity(world, player.posX, player.posY, player.posX, new ItemStack(getContainerItem())));
+                if (this.hasContainerItem()) if (!player.inventory.addItemStackToInventory(new ItemStack(getContainerItem()))) {
+                    world.addEntity(new ItemEntity(world, player.posX, player.posY, player.posX, new ItemStack(getContainerItem())));
+                }
             }
-        }
 
-        for(Pair<EffectInstance, Float> pair : this.getFood().getEffects()) {
-            if (!world.isRemote && pair.getLeft() != null && world.rand.nextFloat() < pair.getRight()) {
-                entity.addPotionEffect(new EffectInstance(pair.getLeft()));
+            for(Pair<EffectInstance, Float> pair : this.getFood().getEffects()) {
+                if (pair.getLeft() != null) entity.addPotionEffect(pair.getLeft());
             }
         }
 
