@@ -17,17 +17,29 @@
 
     "block.courageous.palm_leaves": "Palm Leaves",
     "block.courageous.palm_log": "Palm Log",
+    "block.courageous.stripped_palm_log": "Stripped Palm Log",
+    "block.courageous.palm_wood": "Palm Wood",
+    "block.courageous.stripped_palm_wood": "Stripped Palm Wood",
     "block.courageous.palm_planks": "Palm Planks",
     "block.courageous.palm_sapling": "Palm Sapling",
 
     "block.courageous.redwood_leaves": "Redwood Leaves",
     "block.courageous.redwood_log": "Redwood Log",
+    "block.courageous.stripped_redwood_log": "Stripped Redwood Log",
+    "block.courageous.redwood_wood": "Redwood Wood",
+    "block.courageous.stripped_redwood_wood": "Stripped Redwood Wood",
     "block.courageous.redwood_planks": "Redwood Planks",
     "block.courageous.redwood_sapling": "Redwood Sapling",
+
+    "block.courageous.douglas_fir_leaves": "Douglas Fir Leaves",
+    "block.courageous.douglas_fir_sapling": "Douglas Fir Sapling",
 
     "block.courageous.maple_leaves": "Maple Leaves",
     "block.courageous.maple_log": "Maple Log",
     "block.courageous.maple_log_syrup": "Maple Syrup Log",
+    "block.courageous.stripped_maple_log": "Stripped Maple Log",
+    "block.courageous.maple_wood": "Maple Wood",
+    "block.courageous.stripped_maple_wood": "Stripped Maple Wood",
     "block.courageous.maple_planks": "Maple Planks",
     "block.courageous.maple_sapling": "Maple Tree Sapling",
 
@@ -56,6 +68,8 @@
     "block.courageous.steppe_grass": "Steppe Grass",
 
     "block.courageous.mud": "Mud",
+
+    "block.pottery_wheel": "Pottery Wheel",
 
     "itemGroup.courageous_tab": "Courageous"
 }

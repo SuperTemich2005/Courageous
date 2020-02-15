@@ -16,6 +16,8 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nullable;
+
 public class CustomFood extends Item {
 
     private SoundEvent sound = SoundEvents.ENTITY_GENERIC_EAT;
@@ -30,6 +32,13 @@ public class CustomFood extends Item {
 
     public CustomFood(String name, int hunger, float saturation) {
         this(name, new Builder().hunger(hunger).saturation(saturation).build());
+    }
+
+    public CustomFood(String name, Food food, Item containerItem) {
+        super(new Item.Properties().group(Tab.COURAGEOUS_GROUP).food(food).containerItem(containerItem));
+        this.setRegistryName(Reference.MOD_ID, name);
+
+        ModItems.ITEMS.add(this);
     }
 
     public Item sound(SoundEvent sound) {
@@ -60,7 +69,7 @@ public class CustomFood extends Item {
                 player.getFoodStats().setFoodLevel(player.getFoodStats().getFoodLevel() + getFood().getHealing());
                 player.getFoodStats().setFoodSaturationLevel(player.getFoodStats().getSaturationLevel() + getFood().getSaturation());
 
-                if (this.hasContainerItem()) if (!player.inventory.addItemStackToInventory(new ItemStack(getContainerItem()))) {
+                if (getContainerItem() != null && !player.inventory.addItemStackToInventory(new ItemStack(getContainerItem()))) {
                     world.addEntity(new ItemEntity(world, player.posX, player.posY, player.posX, new ItemStack(getContainerItem())));
                 }
             }

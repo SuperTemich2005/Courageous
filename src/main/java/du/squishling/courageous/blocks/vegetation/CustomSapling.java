@@ -43,7 +43,8 @@ public class CustomSapling extends SaplingBlock implements IGrowable {
     }
 
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return shape;
+        if (shape != null) return shape;
+        return super.getShape(state, worldIn, pos, context);
     }
 
     public CustomSapling(String name, AbstractTreeFeature tree) {

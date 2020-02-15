@@ -2,14 +2,14 @@ package du.squishling.courageous.world.gen;
 
 import du.squishling.courageous.blocks.ModBlocks;
 import du.squishling.courageous.world.gen.features.*;
+import du.squishling.courageous.world.gen.features.trees.fruit.*;
+import du.squishling.courageous.world.gen.features.trees.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.GenerationStage.Decoration;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.feature.structure.MineshaftConfig;
-import net.minecraft.world.gen.feature.structure.MineshaftStructure.Type;
 import net.minecraft.world.gen.feature.structure.PillagerOutpostConfig;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.placement.*;
@@ -24,6 +24,8 @@ public class ModFeatures {
     public static final AbstractTreeFeature ALPINE_TREE = new AlpineTreeFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature REDWOOD_TREE = new RedwoodTreeFeature(NoFeatureConfig::deserialize);
 
+    public static final AbstractTreeFeature DOUGLAS_FIR_TREE = new DouglasFirTreeFeature(NoFeatureConfig::deserialize);
+
     public static final AbstractTreeFeature GIANT_REDWOOD_TREE = new GiantRedwoodTreeFeature(NoFeatureConfig::deserialize);
 
     public static final AbstractTreeFeature PALM_TREE = new PalmTreeFeature(NoFeatureConfig::deserialize);
@@ -31,6 +33,11 @@ public class ModFeatures {
 
     public static final AbstractTreeFeature PEAR_TREE = new PearTreeFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature ORANGE_TREE = new OrangeTreeFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature LEMON_TREE = new LemonTreeFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature PLUM_TREE = new PlumTreeFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature AVOCADO_TREE = new AvocadoTreeFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature KIWI_FRUIT_TREE = new KiwiFruitTreeFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature APPLE_TREE = new AppleTreeFeature(NoFeatureConfig::deserialize);
 
     public static final Feature MUD_LAKE = new MudLake(LakesConfig::deserialize);
 
@@ -51,9 +58,14 @@ public class ModFeatures {
     }
 
     public static void addFruitForestTrees(Biome biome) {
-        addDefaultTrees(biome, 5, 0.1f, 2);
-        addTree(biome, PEAR_TREE, 2, 0.1f, 1);
-        addTree(biome, ORANGE_TREE, 2, 0.1f, 1);
+        addDefaultTrees(biome, 4, 0.1f, 2);
+        addTree(biome, PEAR_TREE, 1, 0.1f, 1);
+        addTree(biome, ORANGE_TREE, 1, 0.1f, 1);
+        addTree(biome, LEMON_TREE, 1, 0.1f, 1);
+        addTree(biome, PLUM_TREE, 1, 0.1f, 1);
+        addTree(biome, AVOCADO_TREE, 1, 0.1f, 1);
+        addTree(biome, APPLE_TREE, 1, 0.1f, 1);
+        addTree(biome, KIWI_FRUIT_TREE, 1, 0.1f, 1);
     }
 
     public static void addAutumnalTrees(Biome biome) {

@@ -2,6 +2,7 @@ package du.squishling.courageous.items;
 
 import net.minecraft.item.Food.Builder;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.potion.*;
 import net.minecraft.util.SoundEvents;
 
@@ -18,7 +19,7 @@ public class ModItems {
     public static final Item AVOCADO = new CustomFood("avocado", 2, 0.1f);
     public static final Item KIWI_FRUIT = new CustomFood("kiwi_fruit", 3, 0.35f);
 
-    public static final Item MAPLE_SYRUP = new CustomFood("maple_syrup", new Builder().hunger(1).saturation(0.4f).setAlwaysEdible().effect(new EffectInstance(Effects.SPEED, 60), 0).build()).drink();
+    public static final Item MAPLE_SYRUP = new CustomFood("maple_syrup", new Builder().hunger(1).saturation(0.4f).setAlwaysEdible().effect(new EffectInstance(Effects.SPEED, 60), 0).build(), Items.GLASS_BOTTLE).drink();
 
     public static final Item MUD_BALL = new ItemBase("mud_ball");
 

@@ -35,11 +35,17 @@ public class ModItemColors implements IItemColor {
 
     public static void registerItemColors() {
         registerItem(ModBlocks.ALPINE_LEAVES, 0x446852);
+        registerItem(ModBlocks.DOUGLAS_FIR_LEAVES, 0x748541);
+
         registerItem(ModBlocks.PALM_LEAVES, 0xe1ff43);
 
         registerItem(ModBlocks.PEAR_LEAVES, 0x59ae30);
         registerItem(ModBlocks.ORANGE_LEAVES, 0x59ae30);
         registerItem(ModBlocks.LEMON_LEAVES, 0x59ae30);
+        registerItem(ModBlocks.PLUM_LEAVES, 0x59ae30);
+        registerItem(ModBlocks.AVOCADO_LEAVES, 0x59ae30);
+        registerItem(ModBlocks.KIWI_FRUIT_LEAVES, 0x59ae30);
+        registerItem(ModBlocks.APPLE_LEAVES, 0x59ae30);
 
         registerItem(ModBlocks.FALLEN_LEAVES, 0x59ae30);
 

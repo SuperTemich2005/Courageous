@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "grown=true": [
+      { "model": "courageous:block/plum_leaves/plum_leaves_0" },
+      { "model": "courageous:block/plum_leaves/plum_leaves_1" },
+      { "model": "courageous:block/plum_leaves/plum_leaves_2" },
+      { "model": "courageous:block/plum_leaves/plum_leaves_3" },
+      { "model": "courageous:block/plum_leaves/plum_leaves_4" },
+      { "model": "courageous:block/plum_leaves/plum_leaves_5" },
+      { "model": "courageous:block/plum_leaves/plum_leaves_6" },
+      { "model": "courageous:block/plum_leaves/plum_leaves_7" },
+      { "model": "courageous:block/plum_leaves/plum_leaves_8" }
+    ],
+    "grown=false": { "model": "block/oak_leaves" }
+  }
+}

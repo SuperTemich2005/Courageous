@@ -2,13 +2,17 @@ package du.squishling.courageous;
 
 import du.squishling.courageous.blocks.ModBlocks;
 import du.squishling.courageous.items.ModItems;
+import du.squishling.courageous.util.EventHandler;
 import du.squishling.courageous.util.config.ConfigHandler;
 import du.squishling.courageous.util.ModBlockColors;
 import du.squishling.courageous.util.ModItemColors;
 import du.squishling.courageous.util.Reference;
 import du.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.Block;
+import net.minecraft.block.LogBlock;
+import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.item.Item;
+import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -39,7 +43,11 @@ public class Courageous {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientRegistry);
 
+        ConfigHandler.loadConfig(ConfigHandler.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("courageous-common.toml"));
+        ConfigHandler.loadConfig(ConfigHandler.CLIENT_SPEC, FMLPaths.CONFIGDIR.get().resolve("courageous-client.toml"));
+
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new EventHandler());
 
         Registry.register();
     }
@@ -48,7 +56,17 @@ public class Courageous {
     private void setup(final FMLCommonSetupEvent event) {
         LOGGER.info("Common setup");
 
+        ModFeatures.addTree(Biomes.FOREST, ModFeatures.APPLE_TREE, 0, 0.2f, 1);
 
+        EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.MAPLE_LOG, (RotatedPillarBlock) ModBlocks.STRIPPED_MAPLE_LOG);
+        EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.MAPLE_LOG_SYRUP, (RotatedPillarBlock) ModBlocks.STRIPPED_MAPLE_LOG);
+        EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.MAPLE_WOOD, (RotatedPillarBlock) ModBlocks.STRIPPED_MAPLE_WOOD);
+
+        EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.PALM_LOG, (RotatedPillarBlock) ModBlocks.STRIPPED_PALM_LOG);
+        EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.PALM_WOOD, (RotatedPillarBlock) ModBlocks.STRIPPED_PALM_WOOD);
+
+        EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.REDWOOD_LOG, (RotatedPillarBlock) ModBlocks.STRIPPED_REDWOOD_LOG);
+        EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.REDWOOD_WOOD, (RotatedPillarBlock) ModBlocks.STRIPPED_REDWOOD_WOOD);
     }
 
     private void clientRegistry(final FMLClientSetupEvent event) {

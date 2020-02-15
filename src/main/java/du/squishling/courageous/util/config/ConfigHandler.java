@@ -8,6 +8,7 @@ import net.minecraftforge.common.ForgeConfigSpec.Builder;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public class ConfigHandler {
 
@@ -120,10 +121,11 @@ public class ConfigHandler {
 
     }
 
-    public static void loadConfig(ForgeConfigSpec config, String path) {
-        final CommentedFileConfig file = CommentedFileConfig.builder(new File(path)).sync().autosave().writingMode(WritingMode.REPLACE).build();
-        file.load();
-        config.setConfig(file);
+    public static void loadConfig(ForgeConfigSpec spec, Path path) {
+        final CommentedFileConfig configData = CommentedFileConfig.builder(path).sync().autosave().writingMode(WritingMode.REPLACE).build();
+
+        configData.load();
+        spec.setConfig(configData);
     }
 
 }

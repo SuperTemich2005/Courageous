@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "courageous:block/maple/stripped_maple_bark",
+        "side": "courageous:block/maple/stripped_maple_bark"
+    }
+}

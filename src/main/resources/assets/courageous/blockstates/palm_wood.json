@@ -1,0 +1,16 @@
+{
+    "variants": {
+        "axis=y": {
+            "model": "courageous:block/palm_wood"
+        },
+        "axis=z": {
+            "model": "courageous:block/palm_wood",
+            "x": 90
+        },
+        "axis=x": {
+            "model": "courageous:block/palm_wood",
+            "x": 90,
+            "y": 90
+        }
+    }
+}

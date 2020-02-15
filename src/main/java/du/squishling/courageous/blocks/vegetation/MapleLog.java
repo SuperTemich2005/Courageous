@@ -41,7 +41,7 @@ public class MapleLog extends CustomLog {
     public void randomTick(BlockState state, World worldIn, BlockPos pos, Random random) {
         super.randomTick(state, worldIn, pos, random);
 
-        if (!state.get(GROWN) && random.nextInt(5) == 0) worldIn.setBlockState(pos, state.with(GROWN, true), 2);
+        if (!state.get(GROWN) && random.nextInt(20) == 0) worldIn.setBlockState(pos, state.with(GROWN, true), 2);
     }
 
     @Override

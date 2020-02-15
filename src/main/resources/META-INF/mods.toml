@@ -29,7 +29,7 @@ displayName="Courageous" #mandatory
 # updateJSONURL="http://myurl.me/" #optional
 
 # A URL for the "homepage" for this mod, displayed in the mod UI
-# displayURL="http://example.com/" #optional
+displayURL="https://discord.gg/wtHw4zy" #optional
 
 # A file name (in the root of the mod JAR) containing a logo for display
 # logoFile="examplemod.png" #optional
@@ -39,6 +39,7 @@ credits='''
 Artists
 =======
 TheMasterwight20025
+Squishling
 phoenix_wb
 ilja615
 BeardieButt
@@ -46,7 +47,13 @@ InterPlay
 
 Builders
 ========
+Squishling
 InterPlay
+ilja615
+
+Programmers
+===========
+Squishling
 
 Brainstormers
 =============

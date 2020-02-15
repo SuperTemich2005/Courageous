@@ -41,16 +41,15 @@ public class HarvestableLeaves extends CustomLeaves {
     }
 
     public boolean ticksRandomly(BlockState state) {
-        return !state.get(GROWN);
+        return !state.get(PERSISTENT) || !state.get(GROWN);
     }
 
     public void randomTick(BlockState state, World worldIn, BlockPos pos, Random random) {
         super.randomTick(state, worldIn, pos, random);
 
-        if (Reference.isServer(worldIn)) if (!state.get(GROWN) && random.nextInt(5) == 0 && worldIn.getLightSubtracted(pos.up(), 0) >= 9) {
+        if (Reference.isServer(worldIn)) if (!state.get(GROWN) && random.nextInt(20) == 0 && worldIn.getLightSubtracted(pos.up(), 0) >= 9) {
             worldIn.setBlockState(pos, state.with(GROWN, true), 2);
         }
-
     }
 
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {

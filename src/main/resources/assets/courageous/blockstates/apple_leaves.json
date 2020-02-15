@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "grown=true": [
+      { "model": "courageous:block/apple_leaves/apple_leaves_0" },
+      { "model": "courageous:block/apple_leaves/apple_leaves_1" },
+      { "model": "courageous:block/apple_leaves/apple_leaves_2" },
+      { "model": "courageous:block/apple_leaves/apple_leaves_3" },
+      { "model": "courageous:block/apple_leaves/apple_leaves_4" },
+      { "model": "courageous:block/apple_leaves/apple_leaves_5" },
+      { "model": "courageous:block/apple_leaves/apple_leaves_6" },
+      { "model": "courageous:block/apple_leaves/apple_leaves_7" },
+      { "model": "courageous:block/apple_leaves/apple_leaves_8" }
+    ],
+    "grown=false": { "model": "block/oak_leaves" }
+  }
+}

@@ -1,8 +1,9 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "group": "planks",
   "ingredients": [
     {
-      "item": "courageous:palm_log"
+      "tag": "courageous:palm_logs"
     }
   ],
   "result": {

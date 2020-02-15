@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "grown=true": [
+      { "model": "courageous:block/kiwi_fruit_leaves/kiwi_fruit_leaves_0" },
+      { "model": "courageous:block/kiwi_fruit_leaves/kiwi_fruit_leaves_1" },
+      { "model": "courageous:block/kiwi_fruit_leaves/kiwi_fruit_leaves_2" },
+      { "model": "courageous:block/kiwi_fruit_leaves/kiwi_fruit_leaves_3" },
+      { "model": "courageous:block/kiwi_fruit_leaves/kiwi_fruit_leaves_4" },
+      { "model": "courageous:block/kiwi_fruit_leaves/kiwi_fruit_leaves_5" },
+      { "model": "courageous:block/kiwi_fruit_leaves/kiwi_fruit_leaves_6" }
+    ],
+    "grown=false": { "model": "block/oak_leaves" }
+  }
+}
