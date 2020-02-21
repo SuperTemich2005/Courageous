@@ -1,6 +1,10 @@
 package du.squishling.courageous;
 
 import du.squishling.courageous.blocks.ModBlocks;
+import du.squishling.courageous.blocks.ModContainers;
+import du.squishling.courageous.blocks.ModTileEntities;
+import du.squishling.courageous.blocks.pottery_wheel.PotteryWheelContainer;
+import du.squishling.courageous.blocks.pottery_wheel.PotteryWheelScreen;
 import du.squishling.courageous.items.ModItems;
 import du.squishling.courageous.util.EventHandler;
 import du.squishling.courageous.util.config.ConfigHandler;
@@ -11,8 +15,13 @@ import du.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.block.LogBlock;
 import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -48,8 +57,6 @@ public class Courageous {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new EventHandler());
-
-        Registry.register();
     }
 
     // Preinit
@@ -74,14 +81,12 @@ public class Courageous {
 
         ModBlockColors.registerBlockColors();
         ModItemColors.registerItemColors();
+
+        ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
     }
 
     @EventBusSubscriber(bus=Bus.MOD)
     public static class Registry {
-
-        public static void register() {
-            ModFeatures.registerFeatures();
-        }
 
         @SubscribeEvent
         public static void registerItems(final RegistryEvent.Register<Item> event) {
@@ -94,9 +99,30 @@ public class Courageous {
 
         @SubscribeEvent
         public static void registerBlocks(final RegistryEvent.Register<Block> event) {
-            LOGGER.warn("Blocks registry");
+            LOGGER.info("Blocks registry");
 
             event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[ModBlocks.BLOCKS.size()]));
+        }
+
+        @SubscribeEvent
+        public static void registerTileEntities(final RegistryEvent.Register<TileEntityType<?>> event) {
+            LOGGER.info("Tile entities registry");
+
+            event.getRegistry().registerAll(ModTileEntities.TILE_ENTITIES.toArray(new TileEntityType[ModTileEntities.TILE_ENTITIES.size()]));
+        }
+
+        @SubscribeEvent
+        public static void registerFeatures(final RegistryEvent.Register<Feature<?>> event) {
+            LOGGER.info("Features registry");
+
+            event.getRegistry().registerAll(ModFeatures.FEATURES.toArray(new Feature[ModFeatures.FEATURES.size()]));
+        }
+
+        @SubscribeEvent
+        public static void registerContainers(final RegistryEvent.Register<ContainerType<?>> event) {
+            LOGGER.info("Containers registry");
+
+            event.getRegistry().registerAll(ModContainers.CONTAINERS.toArray(new ContainerType[ModContainers.CONTAINERS.size()]));
         }
 
     }

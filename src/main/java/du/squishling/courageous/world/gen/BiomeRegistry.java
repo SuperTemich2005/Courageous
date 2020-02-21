@@ -1,6 +1,7 @@
 package du.squishling.courageous.world.gen;
 
 import du.squishling.courageous.Courageous;
+import du.squishling.courageous.util.Reference;
 import du.squishling.courageous.util.config.ConfigHandler;
 import du.squishling.courageous.world.gen.biomes.*;
 import du.squishling.courageous.world.gen.surface.ChaparralSurfaceBuilder;
@@ -76,7 +77,7 @@ public class BiomeRegistry {
     }
 
     public static Biome registerBiome(Biome biome, BiomeManager.BiomeType biomeType, String name, int weight, BiomeDictionary.Type... types) {
-        biome.setRegistryName(name);
+        biome.setRegistryName(Reference.MOD_ID, name);
         ForgeRegistries.BIOMES.register(biome);
         BiomeDictionary.addTypes(biome, types);
         Courageous.LOGGER.info(name + " registered");

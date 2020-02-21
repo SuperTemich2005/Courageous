@@ -2,6 +2,7 @@ package du.squishling.courageous.world.gen.features.trees;
 
 import com.mojang.datafixers.Dynamic;
 import du.squishling.courageous.blocks.ModBlocks;
+import du.squishling.courageous.util.Reference;
 import du.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -64,7 +65,7 @@ public class PalmTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
         LEAVES.add(new BlockPos(0, 1, 3));
         LEAVES.add(new BlockPos(0, 1, -3));
 
-        this.setRegistryName("palm_tree");
+        this.setRegistryName(Reference.MOD_ID, "palm_tree");
         ModFeatures.FEATURES.add(this);
     }
 

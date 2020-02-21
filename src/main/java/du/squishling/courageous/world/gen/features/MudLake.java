@@ -2,6 +2,8 @@ package du.squishling.courageous.world.gen.features;
 
 import com.mojang.datafixers.Dynamic;
 import du.squishling.courageous.blocks.ModBlocks;
+import du.squishling.courageous.util.Reference;
+import du.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -27,6 +29,9 @@ public class MudLake extends Feature<LakesConfig> {
 
     public MudLake(Function<Dynamic<?>, ? extends LakesConfig> p_i51485_1_) {
         super(p_i51485_1_);
+        this.setRegistryName(Reference.MOD_ID, "mud_lake");
+
+        ModFeatures.FEATURES.add(this);
     }
 
     public boolean place(IWorld p_212245_1_, ChunkGenerator<? extends GenerationSettings> p_212245_2_, Random p_212245_3_, BlockPos p_212245_4_, LakesConfig config) {

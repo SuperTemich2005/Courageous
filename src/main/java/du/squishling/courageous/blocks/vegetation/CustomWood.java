@@ -17,7 +17,7 @@ public class CustomWood extends RotatedPillarBlock {
 
     public CustomWood(String name, MaterialColor color) {
         super(Block.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F).sound(SoundType.WOOD));
-        this.setRegistryName(name);
+        this.setRegistryName(Reference.MOD_ID, name);
 
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new BlockItem(this, new Item.Properties().group(Tab.COURAGEOUS_GROUP)).setRegistryName(new ResourceLocation(Reference.MOD_ID, name)));

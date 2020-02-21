@@ -3,6 +3,7 @@ package du.squishling.courageous.world.gen.features.trees;
 import com.mojang.datafixers.Dynamic;
 import du.squishling.courageous.blocks.ModBlocks;
 import du.squishling.courageous.blocks.vegetation.MapleLog;
+import du.squishling.courageous.util.Reference;
 import du.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.*;
 import net.minecraft.state.BooleanProperty;
@@ -36,7 +37,7 @@ public class MapleTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
         this.leaf = leafState;
         this.vinesGrow = vinesGrowIn;
 
-        this.setRegistryName("maple_tree");
+        this.setRegistryName(Reference.MOD_ID, "maple_tree");
         ModFeatures.FEATURES.add(this);
     }
 

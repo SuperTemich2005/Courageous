@@ -2,6 +2,7 @@ package du.squishling.courageous.world.gen.features.trees;
 
 import com.mojang.datafixers.Dynamic;
 import du.squishling.courageous.blocks.ModBlocks;
+import du.squishling.courageous.util.Reference;
 import du.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -149,7 +150,7 @@ public class DouglasFirTreeFeature extends AbstractTreeFeature<NoFeatureConfig> 
         BLOBS_LIST.get(3).add(new BlockPos(-1, 1, 2));
 
 
-        this.setRegistryName("douglas_fir_tree");
+        this.setRegistryName(Reference.MOD_ID, "douglas_fir_tree");
         ModFeatures.FEATURES.add(this);
     }
 

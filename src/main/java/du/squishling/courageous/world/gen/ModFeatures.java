@@ -41,10 +41,6 @@ public class ModFeatures {
 
     public static final Feature MUD_LAKE = new MudLake(LakesConfig::deserialize);
 
-    public static void registerFeatures() {
-        for (Feature feature : FEATURES) ForgeRegistries.FEATURES.register(feature);
-    }
-
     public static void addAlpineTrees(Biome biome) {
         addTree(biome, ALPINE_TREE, 5, 0.1f, 1);
     }

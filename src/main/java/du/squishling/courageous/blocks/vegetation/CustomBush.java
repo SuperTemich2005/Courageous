@@ -23,7 +23,7 @@ public class CustomBush extends BushBlock implements IShearable {
 
     public CustomBush(String name, VoxelShape shape, Block... acceptedBlocks) {
         super(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.WOOD).doesNotBlockMovement().sound(SoundType.PLANT).hardnessAndResistance(0));
-        setRegistryName(name);
+        setRegistryName(Reference.MOD_ID, name);
 
         this.acceptedBlocks = acceptedBlocks;
         this.shape = shape;

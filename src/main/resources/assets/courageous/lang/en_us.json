@@ -69,7 +69,9 @@
 
     "block.courageous.mud": "Mud",
 
-    "block.pottery_wheel": "Pottery Wheel",
+    "block.courageous.pottery_wheel": "Pottery Wheel",
+
+    "gui.courageous.pottery_wheel": "Pottery Wheel",
 
     "itemGroup.courageous_tab": "Courageous"
 }

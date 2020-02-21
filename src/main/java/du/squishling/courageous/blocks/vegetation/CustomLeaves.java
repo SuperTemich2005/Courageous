@@ -3,6 +3,7 @@ package du.squishling.courageous.blocks.vegetation;
 import du.squishling.courageous.blocks.ModBlocks;
 import du.squishling.courageous.items.ModItems;
 import du.squishling.courageous.tabs.Tab;
+import du.squishling.courageous.util.Reference;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
@@ -14,7 +15,7 @@ public class CustomLeaves extends LeavesBlock {
 
     public CustomLeaves(String name, Item... drops) {
         super(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).sound(SoundType.PLANT).tickRandomly());
-        this.setRegistryName(name);
+        this.setRegistryName(Reference.MOD_ID, name);
 
         this.drops = drops;
 

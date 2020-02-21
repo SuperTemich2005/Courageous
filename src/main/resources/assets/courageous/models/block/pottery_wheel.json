@@ -5,7 +5,7 @@
 		"1": "block/piston_bottom",
 		"2": "block/piston_inner",
 		"3": "block/oak_log_top",
-		"particle": "block/piston_side"
+		"particle": "block/piston_bottom"
 	},
 	"elements": [
 		{
@@ -21,25 +21,27 @@
 			}
 		},
 		{
+			"name": "Rotate1",
 			"from": [4, 12, 4],
 			"to": [12, 13, 12],
 			"faces": {
-				"north": {"uv": [4, 11, 12, 12], "texture": "#3"},
+				"north": {"uv": [4, 4, 12, 5], "texture": "#3"},
 				"east": {"uv": [4, 4, 12, 5], "texture": "#3"},
 				"south": {"uv": [4, 4, 12, 5], "texture": "#3"},
-				"west": {"uv": [4, 11, 12, 12], "texture": "#3"},
+				"west": {"uv": [4, 4, 12, 5], "texture": "#3"},
 				"up": {"uv": [4, 4, 12, 12], "texture": "#3"},
 				"down": {"uv": [4, 4, 12, 12], "texture": "#3"}
 			}
 		},
 		{
+			"name": "Rotate2",
 			"from": [2, 13, 2],
 			"to": [14, 15, 14],
 			"faces": {
-				"north": {"uv": [2, 13, 14, 15], "texture": "#3"},
+				"north": {"uv": [2, 1, 14, 3], "texture": "#3"},
 				"east": {"uv": [2, 1, 14, 3], "texture": "#3"},
 				"south": {"uv": [2, 1, 14, 3], "texture": "#3"},
-				"west": {"uv": [2, 13, 14, 15], "texture": "#3"},
+				"west": {"uv": [2, 1, 14, 3], "texture": "#3"},
 				"up": {"uv": [2, 2, 14, 14], "texture": "#3"},
 				"down": {"uv": [2, 2, 14, 14], "texture": "#3"}
 			}

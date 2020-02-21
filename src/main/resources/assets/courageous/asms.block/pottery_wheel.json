@@ -1,0 +1,11 @@
+{
+  "parameters": {
+    "cycle": ["/", 2.0]
+  },
+  "clips": {
+    "default": ["apply", "courageous:block/pottery_wheel@default", "#cycle"]
+  },
+  "states": ["default"],
+  "transitions": {},
+  "start_state": "default"
+}

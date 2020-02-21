@@ -1,5 +1,6 @@
 {
   "variants": {
+    "activated=true": { "model": "courageous:block/pottery_wheel_animated" },
     "": { "model": "courageous:block/pottery_wheel" }
   }
 }

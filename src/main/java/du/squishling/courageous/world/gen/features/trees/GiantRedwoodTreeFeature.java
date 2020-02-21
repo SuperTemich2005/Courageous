@@ -2,6 +2,7 @@ package du.squishling.courageous.world.gen.features.trees;
 
 import com.mojang.datafixers.Dynamic;
 import du.squishling.courageous.blocks.ModBlocks;
+import du.squishling.courageous.util.Reference;
 import du.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -27,7 +28,7 @@ public class GiantRedwoodTreeFeature extends HugeTreesFeature<NoFeatureConfig> {
         this.useBaseHeight = true;
         setSapling((net.minecraftforge.common.IPlantable)ModBlocks.REDWOOD_SAPLING);
 
-        this.setRegistryName("giant_redwood_tree");
+        this.setRegistryName(Reference.MOD_ID, "giant_redwood_tree");
         ModFeatures.FEATURES.add(this);
     }
 

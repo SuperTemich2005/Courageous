@@ -3,6 +3,7 @@ package du.squishling.courageous.world.gen.features.trees.fruit;
 import com.mojang.datafixers.Dynamic;
 import du.squishling.courageous.blocks.ModBlocks;
 import du.squishling.courageous.blocks.vegetation.HarvestableLeaves;
+import du.squishling.courageous.util.Reference;
 import du.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.*;
 import net.minecraft.state.BooleanProperty;
@@ -37,7 +38,7 @@ public class AvocadoTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
         this.leaf = leafState;
         this.vinesGrow = vinesGrowIn;
 
-        this.setRegistryName("avocado_tree");
+        this.setRegistryName(Reference.MOD_ID, "avocado_tree");
         ModFeatures.FEATURES.add(this);
     }
 
