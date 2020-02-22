@@ -15,6 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -72,10 +73,10 @@ public class PotteryWheelTileEntity extends TileEntity implements ITickableTileE
 
     // ---- Capabilities ----
     private ItemStackHandler getHandler() {
-        return new ItemStackHandler(1) {
+        return new ItemStackHandler(3) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return CLAY_VALUES_MAP.containsKey(stack.getItem());
+                return !(slot == 1) && CLAY_VALUES_MAP.containsKey(stack.getItem());
             }
 
             @Nonnull
@@ -84,20 +85,25 @@ public class PotteryWheelTileEntity extends TileEntity implements ITickableTileE
                 if (!isItemValid(slot, stack)) return stack;
                 return super.insertItem(slot, stack, simulate);
             }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                markDirty();
+            }
         };
     }
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return (LazyOptional<T>) handler;
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return handler.cast();
         return super.getCapability(cap, side);
     }
 
     // --- Container stuff ---
     @Override
     public ITextComponent getDisplayName() {
-        return (ITextComponent) new StringTextComponent("pottery_wheel");
+        return (ITextComponent) new TranslationTextComponent("block.courageous.pottery_wheel");
     }
 
     @Nullable

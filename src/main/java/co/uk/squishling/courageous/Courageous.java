@@ -1,6 +1,7 @@
 package co.uk.squishling.courageous;
 
 import co.uk.squishling.courageous.blocks.ModBlocks;
+import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelContainer;
 import co.uk.squishling.courageous.items.ModItems;
 import co.uk.squishling.courageous.util.EventHandler;
 import co.uk.squishling.courageous.util.ModBlockColors;
@@ -14,9 +15,11 @@ import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelScreen;
 import net.minecraft.block.Block;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.common.MinecraftForge;
@@ -116,11 +119,19 @@ public class Courageous {
         }
 
         @SubscribeEvent
-        public static void registerContainers(final RegistryEvent.Register<ContainerType<?>> event) {
-            LOGGER.info("Containers registry");
+        public static void registerContainerTypes(final RegistryEvent.Register<ContainerType<?>> event) {
+            LOGGER.info("Container types registry\n" + ModContainers.CONTAINER_TYPES.size());
 
-            event.getRegistry().registerAll(ModContainers.CONTAINERS.toArray(new ContainerType[ModContainers.CONTAINERS.size()]));
+            event.getRegistry().register(ModContainers.POTTERY_WHEEL_CONTAINER);
+            event.getRegistry().registerAll(ModContainers.CONTAINER_TYPES.toArray(new ContainerType[ModContainers.CONTAINER_TYPES.size()]));
         }
+
+//        @SubscribeEvent
+//        public static void registerContainers(final RegistryEvent.Register<Container> event) {
+//            LOGGER.info("Containers registry");
+//
+//            event.getRegistry().registerAll(ModContainers.CONTAINERS.toArray(new Container[ModContainers.CONTAINERS.size()]));
+//        }
 
     }
 

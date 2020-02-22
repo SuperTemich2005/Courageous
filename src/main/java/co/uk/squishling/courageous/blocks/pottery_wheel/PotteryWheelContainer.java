@@ -25,8 +25,11 @@ public class PotteryWheelContainer extends Container {
         tileEntity = world.getTileEntity(pos);
         inventory = new InvWrapper(playerInventory);
 
-        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-            addSlot(new SlotItemHandler(h, 0, 80, 14));
+        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+            addSlot(handler, 0, 80, 14);
+            addSlot(handler, 1, 80, 47);
+//            addSlot(new SlotItemHandler(handler, 0, 80, 14));
+//            addSlot(new SlotItemHandler(handler, 1, 80, 47));
         });
         layoutPlayerInventorySlots(8, 84);
     }

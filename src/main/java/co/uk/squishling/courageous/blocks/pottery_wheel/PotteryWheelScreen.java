@@ -11,8 +11,8 @@ public class PotteryWheelScreen extends ContainerScreen<PotteryWheelContainer> {
 
     private ResourceLocation GUI = new ResourceLocation(Reference.MOD_ID, "textures/gui/pottery_wheel.png");
 
-    public PotteryWheelScreen(PotteryWheelContainer container, PlayerInventory playerInventory, ITextComponent textComponent) {
-        super(container, playerInventory, textComponent);
+    public PotteryWheelScreen(PotteryWheelContainer container, PlayerInventory playerInventory, ITextComponent name) {
+        super(container, playerInventory, name);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class PotteryWheelScreen extends ContainerScreen<PotteryWheelContainer> {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.font.drawString(playerInventory.getDisplayName().getFormattedText(), 8f, (float) (ySize - 96 + 2), 4210752);
+
     }
 
     @Override

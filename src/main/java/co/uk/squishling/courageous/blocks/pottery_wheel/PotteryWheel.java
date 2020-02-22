@@ -31,7 +31,10 @@ public class PotteryWheel extends BlockBase {
             TileEntity te = world.getTileEntity(pos);
             if (te instanceof INamedContainerProvider) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) te, te.getPos());
+            } else {
+                throw new IllegalStateException("Our named container provider is missing!");
             }
+            return true;
         }
 
         return super.onBlockActivated(state, world, pos, player, hand, result);
