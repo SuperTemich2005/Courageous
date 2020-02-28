@@ -8,6 +8,7 @@ import co.uk.squishling.courageous.util.ModBlockColors;
 import co.uk.squishling.courageous.util.ModItemColors;
 import co.uk.squishling.courageous.util.Reference;
 import co.uk.squishling.courageous.util.config.ConfigHandler;
+import co.uk.squishling.courageous.util.networking.ModPacketHandler;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import co.uk.squishling.courageous.blocks.ModContainers;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
@@ -18,6 +19,7 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.biome.Biomes;
@@ -34,8 +36,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.fml.network.NetworkRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.sql.Ref;
 
 @Mod(Reference.MOD_ID)
 public class Courageous {
@@ -62,6 +67,8 @@ public class Courageous {
     // Preinit
     private void setup(final FMLCommonSetupEvent event) {
         LOGGER.info("Common setup");
+
+        ModPacketHandler.registerPackets();
 
         ModFeatures.addTree(Biomes.FOREST, ModFeatures.APPLE_TREE, 0, 0.2f, 1);
 

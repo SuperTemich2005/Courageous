@@ -16,7 +16,7 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 
 public class PotteryWheelContainer extends Container {
 
-    private TileEntity tileEntity;
+    public TileEntity tileEntity;
     private IItemHandler inventory;
 
     public PotteryWheelContainer(int windowId, World world, BlockPos pos, PlayerInventory playerInventory) {
@@ -26,10 +26,8 @@ public class PotteryWheelContainer extends Container {
         inventory = new InvWrapper(playerInventory);
 
         tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            addSlot(handler, 0, 80, 14);
-            addSlot(handler, 1, 80, 47);
-//            addSlot(new SlotItemHandler(handler, 0, 80, 14));
-//            addSlot(new SlotItemHandler(handler, 1, 80, 47));
+            addSlot(handler, 0, 47, 30);
+            addSlot(handler, 1, 113, 30);
         });
         layoutPlayerInventorySlots(8, 84);
     }

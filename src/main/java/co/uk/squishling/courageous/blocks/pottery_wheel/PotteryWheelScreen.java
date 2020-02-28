@@ -1,18 +1,25 @@
 package co.uk.squishling.courageous.blocks.pottery_wheel;
 
+import co.uk.squishling.courageous.Courageous;
 import co.uk.squishling.courageous.util.Reference;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.widget.button.Button.IPressable;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
 public class PotteryWheelScreen extends ContainerScreen<PotteryWheelContainer> {
 
     private ResourceLocation GUI = new ResourceLocation(Reference.MOD_ID, "textures/gui/pottery_wheel.png");
+    private TileEntity te;
 
     public PotteryWheelScreen(PotteryWheelContainer container, PlayerInventory playerInventory, ITextComponent name) {
         super(container, playerInventory, name);
+        te = container.tileEntity;
+
     }
 
     @Override
@@ -21,9 +28,15 @@ public class PotteryWheelScreen extends ContainerScreen<PotteryWheelContainer> {
         renderHoveredToolTip(mouseX, mouseY);
     }
 
+
+    @Override
+    protected void init() {
+        super.init();
+    }
+
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
     }
 
     @Override
