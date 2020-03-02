@@ -66,12 +66,13 @@
 
     "block.courageous.desert_shrub": "Desert Shrub",
     "block.courageous.steppe_grass": "Steppe Grass",
+    "block.courageous.bulrushes": "Bulrushes",
 
     "block.courageous.mud": "Mud",
 
-    "block.courageous.pottery_wheel": "Pottery Wheel",
+    "block.courageous.pottery_wheel": "WIP block.courageous.pottery_wheel",
 
-    "gui.courageous.pottery_wheel": "Pottery Wheel",
+    "gui.courageous.pottery_wheel": "WIP gui.courageous.pottery_wheel",
 
     "itemGroup.courageous_tab": "Courageous"
 }

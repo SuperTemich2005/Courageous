@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "half=lower": { "model": "courageous:block/bullrushes_bottom" },
+        "half=upper": [
+            { "model": "courageous:block/bullrushes_top_0" },
+            { "model": "courageous:block/bullrushes_top_1" }
+        ]
+    }
+}

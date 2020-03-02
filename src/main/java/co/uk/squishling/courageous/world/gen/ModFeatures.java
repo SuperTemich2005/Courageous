@@ -2,6 +2,7 @@ package co.uk.squishling.courageous.world.gen;
 
 import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.world.gen.features.MudLake;
+import co.uk.squishling.courageous.world.gen.features.BulrushesFeature;
 import co.uk.squishling.courageous.world.gen.features.trees.*;
 import co.uk.squishling.courageous.world.gen.features.trees.fruit.*;
 import net.minecraft.block.BlockState;
@@ -39,6 +40,7 @@ public class ModFeatures {
     public static final AbstractTreeFeature APPLE_TREE = new AppleTreeFeature(NoFeatureConfig::deserialize);
 
     public static final Feature MUD_LAKE = new MudLake(LakesConfig::deserialize);
+    public static final Feature BULRUSHES = new BulrushesFeature(SeaGrassConfig::deserialize);
 
     public static void addAlpineTrees(Biome biome) {
         addTree(biome, ALPINE_TREE, 5, 0.1f, 1);
@@ -131,8 +133,16 @@ public class ModFeatures {
         biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(state), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(frequency)));
     }
 
+    public static void addDoublePlant(Biome biome, BlockState state, int frequency) {
+        biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DOUBLE_PLANT, new DoublePlantConfig(state), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(frequency)));
+    }
+
     public static void addMudLake(Biome biome, int chance) {
         biome.addFeature(Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(MUD_LAKE, new LakesConfig(Blocks.WATER.getDefaultState()), Placement.WATER_LAKE, new LakeChanceConfig(chance)));
+    }
+
+    public static void addSeaPlant(Biome biome, Feature feature) {
+        biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(feature, new SeaGrassConfig(22, 0.6D), Placement.TOP_SOLID_HEIGHTMAP, IPlacementConfig.NO_PLACEMENT_CONFIG));
     }
 
     public static void addSwampDecoration(Biome biome) {

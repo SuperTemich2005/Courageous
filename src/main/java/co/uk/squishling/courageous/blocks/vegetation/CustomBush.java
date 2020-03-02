@@ -4,6 +4,7 @@ import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.items.ModItems;
 import co.uk.squishling.courageous.tabs.Tab;
 import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.lib.DefaultBlockProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -23,13 +24,11 @@ public class CustomBush extends BushBlock implements IShearable {
 
     public CustomBush(String name, VoxelShape shape, Block... acceptedBlocks) {
         super(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.WOOD).doesNotBlockMovement().sound(SoundType.PLANT).hardnessAndResistance(0));
-        setRegistryName(Reference.MOD_ID, name);
 
         this.acceptedBlocks = acceptedBlocks;
         this.shape = shape;
 
-        ModBlocks.BLOCKS.add(this);
-        ModItems.ITEMS.add(new BlockItem(this, new Item.Properties().group(Tab.COURAGEOUS_GROUP)).setRegistryName(new ResourceLocation(Reference.MOD_ID, name)));
+        DefaultBlockProperties.defaults(this, name);
     }
 
     public CustomBush(String name, VoxelShape shape) {

@@ -27,14 +27,10 @@ public class HarvestableLeaves extends CustomLeaves {
     private int min = 1;
     private int max = 2;
 
-    public HarvestableLeaves(String name, Item[] drops, Item item) {
-        super(name, drops);
+    public HarvestableLeaves(String name, Item item) {
+        super(name);
         this.setDefaultState(this.stateContainer.getBaseState().with(GROWN, false));
         this.item = item;
-    }
-
-    public HarvestableLeaves(String name, Item item) {
-        this(name, new Item[0], item);
     }
 
     public boolean ticksRandomly(BlockState state) {

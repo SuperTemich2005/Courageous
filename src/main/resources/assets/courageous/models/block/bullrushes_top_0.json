@@ -1,0 +1,7 @@
+{
+    "parent": "block/seagrass",
+    "textures": {
+        "seagrass": "courageous:block/bullrushes_top",
+        "particle": "courageous:block/bullrushes_top"
+    }
+}

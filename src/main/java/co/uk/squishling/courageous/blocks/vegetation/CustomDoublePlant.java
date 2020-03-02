@@ -6,18 +6,24 @@ import co.uk.squishling.courageous.tabs.Tab;
 import co.uk.squishling.courageous.util.Reference;
 import co.uk.squishling.courageous.util.lib.DefaultBlockProperties;
 import net.minecraft.block.Block;
-import net.minecraft.block.LogBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
+import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 
-public class CustomLog extends LogBlock {
+import javax.annotation.Nullable;
 
-    public CustomLog(String name, MaterialColor color) {
-        super(color, Block.Properties.create(Material.WOOD, color).hardnessAndResistance(2.0F).sound(SoundType.WOOD));
+public class CustomDoublePlant extends DoublePlantBlock {
+
+    public CustomDoublePlant(String name) {
+        super(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT));
         DefaultBlockProperties.defaults(this, name);
     }
 

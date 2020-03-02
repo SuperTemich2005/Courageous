@@ -1,5 +1,6 @@
 package co.uk.squishling.courageous.world.gen.biomes;
 
+import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -33,6 +34,9 @@ public class BiomeWetlands extends Biome {
         ModFeatures.addMudLake(this, 1);
         ModFeatures.addMudLake(this, 2);
         ModFeatures.addSwampDecoration(this);
+
+        ModFeatures.addSeaPlant(this, ModFeatures.BULRUSHES);
+        ModFeatures.addDoublePlant(this, ModBlocks.BULRUSHES.getDefaultState(), 190);
 
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.PIG, 10, 4, 4));

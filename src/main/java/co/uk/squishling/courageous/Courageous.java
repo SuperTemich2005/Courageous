@@ -1,7 +1,7 @@
 package co.uk.squishling.courageous;
 
 import co.uk.squishling.courageous.blocks.ModBlocks;
-import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelContainer;
+//import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelContainer;
 import co.uk.squishling.courageous.items.ModItems;
 import co.uk.squishling.courageous.util.EventHandler;
 import co.uk.squishling.courageous.util.ModBlockColors;
@@ -12,7 +12,7 @@ import co.uk.squishling.courageous.util.networking.ModPacketHandler;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import co.uk.squishling.courageous.blocks.ModContainers;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
-import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelScreen;
+//import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelScreen;
 import net.minecraft.block.Block;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.client.gui.ScreenManager;
@@ -89,7 +89,7 @@ public class Courageous {
         ModBlockColors.registerBlockColors();
         ModItemColors.registerItemColors();
 
-        ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
+//        ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
     }
 
     @EventBusSubscriber(bus=Bus.MOD)
@@ -129,7 +129,7 @@ public class Courageous {
         public static void registerContainerTypes(final RegistryEvent.Register<ContainerType<?>> event) {
             LOGGER.info("Container types registry\n" + ModContainers.CONTAINER_TYPES.size());
 
-            event.getRegistry().register(ModContainers.POTTERY_WHEEL_CONTAINER);
+//            event.getRegistry().register(ModContainers.POTTERY_WHEEL_CONTAINER);
             event.getRegistry().registerAll(ModContainers.CONTAINER_TYPES.toArray(new ContainerType[ModContainers.CONTAINER_TYPES.size()]));
         }
 

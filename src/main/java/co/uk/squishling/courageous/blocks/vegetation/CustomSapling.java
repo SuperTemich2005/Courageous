@@ -5,6 +5,7 @@ import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.items.ModItems;
 import co.uk.squishling.courageous.tabs.Tab;
 import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.lib.DefaultBlockProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.trees.Tree;
@@ -28,10 +29,7 @@ public class CustomSapling extends SaplingBlock implements IGrowable {
 
     public CustomSapling(String name, Tree tree) {
         super(tree, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().sound(SoundType.PLANT).hardnessAndResistance(0));
-        this.setRegistryName(Reference.MOD_ID, name);
-
-        ModBlocks.BLOCKS.add(this);
-        ModItems.ITEMS.add(new BlockItem(this, new Item.Properties().group(Tab.COURAGEOUS_GROUP)).setRegistryName(new ResourceLocation(Reference.MOD_ID, name)));
+        DefaultBlockProperties.defaults(this, name);
 
         this.tree = tree;
     }

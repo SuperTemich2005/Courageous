@@ -1,14 +1,12 @@
 package co.uk.squishling.courageous.blocks;
 
-import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheel;
+//import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheel;
 import co.uk.squishling.courageous.blocks.vegetation.*;
 import co.uk.squishling.courageous.trees.*;
 import co.uk.squishling.courageous.items.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 
 import java.util.ArrayList;
@@ -18,7 +16,7 @@ public class ModBlocks {
     public static ArrayList<Block> BLOCKS = new ArrayList<Block>();
 
     public static final Block PALM_SAPLING = new CustomSapling("palm_sapling", new PalmTree());
-    public static final Block PALM_LEAVES = new CustomLeaves("palm_leaves", new BlockItem(PALM_SAPLING, new Item.Properties()));
+    public static final Block PALM_LEAVES = new CustomLeaves("palm_leaves");
     public static final Block PALM_LOG = new CustomLog("palm_log", MaterialColor.SAND);
     public static final Block STRIPPED_PALM_LOG = new CustomLog("stripped_palm_log", MaterialColor.SAND);
     public static final Block PALM_WOOD = new CustomWood("palm_wood", MaterialColor.SAND);
@@ -56,7 +54,7 @@ public class ModBlocks {
     public static final Block MAPLE_PLANKS = new CustomPlanks("maple_planks");
 
     public static final Block REDWOOD_SAPLING = new CustomSapling("redwood_sapling", new RedwoodTree()).setShape(Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 15.0D, 12.0D));
-    public static final Block REDWOOD_LEAVES = new CustomLeaves("redwood_leaves", new BlockItem(REDWOOD_SAPLING, new Item.Properties()));
+    public static final Block REDWOOD_LEAVES = new CustomLeaves("redwood_leaves");
     public static final Block REDWOOD_LOG = new CustomLog("redwood_log", MaterialColor.ADOBE);
     public static final Block STRIPPED_REDWOOD_LOG = new CustomLog("stripped_redwood_log", MaterialColor.ADOBE);
     public static final Block REDWOOD_WOOD = new CustomWood("redwood_wood", MaterialColor.ADOBE);
@@ -64,17 +62,18 @@ public class ModBlocks {
     public static final Block REDWOOD_PLANKS = new CustomPlanks("redwood_planks");
 
     public static final Block ALPINE_SAPLING = new CustomSapling("alpine_sapling", new AlpineTree()).setShape(Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 15.0D, 12.0D));
-    public static final Block ALPINE_LEAVES = new CustomLeaves("alpine_leaves", new BlockItem(ALPINE_SAPLING, new Item.Properties()));
+    public static final Block ALPINE_LEAVES = new CustomLeaves("alpine_leaves");
 
     public static final Block DOUGLAS_FIR_SAPLING = new CustomSapling("douglas_fir_sapling", new DouglasFirTree()).setShape(Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 15.0D, 12.0D));
-    public static final Block DOUGLAS_FIR_LEAVES = new CustomLeaves("douglas_fir_leaves", new BlockItem(DOUGLAS_FIR_SAPLING, new Item.Properties()));
+    public static final Block DOUGLAS_FIR_LEAVES = new CustomLeaves("douglas_fir_leaves");
 
     public static final Block DESERT_SHRUB = new CustomBush("desert_shrub", Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D), Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.SAND, Blocks.RED_SAND);
     public static final Block STEPPE_GRASS = new CustomBush("steppe_grass", Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D), Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.SAND, Blocks.RED_SAND);
+    public static final Block BULRUSHES = new Bulrushes();
 
     public static final Block FALLEN_LEAVES = new FallenLeaves();
 
-    public static final Block POTTERY_WHEEL = new PotteryWheel();
+//    public static final Block POTTERY_WHEEL = new PotteryWheel();
 
     public static final Block MUD = new MudBlock();
 
