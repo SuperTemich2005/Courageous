@@ -14,8 +14,6 @@ import java.util.function.Function;
 
 public class SnowyMountainSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
 
-    public static final PerlinNoiseGenerator noiseGen = new PerlinNoiseGenerator(new Random(8544l), 4);
-
     public static final SurfaceBuilderConfig SNOW_SNOW_GRAVEL_CONFIG = new SurfaceBuilderConfig(Blocks.SNOW_BLOCK.getDefaultState(), Blocks.SNOW_BLOCK.getDefaultState(), Blocks.GRAVEL.getDefaultState());
 
     public SnowyMountainSurfaceBuilder(Function<Dynamic<?>, ? extends SurfaceBuilderConfig> deserializer) {

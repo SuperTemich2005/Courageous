@@ -7,7 +7,6 @@ import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.io.File;
 import java.nio.file.Path;
 
 public class ConfigHandler {

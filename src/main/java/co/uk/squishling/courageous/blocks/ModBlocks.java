@@ -1,6 +1,6 @@
 package co.uk.squishling.courageous.blocks;
 
-//import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheel;
+import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheel;
 import co.uk.squishling.courageous.blocks.vegetation.*;
 import co.uk.squishling.courageous.trees.*;
 import co.uk.squishling.courageous.items.ModItems;
@@ -73,7 +73,7 @@ public class ModBlocks {
 
     public static final Block FALLEN_LEAVES = new FallenLeaves();
 
-//    public static final Block POTTERY_WHEEL = new PotteryWheel();
+    public static final Block POTTERY_WHEEL = new PotteryWheel();
 
     public static final Block MUD = new MudBlock();
 

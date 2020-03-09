@@ -1,15 +1,11 @@
 package co.uk.squishling.courageous.util.networking;
 
 import co.uk.squishling.courageous.util.Reference;
-import co.uk.squishling.courageous.util.networking.IPacket;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.InterModComms.IMCMessage;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-import org.lwjgl.system.CallbackI.I;
-import org.lwjgl.system.CallbackI.P;
 
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -32,7 +28,7 @@ public class ModPacketHandler {
     }
 
     public static void registerPackets() {
-        registerMessage(PacketButtonSelect.class, PacketButtonSelect::toBytes, PacketButtonSelect::new, PacketButtonSelect::handle);
+        registerMessage(PacketPotterySelect.class, PacketPotterySelect::toBytes, PacketPotterySelect::new, PacketPotterySelect::handle);
     }
 
 }

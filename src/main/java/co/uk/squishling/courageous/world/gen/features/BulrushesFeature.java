@@ -6,7 +6,6 @@ import co.uk.squishling.courageous.world.gen.ModFeatures;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.IWaterLoggable;
 import net.minecraft.block.TallSeaGrassBlock;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;

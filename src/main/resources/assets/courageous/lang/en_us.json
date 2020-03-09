@@ -10,6 +10,44 @@
 
     "item.courageous.mud_ball": "Mud Ball",
 
+    "item.courageous.unfired_amphora": "Unfired Amphora",
+    "item.courageous.unfired_black_amphora": "Unfired Black Amphora",
+    "item.courageous.unfired_brown_amphora": "Unfired Brown Amphora",
+    "item.courageous.unfired_blue_amphora": "Unfired Blue Amphora",
+    "item.courageous.unfired_cyan_amphora": "Unfired Cyan Amphora",
+    "item.courageous.unfired_gray_amphora": "Unfired Gray Amphora",
+    "item.courageous.unfired_green_amphora": "Unfired Green Amphora",
+    "item.courageous.unfired_light_blue_amphora": "Unfired Light Blue Amphora",
+    "item.courageous.unfired_light_gray_amphora": "Unfired Light Gray Amphora",
+    "item.courageous.unfired_lime_amphora": "Unfired Lime Amphora",
+    "item.courageous.unfired_magenta_amphora": "Unfired Magenta Amphora",
+    "item.courageous.unfired_orange_amphora": "Unfired Orange Amphora",
+    "item.courageous.unfired_pink_amphora": "Unfired Pink Amphora",
+    "item.courageous.unfired_purple_amphora": "Unfired Purple Amphora",
+    "item.courageous.unfired_red_amphora": "Unfired Red Amphora",
+    "item.courageous.unfired_white_amphora": "Unfired White Amphora",
+    "item.courageous.unfired_yellow_amphora": "Unfired Yellow Amphora",
+
+
+    "item.courageous.amphora": "Amphora",
+    "item.courageous.black_amphora": "Black Amphora",
+    "item.courageous.brown_amphora": "Brown Amphora",
+    "item.courageous.blue_amphora": "Blue Amphora",
+    "item.courageous.cyan_amphora": "Cyan Amphora",
+    "item.courageous.gray_amphora": "Gray Amphora",
+    "item.courageous.green_amphora": "Green Amphora",
+    "item.courageous.light_blue_amphora": "Light Blue Amphora",
+    "item.courageous.light_gray_amphora": "Light Gray Amphora",
+    "item.courageous.lime_amphora": "Lime Amphora",
+    "item.courageous.magenta_amphora": "Magenta Amphora",
+    "item.courageous.orange_amphora": "Orange Amphora",
+    "item.courageous.pink_amphora": "Pink Amphora",
+    "item.courageous.purple_amphora": "Purple Amphora",
+    "item.courageous.red_amphora": "Red Amphora",
+    "item.courageous.white_amphora": "White Amphora",
+    "item.courageous.yellow_amphora": "Yellow Amphora",
+
+
     "block.courageous.fallen_leaves": "Fallen Leaves",
 
     "block.courageous.alpine_leaves": "Alpine Leaves",
@@ -70,9 +108,7 @@
 
     "block.courageous.mud": "Mud",
 
-    "block.courageous.pottery_wheel": "WIP block.courageous.pottery_wheel",
-
-    "gui.courageous.pottery_wheel": "WIP gui.courageous.pottery_wheel",
+    "block.courageous.pottery_wheel": "Pottery Wheel",
 
     "itemGroup.courageous_tab": "Courageous"
 }

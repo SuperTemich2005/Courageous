@@ -1,7 +1,8 @@
 package co.uk.squishling.courageous;
 
 import co.uk.squishling.courageous.blocks.ModBlocks;
-//import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelContainer;
+import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelScreen;
+import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTileEntity;
 import co.uk.squishling.courageous.items.ModItems;
 import co.uk.squishling.courageous.util.EventHandler;
 import co.uk.squishling.courageous.util.ModBlockColors;
@@ -12,21 +13,27 @@ import co.uk.squishling.courageous.util.networking.ModPacketHandler;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import co.uk.squishling.courageous.blocks.ModContainers;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
-//import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelScreen;
 import net.minecraft.block.Block;
 import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.client.resources.ClientResourcePackInfo;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
-import net.minecraft.network.NetworkManager;
+import net.minecraft.item.Items;
+import net.minecraft.resources.*;
+import net.minecraft.resources.ResourcePackInfo.IFactory;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -35,12 +42,16 @@ import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.fml.network.NetworkRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Ref;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
 
 @Mod(Reference.MOD_ID)
 public class Courageous {
@@ -62,6 +73,8 @@ public class Courageous {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new EventHandler());
+
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> this::injectResourcePack);
     }
 
     // Preinit
@@ -81,15 +94,35 @@ public class Courageous {
 
         EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.REDWOOD_LOG, (RotatedPillarBlock) ModBlocks.STRIPPED_REDWOOD_LOG);
         EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.REDWOOD_WOOD, (RotatedPillarBlock) ModBlocks.STRIPPED_REDWOOD_WOOD);
+
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.BROWN_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.BLACK_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.BLUE_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.CYAN_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.GRAY_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.GREEN_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.LIGHT_BLUE_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.LIGHT_GRAY_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.LIME_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.MAGENTA_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.ORANGE_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.PINK_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.PURPLE_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.RED_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.WHITE_UNFIRED_AMPHORA);
+//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.YELLOW_UNFIRED_AMPHORA);
     }
 
     private void clientRegistry(final FMLClientSetupEvent event) {
         LOGGER.info("Client setup");
 
+//        injectResourcePack();
+
         ModBlockColors.registerBlockColors();
         ModItemColors.registerItemColors();
 
-//        ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
+        ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
     }
 
     @EventBusSubscriber(bus=Bus.MOD)
@@ -127,18 +160,67 @@ public class Courageous {
 
         @SubscribeEvent
         public static void registerContainerTypes(final RegistryEvent.Register<ContainerType<?>> event) {
-            LOGGER.info("Container types registry\n" + ModContainers.CONTAINER_TYPES.size());
+            LOGGER.info("Container types registry");
 
-//            event.getRegistry().register(ModContainers.POTTERY_WHEEL_CONTAINER);
-            event.getRegistry().registerAll(ModContainers.CONTAINER_TYPES.toArray(new ContainerType[ModContainers.CONTAINER_TYPES.size()]));
+            event.getRegistry().register(ModContainers.POTTERY_WHEEL_CONTAINER);
         }
 
-//        @SubscribeEvent
-//        public static void registerContainers(final RegistryEvent.Register<Container> event) {
-//            LOGGER.info("Containers registry");
-//
-//            event.getRegistry().registerAll(ModContainers.CONTAINERS.toArray(new Container[ModContainers.CONTAINERS.size()]));
-//        }
+    }
+
+    public void injectResourcePack() {
+        LOGGER.error("AAAAAA");
+        Minecraft mc = Minecraft.getInstance();
+        if (mc == null) return;
+        LOGGER.error("BBBBBB");
+        try {
+            LOGGER.error("CCCCCC");
+            File resourcesFolder = FMLLoader.getLoadingModList().getModFileById(Reference.MOD_ID).getFile().findResource("overrides.zip").toFile();
+
+            if (!resourcesFolder.exists() && !resourcesFolder.mkdirs()) return;
+            if (!resourcesFolder.exists() || !resourcesFolder.isDirectory()) return;
+            LOGGER.error("DDDDDD");
+            final String id = "courageous_mc_override";
+            final ITextComponent name = new StringTextComponent("Courageous' Minecraft Override Resources");
+            final ITextComponent description = new StringTextComponent("Resources that override vanilla, such as the main menu panorama.");
+
+            final IResourcePack pack = new FilePack(resourcesFolder) {
+                String prefix = "assets/minecraft/";
+
+                @Override
+                protected InputStream getInputStream(String resourcePath) throws IOException {
+                    if ("pack.mcmeta".equals(resourcePath))
+                        return new ByteArrayInputStream(("{\"pack\":{\"description\": \"dummy\",\"pack_format\": 4}}").getBytes(StandardCharsets.UTF_8));
+                    if (!resourcePath.startsWith(prefix)) throw new FileNotFoundException(resourcePath);
+
+                    return super.getInputStream(resourcePath);
+                }
+
+                @Override
+                public boolean resourceExists(String resourcePath) {
+                    if ("pack.mcmeta".equals(resourcePath)) return true;
+                    if (!resourcePath.startsWith(prefix)) return false;
+
+                    return super.resourceExists(resourcePath);
+                }
+
+                @Override
+                public Set<String> getResourceNamespaces(ResourcePackType type) {
+                    return Collections.singleton("minecraft");
+                }
+            };
+
+            mc.getResourcePackList().addPackFinder(new IPackFinder() {
+                @Override
+                public <T extends ResourcePackInfo> void addPackInfosToMap(Map<String, T> nameToPackMap, IFactory<T> packInfoFactory) {
+                    nameToPackMap.put(id, (T) new ClientResourcePackInfo(id, true, () ->
+                            pack, name, description, PackCompatibility.COMPATIBLE, ResourcePackInfo.Priority.BOTTOM, true, null, false
+                    ));
+                }
+            });
+        } catch (Exception e) {
+            LOGGER.error("HJHJHJHJHJ");
+            e.printStackTrace();
+        }
 
     }
 

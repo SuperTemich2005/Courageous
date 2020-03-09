@@ -20,7 +20,7 @@ loaderVersion="[28,)" #mandatory (28 is current forge version)
 modId="courageous" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="Alpha 1.1" #mandatory
+version="${version}" #mandatory
 
  # A display name for the mod
 displayName="Courageous" #mandatory
@@ -36,8 +36,9 @@ displayURL="https://discord.gg/wtHw4zy" #optional
 
 # A text field displayed in the mod UI
 credits='''
+
 Artists
-=======
+======
 TheMasterwight20025
 Squishling
 Ilyass
@@ -47,7 +48,7 @@ BeardieButt
 InterPlay
 
 Builders
-========
+=======
 Squishling
 ilja615
 
@@ -56,14 +57,9 @@ Programmers
 Squishling
 
 Modellers
-=========
+========
 BeardieButt
 Squishling
-
-
-Brainstormers
-=============
-https://discord.gg/wtHw4zy
 '''
 
 # A text field displayed in the mod UI
