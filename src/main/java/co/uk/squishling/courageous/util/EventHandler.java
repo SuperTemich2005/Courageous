@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
@@ -19,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
@@ -76,15 +78,28 @@ public class EventHandler {
         });
     }
 
+    //Panorama Replacement
+    //Remove the code here to prevent it switching every time you switch back to the main menu
+    @SubscribeEvent
+    public static void onMenuOpenEvent(GuiOpenEvent event) {
+        if (event.getGui() instanceof MainMenuScreen) {
+            Courageous.trySetRandomPanorama();
+        }
+    }
+
+    private float func_213335_r(float p_213335_1_, LivingEntity entity) {
+        return entity.onGround ? entity.getAIMoveSpeed() * (0.21600002F / (p_213335_1_ * p_213335_1_ * p_213335_1_)) : entity.jumpMovementFactor;
+    }
+
     // Entity stuff
     private Vec3d func_213362_f(LivingEntity entity) {
         Vec3d p_213362_1_ = entity.getMotion();
         if (entity.isOnLadder()) {
             entity.fallDistance = 0.0F;
             float f = 0.15F;
-            double d0 = MathHelper.clamp(p_213362_1_.x, (double)-0.15F, (double)0.15F);
-            double d1 = MathHelper.clamp(p_213362_1_.z, (double)-0.15F, (double)0.15F);
-            double d2 = Math.max(p_213362_1_.y, (double)-0.15F);
+            double d0 = MathHelper.clamp(p_213362_1_.x, -0.15F, 0.15F);
+            double d1 = MathHelper.clamp(p_213362_1_.z, -0.15F, 0.15F);
+            double d2 = Math.max(p_213362_1_.y, -0.15F);
             if (d2 < 0.0D && entity.getBlockState().getBlock() != Blocks.SCAFFOLDING && entity.isSneaking() && entity instanceof PlayerEntity) {
                 d2 = 0.0D;
             }
@@ -94,9 +109,4 @@ public class EventHandler {
 
         return p_213362_1_;
     }
-
-    private float func_213335_r(float p_213335_1_, LivingEntity entity) {
-        return entity.onGround ? entity.getAIMoveSpeed() * (0.21600002F / (p_213335_1_ * p_213335_1_ * p_213335_1_)) : entity.jumpMovementFactor;
-    }
-
 }
