@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "courageous:block/architects_table/architects_table_side",
+        "down":     "block/dark_oak_trapdoor",
+        "up":       "courageous:block/architects_table/architects_table_top",
+        "north":    "courageous:block/architects_table/architects_table_side",
+        "east":     "courageous:block/architects_table/architects_table_side",
+        "south":    "courageous:block/architects_table/architects_table_side",
+        "west":     "courageous:block/architects_table/architects_table_side"
+    }
+}

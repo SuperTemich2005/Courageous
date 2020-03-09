@@ -119,7 +119,7 @@ jar {
             "Specification-Vendor": "squishling",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
+            "Implementation-Version": "Alpha 1.2",
             "Implementation-Vendor" :"squishling",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])

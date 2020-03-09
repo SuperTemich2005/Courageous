@@ -23,6 +23,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.resources.*;
 import net.minecraft.resources.ResourcePackInfo.IFactory;
+import net.minecraft.resources.ResourcePackInfo.Priority;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -44,6 +45,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.fml.loading.moddiscovery.ModFile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -95,7 +97,7 @@ public class Courageous {
         EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.REDWOOD_LOG, (RotatedPillarBlock) ModBlocks.STRIPPED_REDWOOD_LOG);
         EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.REDWOOD_WOOD, (RotatedPillarBlock) ModBlocks.STRIPPED_REDWOOD_WOOD);
 
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_AMPHORA);
+        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_AMPHORA);
 //        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.BROWN_UNFIRED_AMPHORA);
 //        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.BLACK_UNFIRED_AMPHORA);
 //        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.BLUE_UNFIRED_AMPHORA);
@@ -168,28 +170,25 @@ public class Courageous {
     }
 
     public void injectResourcePack() {
-        LOGGER.error("AAAAAA");
         Minecraft mc = Minecraft.getInstance();
         if (mc == null) return;
-        LOGGER.error("BBBBBB");
+
         try {
-            LOGGER.error("CCCCCC");
-            File resourcesFolder = FMLLoader.getLoadingModList().getModFileById(Reference.MOD_ID).getFile().findResource("overrides.zip").toFile();
+            File resourcesFolder = FMLLoader.getLoadingModList().getModFileById(Reference.MOD_ID).getFile().findResource("overrides").toFile();
 
             if (!resourcesFolder.exists() && !resourcesFolder.mkdirs()) return;
             if (!resourcesFolder.exists() || !resourcesFolder.isDirectory()) return;
-            LOGGER.error("DDDDDD");
+
             final String id = "courageous_mc_override";
             final ITextComponent name = new StringTextComponent("Courageous' Minecraft Override Resources");
             final ITextComponent description = new StringTextComponent("Resources that override vanilla, such as the main menu panorama.");
 
-            final IResourcePack pack = new FilePack(resourcesFolder) {
+            final IResourcePack pack = new FolderPack(resourcesFolder) {
                 String prefix = "assets/minecraft/";
 
                 @Override
                 protected InputStream getInputStream(String resourcePath) throws IOException {
-                    if ("pack.mcmeta".equals(resourcePath))
-                        return new ByteArrayInputStream(("{\"pack\":{\"description\": \"dummy\",\"pack_format\": 4}}").getBytes(StandardCharsets.UTF_8));
+                    if ("pack.mcmeta".equals(resourcePath)) return new ByteArrayInputStream(("{\"pack\":{\"description\": \"dummy\",\"pack_format\": 4}}").getBytes(StandardCharsets.UTF_8));
                     if (!resourcePath.startsWith(prefix)) throw new FileNotFoundException(resourcePath);
 
                     return super.getInputStream(resourcePath);
@@ -209,19 +208,17 @@ public class Courageous {
                 }
             };
 
-            mc.getResourcePackList().addPackFinder(new IPackFinder() {
+            Minecraft.getInstance().getResourcePackList().addPackFinder(new IPackFinder() {
                 @Override
                 public <T extends ResourcePackInfo> void addPackInfosToMap(Map<String, T> nameToPackMap, IFactory<T> packInfoFactory) {
                     nameToPackMap.put(id, (T) new ClientResourcePackInfo(id, true, () ->
-                            pack, name, description, PackCompatibility.COMPATIBLE, ResourcePackInfo.Priority.BOTTOM, true, null, false
+                            pack, name, description, PackCompatibility.COMPATIBLE, Priority.TOP, false, null, false
                     ));
                 }
             });
         } catch (Exception e) {
-            LOGGER.error("HJHJHJHJHJ");
             e.printStackTrace();
         }
-
     }
 
 }

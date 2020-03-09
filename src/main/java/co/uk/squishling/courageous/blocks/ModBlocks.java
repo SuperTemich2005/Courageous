@@ -6,6 +6,7 @@ import co.uk.squishling.courageous.trees.*;
 import co.uk.squishling.courageous.items.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.Items;
 
@@ -74,6 +75,7 @@ public class ModBlocks {
     public static final Block FALLEN_LEAVES = new FallenLeaves();
 
     public static final Block POTTERY_WHEEL = new PotteryWheel();
+    public static final Block ARCHITECTS_TABLE = new BlockBase("architects_table", Material.WOOD);
 
     public static final Block MUD = new MudBlock();
 

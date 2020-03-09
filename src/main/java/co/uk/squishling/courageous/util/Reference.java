@@ -5,8 +5,6 @@ import net.minecraft.world.World;
 public class Reference {
 
     public static final String MOD_ID = "courageous";
-    public static final String NAME = "Courageous";
-    public static final String VERSION = "Alpha 1.1";
 
     public static boolean isClient(World world) {
         return world.isRemote;
