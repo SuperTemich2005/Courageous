@@ -8,22 +8,15 @@ import net.minecraft.item.ItemStack;
 
 public class Tab extends ItemGroup {
 
-    public static final ItemGroup COURAGEOUS_GROUP = new Tab("courageous_tab", ModItems.PEAR);
+    public static final ItemGroup COURAGEOUS_GROUP = new Tab("courageous_tab");
 
-    private ItemStack icon;
-
-    public Tab(String name, Item icon) {
-        this(name, new ItemStack(icon));
-    }
-
-    public Tab(String name, ItemStack icon) {
+    public Tab(String name) {
         super(name);
-        this.icon = icon;
     }
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks.PEAR_SAPLING);
+        return new ItemStack(ModItems.AMPHORA);
     }
 
 }

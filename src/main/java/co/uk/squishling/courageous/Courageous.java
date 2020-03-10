@@ -180,8 +180,8 @@ public class Courageous {
             if (!resourcesFolder.exists() || !resourcesFolder.isDirectory()) return;
 
             final String id = "courageous_mc_override";
-            final ITextComponent name = new StringTextComponent("Courageous' Minecraft Override Resources");
-            final ITextComponent description = new StringTextComponent("Resources that override vanilla, such as the main menu panorama.");
+            final ITextComponent name = new StringTextComponent("Courageous' Panorama");
+            final ITextComponent description = new StringTextComponent("Custom main menu panorama.");
 
             final IResourcePack pack = new FolderPack(resourcesFolder) {
                 String prefix = "assets/minecraft/";
