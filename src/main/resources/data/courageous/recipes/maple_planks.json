@@ -3,7 +3,7 @@
   "group": "planks",
   "ingredients": [
     {
-      "tag": "courageous:maple_logs"
+      "tag": "courageous:logs/maple_logs"
     }
   ],
   "result": {

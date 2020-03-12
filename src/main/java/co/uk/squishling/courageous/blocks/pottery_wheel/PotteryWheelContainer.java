@@ -3,6 +3,7 @@ package co.uk.squishling.courageous.blocks.pottery_wheel;
 import co.uk.squishling.courageous.blocks.IHasTileEntity;
 import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.blocks.ModContainers;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -37,13 +38,19 @@ public class PotteryWheelContainer extends Container implements IHasTileEntity {
 
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerIn, ModBlocks.POTTERY_WHEEL);
+        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerIn, (Block) ModBlocks.POTTERY_WHEEL);
     }
 
-    @Override
-    protected boolean mergeItemStack(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
-        return super.mergeItemStack(stack, startIndex, endIndex, reverseDirection);
-    }
+//    @Override
+//    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+//        ItemStack oldStack = ItemStack.EMPTY;
+//        Slot slot = inventorySlots.get(index);
+//
+//        if (slot != null && slot.getHasStack()) {
+//            ItemStack stack = slot.getStack();
+//            oldStack = stack.copy();
+//        }
+//    }
 
     @Override
     public boolean canMergeSlot(ItemStack stack, Slot slotIn) {

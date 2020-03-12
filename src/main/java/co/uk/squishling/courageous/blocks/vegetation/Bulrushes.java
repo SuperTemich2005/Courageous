@@ -1,6 +1,8 @@
 package co.uk.squishling.courageous.blocks.vegetation;
 
+import co.uk.squishling.courageous.blocks.IBlock;
 import co.uk.squishling.courageous.blocks.ModBlocks;
+import co.uk.squishling.courageous.tabs.WorldTab;
 import co.uk.squishling.courageous.util.lib.DefaultBlockProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -8,6 +10,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer.Builder;
@@ -23,7 +26,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class Bulrushes extends ShearableDoublePlantBlock implements IWaterLoggable {
+public class Bulrushes extends ShearableDoublePlantBlock implements IWaterLoggable, IBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -93,4 +96,8 @@ public class Bulrushes extends ShearableDoublePlantBlock implements IWaterLoggab
         }
     }
 
+    @Override
+    public ItemGroup getTab() {
+        return WorldTab.WORLD;
+    }
 }

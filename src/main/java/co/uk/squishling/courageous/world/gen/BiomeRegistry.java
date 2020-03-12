@@ -64,7 +64,7 @@ public class BiomeRegistry {
         REDWOOD_FOREST = registerBiome(new BiomeRedwoodForest(), BiomeType.COOL, "redwood_forest", 10, Type.FOREST, Type.CONIFEROUS, Type.WET, Type.DENSE);
         DOUGLAS_FIR_FOREST = registerBiome(new BiomeDouglasFirForest(), BiomeType.COOL, "douglas_fir_forest", 12, Type.FOREST, Type.CONIFEROUS, Type.DENSE, Type.COLD);
 
-        TUNDRA = registerBiome(new BiomeTundra(), BiomeType.ICY, "tundra", 12, Type.COLD, Type.SPARSE, Type.DRY, Type.PLAINS, Type.SNOWY);
+        TUNDRA = registerBiome(new BiomeTundra(), BiomeType.ICY, "tundra", 1, Type.COLD, Type.SPARSE, Type.DRY, Type.PLAINS, Type.SNOWY);
 
         LUSH_DESERT = registerBiome(new BiomeLushDesert(), BiomeType.DESERT, "lush_desert", 10, Type.LUSH, Type.DRY, Type.HILLS, Type.HOT, Type.SANDY);
         STEPPE = registerBiome(new BiomeSteppe(), BiomeType.DESERT, "steppe", 12, Type.PLAINS, Type.DRY, Type.SPARSE, Type.HOT, Type.SAVANNA, Type.SANDY);

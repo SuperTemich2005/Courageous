@@ -3,6 +3,7 @@ package co.uk.squishling.courageous.blocks;
 import co.uk.squishling.courageous.util.lib.DefaultBlockProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.ItemGroup;
 
 public class BlockBase extends Block {
 

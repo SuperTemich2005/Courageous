@@ -3,7 +3,7 @@
   "group": "planks",
   "ingredients": [
     {
-      "tag": "courageous:redwood_logs"
+      "tag": "courageous:logs/redwood_logs"
     }
   ],
   "result": {

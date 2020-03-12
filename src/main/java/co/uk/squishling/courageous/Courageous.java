@@ -1,5 +1,6 @@
 package co.uk.squishling.courageous;
 
+import co.uk.squishling.courageous.blocks.IBlock;
 import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.blocks.ModContainers;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
@@ -21,6 +22,7 @@ import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.renderer.RenderSkyboxCube;
 import net.minecraft.client.resources.ClientResourcePackInfo;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.resources.*;
 import net.minecraft.resources.ResourcePackInfo.IFactory;
@@ -52,6 +54,7 @@ import net.minecraftforge.fml.packs.ModFileResourcePack;
 import net.minecraftforge.fml.packs.ResourcePackLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.system.CallbackI.B;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -80,8 +83,6 @@ public class Courageous {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new EventHandler());
-
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> this::injectResourcePack);
     }
 
     // Preinit
@@ -121,31 +122,18 @@ public class Courageous {
 //        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.YELLOW_UNFIRED_AMPHORA);
     }
 
-    public static void trySetRandomPanorama() {
-        //Get this mod's resource pack
-        Optional<ModFileResourcePack> optionalResourcePack = ResourcePackLoader.getResourcePackFor(Reference.MOD_ID);
-        //If found, try replacing the panorama
-        if (optionalResourcePack.isPresent()) {
-            //First of all, get the actual resource pack
-            ModFileResourcePack resourcePack = optionalResourcePack.get();
-            //Then, get a set of subfolders from the panoramas directory
-            Set<String> folders = getSubfoldersFromDirectory(resourcePack.getModFile(), "assets/" + Reference.MOD_ID + "/panoramas");
-            //If there's at least 1 such folder, replace the panorama
-            if (folders.size() > 0) {
-                //Get a random panorama from the list of folders
-                String chosenPanorama = (String) folders.toArray()[new Random().nextInt(folders.size())];
-                //Generate a base resource location for it
-                ResourceLocation panoramaLoc = new ResourceLocation(Reference.MOD_ID, "panoramas/" + chosenPanorama + "/panorama");
-                //Generate the array of resource locations
-                ResourceLocation[] ResourceLocationsArray = new ResourceLocation[6];
-                for (int i = 0; i < 6; ++i) {
-                    ResourceLocationsArray[i] = new ResourceLocation(panoramaLoc.getNamespace(), panoramaLoc.getPath() + '_' + i + ".png");
-                }
-                //Replace the resource locations in the main menu's skybox field using reflection
-                ObfuscationReflectionHelper.setPrivateValue(RenderSkyboxCube.class, MainMenuScreen.PANORAMA_RESOURCES, ResourceLocationsArray, "locations");
-            }
-        }
+    private void clientRegistry(final FMLClientSetupEvent event) {
+        LOGGER.info("Client setup");
+
+        trySetRandomPanorama();
+
+        ModBlockColors.registerBlockColors();
+        ModItemColors.registerItemColors();
+
+        ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
     }
+
+
 
     @EventBusSubscriber(bus=Bus.MOD)
     public static class Registry {
@@ -189,55 +177,81 @@ public class Courageous {
 
     }
 
-    public void injectResourcePack() {
-        Minecraft mc = Minecraft.getInstance();
-        if (mc == null) return;
+//    public void injectResourcePack() {
+//        Minecraft mc = Minecraft.getInstance();
+//        if (mc == null) return;
+//
+//        try {
+//            File resourcesFolder = FMLLoader.getLoadingModList().getModFileById(Reference.MOD_ID).getFile().findResource("overrides").toFile();
+//
+//            if (!resourcesFolder.exists() && !resourcesFolder.mkdirs()) return;
+//            if (!resourcesFolder.exists() || !resourcesFolder.isDirectory()) return;
+//
+//            final String id = "courageous_mc_override";
+//            final ITextComponent name = new StringTextComponent("Courageous' Panorama");
+//            final ITextComponent description = new StringTextComponent("Custom main menu panorama.");
+//
+//            final IResourcePack pack = new FolderPack(resourcesFolder) {
+//                String prefix = "assets/minecraft/";
+//
+//                @Override
+//                protected InputStream getInputStream(String resourcePath) throws IOException {
+//                    if ("pack.mcmeta".equals(resourcePath)) return new ByteArrayInputStream(("{\"pack\":{\"description\": \"dummy\",\"pack_format\": 4}}").getBytes(StandardCharsets.UTF_8));
+//                    if (!resourcePath.startsWith(prefix)) throw new FileNotFoundException(resourcePath);
+//
+//                    return super.getInputStream(resourcePath);
+//                }
+//
+//                @Override
+//                public boolean resourceExists(String resourcePath) {
+//                    if ("pack.mcmeta".equals(resourcePath)) return true;
+//                    if (!resourcePath.startsWith(prefix)) return false;
+//
+//                    return super.resourceExists(resourcePath);
+//                }
+//
+//                @Override
+//                public Set<String> getResourceNamespaces(ResourcePackType type) {
+//                    return Collections.singleton("minecraft");
+//                }
+//            };
+//
+//            Minecraft.getInstance().getResourcePackList().addPackFinder(new IPackFinder() {
+//                @Override
+//                public <T extends ResourcePackInfo> void addPackInfosToMap(Map<String, T> nameToPackMap, IFactory<T> packInfoFactory) {
+//                    nameToPackMap.put(id, (T) new ClientResourcePackInfo(id, true, () ->
+//                            pack, name, description, PackCompatibility.COMPATIBLE, Priority.TOP, false, null, false
+//                    ));
+//                }
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        try {
-            File resourcesFolder = FMLLoader.getLoadingModList().getModFileById(Reference.MOD_ID).getFile().findResource("overrides").toFile();
-
-            if (!resourcesFolder.exists() && !resourcesFolder.mkdirs()) return;
-            if (!resourcesFolder.exists() || !resourcesFolder.isDirectory()) return;
-
-            final String id = "courageous_mc_override";
-            final ITextComponent name = new StringTextComponent("Courageous' Minecraft Override Resources");
-            final ITextComponent description = new StringTextComponent("Resources that override vanilla, such as the main menu panorama.");
-
-            final IResourcePack pack = new FolderPack(resourcesFolder) {
-                String prefix = "assets/minecraft/";
-
-                @Override
-                protected InputStream getInputStream(String resourcePath) throws IOException {
-                    if ("pack.mcmeta".equals(resourcePath)) return new ByteArrayInputStream(("{\"pack\":{\"description\": \"dummy\",\"pack_format\": 4}}").getBytes(StandardCharsets.UTF_8));
-                    if (!resourcePath.startsWith(prefix)) throw new FileNotFoundException(resourcePath);
-
-                    return super.getInputStream(resourcePath);
+    public static void trySetRandomPanorama() {
+        //Get this mod's resource pack
+        Optional<ModFileResourcePack> optionalResourcePack = ResourcePackLoader.getResourcePackFor(Reference.MOD_ID);
+        //If found, try replacing the panorama
+        if (optionalResourcePack.isPresent()) {
+            //First of all, get the actual resource pack
+            ModFileResourcePack resourcePack = optionalResourcePack.get();
+            //Then, get a set of subfolders from the panoramas directory
+            Set<String> folders = getSubfoldersFromDirectory(resourcePack.getModFile(), "assets/" + Reference.MOD_ID + "/panoramas");
+            //If there's at least 1 such folder, replace the panorama
+            if (folders.size() > 0) {
+                //Get a random panorama from the list of folders
+                String chosenPanorama = (String) folders.toArray()[new Random().nextInt(folders.size())];
+                //Generate a base resource location for it
+                ResourceLocation panoramaLoc = new ResourceLocation(Reference.MOD_ID, "panoramas/" + chosenPanorama + "/panorama");
+                //Generate the array of resource locations
+                ResourceLocation[] ResourceLocationsArray = new ResourceLocation[6];
+                for (int i = 0; i < 6; ++i) {
+                    ResourceLocationsArray[i] = new ResourceLocation(panoramaLoc.getNamespace(), panoramaLoc.getPath() + '_' + i + ".png");
                 }
-
-                @Override
-                public boolean resourceExists(String resourcePath) {
-                    if ("pack.mcmeta".equals(resourcePath)) return true;
-                    if (!resourcePath.startsWith(prefix)) return false;
-
-                    return super.resourceExists(resourcePath);
-                }
-
-                @Override
-                public Set<String> getResourceNamespaces(ResourcePackType type) {
-                    return Collections.singleton("minecraft");
-                }
-            };
-
-            Minecraft.getInstance().getResourcePackList().addPackFinder(new IPackFinder() {
-                @Override
-                public <T extends ResourcePackInfo> void addPackInfosToMap(Map<String, T> nameToPackMap, IFactory<T> packInfoFactory) {
-                    nameToPackMap.put(id, (T) new ClientResourcePackInfo(id, true, () ->
-                            pack, name, description, PackCompatibility.COMPATIBLE, Priority.TOP, false, null, false
-                    ));
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
+                //Replace the resource locations in the main menu's skybox field using reflection
+                ObfuscationReflectionHelper.setPrivateValue(RenderSkyboxCube.class, MainMenuScreen.PANORAMA_RESOURCES, ResourceLocationsArray, "locations");
+            }
         }
     }
 
@@ -262,15 +276,4 @@ public class Courageous {
         }
     }
 
-    private void clientRegistry(final FMLClientSetupEvent event) {
-        LOGGER.info("Client setup");
-
-//        injectResourcePack();
-        trySetRandomPanorama();
-
-        ModBlockColors.registerBlockColors();
-        ModItemColors.registerItemColors();
-
-        ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
-    }
 }

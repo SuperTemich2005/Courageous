@@ -111,5 +111,13 @@
     "block.courageous.pottery_wheel": "Pottery Wheel",
     "block.courageous.architects_table": "Architect's Table",
 
-    "itemGroup.courageous_tab": "Courageous"
+    "itemGroup.courageous_pottery": "Courageous' Pottery",
+    "itemGroup.courageous_architect": "Courageous' Architecture",
+    "itemGroup.courageous_world": "Courageous' World",
+    "itemGroup.courageous_general": "Courageous' Miscellaneous",
+    "itemGroup.courageous_food": "Courageous' Food",
+
+    "book.courageous.guide.name": "Survivalist's Handbook",
+    "book.courageous.guide.landing_text": "Courageous is a mod about overhauling survival Minecraft, whilst keeping it fun.  The mod intends to not interrupt gameplay, but rather supplement it.",
+    "book.courageous.guide.subtitle": "A Guide to Courageous"
 }
