@@ -2,16 +2,11 @@ package co.uk.squishling.courageous.items.pottery;
 
 import co.uk.squishling.courageous.items.ItemBase;
 import co.uk.squishling.courageous.tabs.PotteryTab;
-import co.uk.squishling.courageous.util.Reference;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.FluidTags;
@@ -26,19 +21,21 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.server.command.TextComponentHelper;
-import org.lwjgl.system.CallbackI.S;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class Amphora extends ItemBase {
-
-    private static final int buckets = 3;
 
     public Amphora(String name) {
         super(name, PotteryTab.POTTERY);
@@ -46,28 +43,21 @@ public class Amphora extends ItemBase {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        if (stack.hasTag() && !ForgeRegistries.FLUIDS.getValue(new ResourceLocation(stack.getTag().getString("fluid"))).getDefaultState().isEmpty()) {
-            String text = TextFormatting.GOLD + new TranslationTextComponent( ForgeRegistries.FLUIDS.getValue(new ResourceLocation(stack.getTag().getString("fluid")))
-                    .getDefaultState().getBlockState().getBlock().getTranslationKey()).getFormattedText() + TextFormatting.RESET
-                    + " x " + stack.getTag().getInt("buckets");
+        if (!getFluid(stack).isEmpty()) {
+            String text = TextFormatting.GOLD + new TranslationTextComponent(getFluid(stack).getTranslationKey()).getFormattedText() + TextFormatting.RESET
+                    + " x " + getFluid(stack).getAmount();
             tooltip.add(new StringTextComponent(text));
         }
     }
 
+
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand handIn) {
-        System.out.println("A");
+        //System.out.println("A");
         ItemStack stack = player.getHeldItem(handIn);
 
-        if (stack.getTag() == null) {
-            stack.setTag(new CompoundNBT());
-            stack.getTag().putInt("buckets", 0);
-            stack.getTag().putString("fluid", Fluids.EMPTY.getRegistryName().toString());
-        }
+        FluidStack contents = getFluid(stack);
 
-        Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(stack.getTag().getString("fluid")));
-        if (fluid == null) return new ActionResult<>(ActionResultType.PASS, stack);
-        // fluid == Fluids.EMPTY ?
         // : RayTraceContext.FluidMode.NONE
         RayTraceResult raytraceresult = rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
         if (raytraceresult.getType() != Type.BLOCK) return new ActionResult<>(ActionResultType.PASS, stack);
@@ -75,34 +65,34 @@ public class Amphora extends ItemBase {
         BlockPos pos = blockraytraceresult.getPos();
 
         if (!world.getFluidState(pos).isEmpty()) {
-            if (stack.getTag().getInt("buckets") >= buckets) return new ActionResult<>(ActionResultType.PASS, stack);
-            if (world.getBlockState(pos).getBlock() != fluid.getDefaultState().getBlockState().getBlock() && !fluid.getDefaultState().isEmpty()) return new ActionResult<>(ActionResultType.PASS, stack);
+            if (contents.getAmount() >= getCapacity(stack)) return new ActionResult<>(ActionResultType.PASS, stack);
+            FluidStack fluidToFill = new FluidStack(world.getFluidState(pos).getFluid(), FluidAttributes.BUCKET_VOLUME);
 
-            if (Reference.isServer(world)) {
-                stack.getTag().putString("fluid", world.getFluidState(pos).getFluid().getRegistryName().toString());
+            if (!canAcceptFluid(stack, fluidToFill)) return new ActionResult<>(ActionResultType.PASS, stack);
+            if (!world.isRemote) {
+                fill(stack, new FluidStack(world.getFluidState(pos).getFluid(), FluidAttributes.BUCKET_VOLUME));
                 world.setBlockState(pos, Blocks.AIR.getDefaultState());
-                stack.getTag().putInt("buckets", stack.getTag().getInt("buckets") + 1);
             }
-
-            SoundEvent soundevent = fluid.getAttributes().getEmptySound();
-            if(soundevent == null) soundevent = fluid.isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_FILL_LAVA : SoundEvents.ITEM_BUCKET_FILL;
+            SoundEvent soundevent = contents.getFluid().getAttributes().getEmptySound();
+            if (soundevent == null)
+                soundevent = contents.getFluid().isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_FILL_LAVA : SoundEvents.ITEM_BUCKET_FILL;
             player.playSound(soundevent, 1.0F, 1.0F);
 
             player.addStat(Stats.ITEM_USED.get(this));
             return new ActionResult<>(ActionResultType.SUCCESS, stack);
         } else {
-            if (stack.getTag().getInt("buckets") <= 0) return new ActionResult<>(ActionResultType.PASS, stack);
+            if (contents.getAmount() < 1000) return new ActionResult<>(ActionResultType.PASS, stack);
             BlockPos pos1 = pos.offset(blockraytraceresult.getFace());
-            if (world.getBlockState(pos1).getBlock() == Blocks.AIR) {
-                if (Reference.isServer(world)) {
-                    world.setBlockState(pos1, fluid.getDefaultState().getBlockState());
-                    stack.getTag().putInt("buckets", stack.getTag().getInt("buckets") - 1);
-
-                    if (stack.getTag().getInt("buckets") <= 0) stack.getTag().putString("fluid", Fluids.EMPTY.getRegistryName().toString());
+            BlockState targetState = world.getBlockState(pos1);
+            if (targetState.isAir(world, pos1) || !targetState.getMaterial().isSolid() || targetState.getMaterial().isReplaceable()) {
+                if (!world.isRemote) {
+                    world.setBlockState(pos1, contents.getFluid().getDefaultState().getBlockState());
+                    drain(stack, 1000);
                 }
 
-                SoundEvent soundevent = fluid.getAttributes().getEmptySound();
-                if(soundevent == null) soundevent = fluid.isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY;
+                SoundEvent soundevent = contents.getFluid().getAttributes().getEmptySound();
+                if (soundevent == null)
+                    soundevent = contents.getFluid().isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY;
                 player.playSound(soundevent, 1.0F, 1.0F);
 
                 player.addStat(Stats.ITEM_USED.get(this));
@@ -112,7 +102,6 @@ public class Amphora extends ItemBase {
 
         return new ActionResult<>(ActionResultType.PASS, stack);
     }
-
     @Override
     public int getItemStackLimit(ItemStack stack) {
         return 1;
@@ -120,13 +109,71 @@ public class Amphora extends ItemBase {
 
     @Override
     public double getDurabilityForDisplay(ItemStack stack) {
-        if (!stack.hasTag()) return 0f;
-        return 1f - (double) stack.getTag().getInt("buckets") / (double) buckets;
+        FluidStack fluid = getFluid(stack);
+        if (fluid.isEmpty()) return 0f;
+        return 1 - (float) fluid.getAmount() / getCapacity(stack);
     }
 
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
-        return stack.hasTag();
+        return !getFluid(stack).isEmpty();
         //  && !ForgeRegistries.FLUIDS.getValue(new ResourceLocation(stack.getTag().getString("fluid"))).getDefaultState().isEmpty()
+    }
+
+
+    @Nullable
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+        return new ICapabilityProvider() {
+            @Nonnull
+            @Override
+            public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+                return cap == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY ? (LazyOptional<T>) LazyOptional.of(() -> new FluidHandlerItemStack(stack, 3000))
+                        : LazyOptional.empty();
+            }
+        };
+    }
+
+    public FluidStack getFluid(ItemStack stack) {
+        final LazyOptional<IFluidHandlerItem> cap = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY);
+        if (cap.isPresent()) {
+            final FluidHandlerItemStack handler = (FluidHandlerItemStack) cap.orElseThrow(NullPointerException::new);
+            return handler.getFluid();
+        }
+        return FluidStack.EMPTY;
+    }
+
+    public int getCapacity(ItemStack stack) {
+        final LazyOptional<IFluidHandlerItem> cap = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY);
+        if (cap.isPresent()) {
+            final FluidHandlerItemStack handler = (FluidHandlerItemStack) cap.orElseThrow(NullPointerException::new);
+            return handler.getTankCapacity(0);
+        }
+        return 0;
+    }
+
+    public void fill(ItemStack stack, FluidStack resource) {
+        final LazyOptional<IFluidHandlerItem> cap = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY);
+        if (cap.isPresent()) {
+            final FluidHandlerItemStack handler = (FluidHandlerItemStack) cap.orElseThrow(NullPointerException::new);
+            handler.fill(resource, IFluidHandler.FluidAction.EXECUTE);
+        }
+    }
+
+    public void drain(ItemStack stack, int amount) {
+        final LazyOptional<IFluidHandlerItem> cap = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY);
+        if (cap.isPresent()) {
+            final FluidHandlerItemStack handler = (FluidHandlerItemStack) cap.orElseThrow(NullPointerException::new);
+            handler.drain(amount, IFluidHandler.FluidAction.EXECUTE);
+        }
+    }
+
+    public boolean canAcceptFluid(ItemStack stack, FluidStack resource) {
+        final LazyOptional<IFluidHandlerItem> cap = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY);
+        if (cap.isPresent()) {
+            final FluidHandlerItemStack handler = (FluidHandlerItemStack) cap.orElseThrow(NullPointerException::new);
+            return handler.canFillFluidType(resource);
+        }
+        return false;
     }
 }
