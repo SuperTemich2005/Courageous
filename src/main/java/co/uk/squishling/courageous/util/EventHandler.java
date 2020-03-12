@@ -62,21 +62,21 @@ public class EventHandler {
         }
     }
 
-    @SubscribeEvent
-    public void entityTick(LivingEvent.LivingUpdateEvent event) {
-        LivingEntity entity = event.getEntityLiving();
-
-        entity.getArmorInventoryList().forEach((stack) -> {
-            if (stack.getItem() == Items.DIAMOND_BOOTS) {
-                Courageous.LOGGER.error("msg");
-                float f5 = 2f;
-                float f7 = entity.onGround ? f5 * 0.91F : 0.91F;
-//                entity.moveRelative(f7, entity.getMotion());
-                entity.setMotion(entity.getMotion().mul(0.999f, 0.999f, 0.999f));
-//                entity.move(MoverType.SELF, entity.getMotion());
-            }
-        });
-    }
+//    @SubscribeEvent
+//    public void entityTick(LivingEvent.LivingUpdateEvent event) {
+//        LivingEntity entity = event.getEntityLiving();
+//
+//        entity.getArmorInventoryList().forEach((stack) -> {
+//            if (stack.getItem() == Items.DIAMOND_BOOTS) {
+//                Courageous.LOGGER.error("msg");
+//                float f5 = 2f;
+//                float f7 = entity.onGround ? f5 * 0.91F : 0.91F;
+////                entity.moveRelative(f7, entity.getMotion());
+//                entity.setMotion(entity.getMotion().mul(0.999f, 0.999f, 0.999f));
+////                entity.move(MoverType.SELF, entity.getMotion());
+//            }
+//        });
+//    }
 
     //Panorama Replacement
     //Remove the code here to prevent it switching every time you switch back to the main menu

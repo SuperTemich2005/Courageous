@@ -3,7 +3,7 @@
   "group": "planks",
   "ingredients": [
     {
-      "tag": "courageous:palm_logs"
+      "tag": "courageous:logs/palm_logs"
     }
   ],
   "result": {

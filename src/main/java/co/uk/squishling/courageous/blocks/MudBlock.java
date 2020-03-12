@@ -1,14 +1,16 @@
 package co.uk.squishling.courageous.blocks;
 
+import co.uk.squishling.courageous.tabs.WorldTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class MudBlock extends BlockBase {
+public class MudBlock extends BlockBase implements IBlock {
 
     public MudBlock() {
         super("mud", Block.Properties.create(Material.EARTH, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.SLIME).slipperiness(0.8f));
@@ -22,6 +24,11 @@ public class MudBlock extends BlockBase {
         }
 
         super.onEntityWalk(world, pos, entity);
+    }
+
+    @Override
+    public ItemGroup getTab() {
+        return WorldTab.WORLD;
     }
 
 }

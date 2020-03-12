@@ -1,6 +1,9 @@
 package co.uk.squishling.courageous.blocks.pottery_wheel;
 
 import co.uk.squishling.courageous.blocks.BlockBase;
+import co.uk.squishling.courageous.blocks.IBlock;
+import co.uk.squishling.courageous.tabs.PotteryTab;
+import co.uk.squishling.courageous.tabs.WorldTab;
 import co.uk.squishling.courageous.util.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -9,6 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
@@ -24,7 +28,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
-public class PotteryWheel extends BlockBase {
+public class PotteryWheel extends BlockBase implements IBlock {
 
     private static final VoxelShape SHAPE = Block.makeCuboidShape(0d, 0d, 0d, 16d, 15d, 16d);
 
@@ -93,6 +97,11 @@ public class PotteryWheel extends BlockBase {
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new PotteryWheelTileEntity();
+    }
+
+    @Override
+    public ItemGroup getTab() {
+        return PotteryTab.POTTERY;
     }
 
 }

@@ -2,6 +2,7 @@ package co.uk.squishling.courageous.blocks;
 
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheel;
 import co.uk.squishling.courageous.blocks.vegetation.*;
+import co.uk.squishling.courageous.tabs.ArchitectsTab;
 import co.uk.squishling.courageous.trees.*;
 import co.uk.squishling.courageous.items.ModItems;
 import net.minecraft.block.Block;

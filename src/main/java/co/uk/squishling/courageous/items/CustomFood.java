@@ -1,6 +1,6 @@
 package co.uk.squishling.courageous.items;
 
-import co.uk.squishling.courageous.tabs.Tab;
+import co.uk.squishling.courageous.tabs.WorldTab;
 import co.uk.squishling.courageous.util.Reference;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -19,19 +19,19 @@ public class CustomFood extends Item {
     private SoundEvent sound = SoundEvents.ENTITY_GENERIC_EAT;
     private UseAction action = UseAction.EAT;
 
-    public CustomFood(String name, Food food) {
-        super(new Item.Properties().group(Tab.COURAGEOUS_GROUP).food(food));
+    public CustomFood(String name, Food food, ItemGroup group) {
+        super(new Item.Properties().group(group).food(food));
         this.setRegistryName(Reference.MOD_ID, name);
 
         ModItems.ITEMS.add(this);
     }
 
-    public CustomFood(String name, int hunger, float saturation) {
-        this(name, new Builder().hunger(hunger).saturation(saturation).build());
+    public CustomFood(String name, int hunger, float saturation, ItemGroup group) {
+        this(name, new Builder().hunger(hunger).saturation(saturation).build(), group);
     }
 
-    public CustomFood(String name, Food food, Item containerItem) {
-        super(new Item.Properties().group(Tab.COURAGEOUS_GROUP).food(food).containerItem(containerItem));
+    public CustomFood(String name, Food food, Item containerItem, ItemGroup group) {
+        super(new Item.Properties().group(group).food(food).containerItem(containerItem));
         this.setRegistryName(Reference.MOD_ID, name);
 
         ModItems.ITEMS.add(this);

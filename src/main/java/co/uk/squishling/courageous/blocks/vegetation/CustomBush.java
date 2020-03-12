@@ -1,16 +1,19 @@
 package co.uk.squishling.courageous.blocks.vegetation;
 
+import co.uk.squishling.courageous.blocks.IBlock;
+import co.uk.squishling.courageous.tabs.WorldTab;
 import co.uk.squishling.courageous.util.lib.DefaultBlockProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.IShearable;
 
-public class CustomBush extends BushBlock implements IShearable {
+public class CustomBush extends BushBlock implements IShearable, IBlock {
 
     private Block[] acceptedBlocks;
     private VoxelShape shape;
@@ -44,6 +47,11 @@ public class CustomBush extends BushBlock implements IShearable {
 
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return shape;
+    }
+
+    @Override
+    public ItemGroup getTab() {
+        return WorldTab.WORLD;
     }
 
 }

@@ -1,10 +1,13 @@
 package co.uk.squishling.courageous.blocks.vegetation;
 
+import co.uk.squishling.courageous.blocks.IBlock;
+import co.uk.squishling.courageous.tabs.WorldTab;
 import co.uk.squishling.courageous.trees.CustomTree;
 import co.uk.squishling.courageous.util.lib.DefaultBlockProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.trees.Tree;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -14,7 +17,7 @@ import net.minecraft.world.gen.feature.AbstractTreeFeature;
 
 import java.util.Random;
 
-public class CustomSapling extends SaplingBlock implements IGrowable {
+public class CustomSapling extends SaplingBlock implements IGrowable, IBlock {
 
     private Tree tree;
 
@@ -45,6 +48,11 @@ public class CustomSapling extends SaplingBlock implements IGrowable {
     @Override
     public void grow(World p_176474_1_, Random p_176474_2_, BlockPos p_176474_3_, BlockState p_176474_4_) {
         tree.spawn(p_176474_1_, p_176474_3_, p_176474_4_, p_176474_2_);
+    }
+
+    @Override
+    public ItemGroup getTab() {
+        return WorldTab.WORLD;
     }
 
 }
