@@ -2,18 +2,18 @@ package co.uk.squishling.courageous.blocks.vegetation;
 
 import co.uk.squishling.courageous.blocks.IBlock;
 import co.uk.squishling.courageous.tabs.WorldTab;
-import co.uk.squishling.courageous.trees.CustomTree;
 import co.uk.squishling.courageous.util.lib.DefaultBlockProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.trees.OakTree;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
@@ -42,12 +42,12 @@ public class CustomSapling extends SaplingBlock implements IGrowable, IBlock {
     }
 
     public CustomSapling(String name, AbstractTreeFeature tree) {
-        this(name, new CustomTree(tree));
+        this(name, new OakTree());
     }
 
     @Override
-    public void grow(World p_176474_1_, Random p_176474_2_, BlockPos p_176474_3_, BlockState p_176474_4_) {
-        tree.spawn(p_176474_1_, p_176474_3_, p_176474_4_, p_176474_2_);
+    public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
+        tree.func_225545_a_(world, world.getChunkProvider().getChunkGenerator(), pos, state, rand);
     }
 
     @Override

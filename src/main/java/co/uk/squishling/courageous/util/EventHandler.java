@@ -87,26 +87,5 @@ public class EventHandler {
         }
     }
 
-    private float func_213335_r(float p_213335_1_, LivingEntity entity) {
-        return entity.onGround ? entity.getAIMoveSpeed() * (0.21600002F / (p_213335_1_ * p_213335_1_ * p_213335_1_)) : entity.jumpMovementFactor;
-    }
 
-    // Entity stuff
-    private Vec3d func_213362_f(LivingEntity entity) {
-        Vec3d p_213362_1_ = entity.getMotion();
-        if (entity.isOnLadder()) {
-            entity.fallDistance = 0.0F;
-            float f = 0.15F;
-            double d0 = MathHelper.clamp(p_213362_1_.x, -0.15F, 0.15F);
-            double d1 = MathHelper.clamp(p_213362_1_.z, -0.15F, 0.15F);
-            double d2 = Math.max(p_213362_1_.y, -0.15F);
-            if (d2 < 0.0D && entity.getBlockState().getBlock() != Blocks.SCAFFOLDING && entity.isSneaking() && entity instanceof PlayerEntity) {
-                d2 = 0.0D;
-            }
-
-            p_213362_1_ = new Vec3d(d0, d2, d1);
-        }
-
-        return p_213362_1_;
-    }
 }

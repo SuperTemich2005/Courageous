@@ -4,7 +4,6 @@ import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.items.ModItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import vazkii.patchouli.common.item.ItemModBook;
 
 public class GeneralTab extends ItemGroup {
 
@@ -16,7 +15,7 @@ public class GeneralTab extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return ItemModBook.forBook("courageous:guide");
+        return new ItemStack(ModBlocks.ARCHITECTS_TABLE);
     }
 
 }

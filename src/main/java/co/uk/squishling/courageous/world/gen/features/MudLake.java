@@ -17,24 +17,25 @@ import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.LakesConfig;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
 
 import java.util.Random;
 import java.util.function.Function;
 
-public class MudLake extends Feature<LakesConfig> {
+public class MudLake extends Feature<NoFeatureConfig> {
     private static final BlockState AIR;
     private static final BlockState MUD = ModBlocks.MUD.getDefaultState();
     private static final BlockState WATER = Blocks.WATER.getDefaultState();
 
-    public MudLake(Function<Dynamic<?>, ? extends LakesConfig> p_i51485_1_) {
+    public MudLake(Function<Dynamic<?>, ? extends NoFeatureConfig> p_i51485_1_) {
         super(p_i51485_1_);
         this.setRegistryName(Reference.MOD_ID, "mud_lake");
 
         ModFeatures.FEATURES.add(this);
     }
 
-    public boolean place(IWorld p_212245_1_, ChunkGenerator<? extends GenerationSettings> p_212245_2_, Random p_212245_3_, BlockPos p_212245_4_, LakesConfig config) {
+    @Override
+    public boolean place(IWorld p_212245_1_, ChunkGenerator<? extends GenerationSettings> p_212245_2_, Random p_212245_3_, BlockPos p_212245_4_, NoFeatureConfig config) {
         while(p_212245_4_.getY() > 5 && p_212245_1_.isAirBlock(p_212245_4_)) {
             p_212245_4_ = p_212245_4_.down();
         }
@@ -111,7 +112,7 @@ public class MudLake extends Feature<LakesConfig> {
                         for(lvt_11_4_ = 4; lvt_11_4_ < 8; ++lvt_11_4_) {
                             if (lvt_7_1_[(lvt_9_5_ * 16 + lvt_10_5_) * 8 + lvt_11_4_]) {
                                 lvt_12_5_ = p_212245_4_.add(lvt_9_5_, lvt_11_4_ - 1, lvt_10_5_);
-                                if (Block.isDirt(p_212245_1_.getBlockState(lvt_12_5_).getBlock()) && p_212245_1_.getLightFor(LightType.SKY, p_212245_4_.add(lvt_9_5_, lvt_11_4_, lvt_10_5_)) > 0) {
+                                if (p_212245_1_.getBlockState(lvt_12_5_).getBlock() == Blocks.DIRT && p_212245_1_.getLightFor(LightType.SKY, p_212245_4_.add(lvt_9_5_, lvt_11_4_, lvt_10_5_)) > 0) {
                                     Biome lvt_13_2_ = p_212245_1_.getBiome(lvt_12_5_);
                                     if (lvt_13_2_.getSurfaceBuilderConfig().getTop().getBlock() == Blocks.MYCELIUM) {
                                         p_212245_1_.setBlockState(lvt_12_5_, Blocks.MYCELIUM.getDefaultState(), 2);

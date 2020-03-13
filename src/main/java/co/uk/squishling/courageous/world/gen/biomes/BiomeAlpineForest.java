@@ -61,12 +61,8 @@ public class BiomeAlpineForest extends Biome {
     }
 
     @Override
-    public int getGrassColor(BlockPos p_180627_1_) {
+    public int getGrassColor(double x, double y) {
         return 0x8f9c48;
     }
 
-    @Override
-    public int getFoliageColor(BlockPos p_180625_1_) {
-        return super.getFoliageColor(p_180625_1_);
-    }
 }

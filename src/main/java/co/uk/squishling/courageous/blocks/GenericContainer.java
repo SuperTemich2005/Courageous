@@ -1,8 +1,5 @@
-package co.uk.squishling.courageous.blocks.pottery_wheel;
+package co.uk.squishling.courageous.blocks;
 
-import co.uk.squishling.courageous.blocks.IHasTileEntity;
-import co.uk.squishling.courageous.blocks.ModBlocks;
-import co.uk.squishling.courageous.blocks.ModContainers;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -18,27 +15,23 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-public class PotteryWheelContainer extends Container implements IHasTileEntity {
+public class GenericContainer extends Container implements IHasTileEntity {
 
     public TileEntity tileEntity;
     private IItemHandler inventory;
+    private Block block;
 
-    public PotteryWheelContainer(int windowId, World world, BlockPos pos, PlayerInventory playerInventory) {
+    public GenericContainer(int windowId, World world, BlockPos pos, PlayerInventory playerInventory, Block block) {
         super(ModContainers.POTTERY_WHEEL_CONTAINER, windowId);
 
         tileEntity = world.getTileEntity(pos);
         inventory = new InvWrapper(playerInventory);
-
-        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            addSlot(handler, 0, 47, 34);
-            addSlot(handler, 1, 113, 34);
-        });
-        layoutPlayerInventorySlots(8, 84);
+        this.block = block;
     }
 
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerIn, (Block) ModBlocks.POTTERY_WHEEL);
+        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerIn, block);
     }
 
     @Override
@@ -46,23 +39,17 @@ public class PotteryWheelContainer extends Container implements IHasTileEntity {
         return ItemStack.EMPTY;
     }
 
-//    @Override
-//    protected boolean mergeItemStack(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
-//        boolean result = false;
-//        int checkIndex = reverseDirection ? endIndex - 1 : startIndex;
-//
-//        Slot slot;
-//        ItemStack stack1 = ItemStack.EMPTY;
-//
-//        if (stack.isStackable())
-//
-//        return result;
-//    }
-
     @Override
-    public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
-        return super.canMergeSlot(stack, slotIn);
+    protected boolean mergeItemStack(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
+        return super.mergeItemStack(stack, startIndex, endIndex, reverseDirection);
     }
+
+//    @Override
+//    public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
+//        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent((handler -> {
+//            return true;
+//        }));
+//    }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {

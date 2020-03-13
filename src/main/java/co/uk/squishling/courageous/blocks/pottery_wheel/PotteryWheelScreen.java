@@ -37,7 +37,6 @@ public class PotteryWheelScreen extends ContainerScreen<PotteryWheelContainer> {
         super.render(mouseX, mouseY, partialTicks);
 
         GlStateManager.translatef(0.0F, 0.0F, 32.0F);
-        RenderHelper.enableGUIStandardItemLighting();
         for (Item item : ICONS.keySet()) {
             drawItemStack(new ItemStack(item), ICONS.get(item).getLeft(), ICONS.get(item).getRight());
         }
@@ -107,10 +106,10 @@ public class PotteryWheelScreen extends ContainerScreen<PotteryWheelContainer> {
     }
 
     private void drawItemStack(ItemStack stack, int x, int y) {
-        this.blitOffset = 200;
+//        this.blitOffset = 200;
         this.itemRenderer.zLevel = 200.0F;
         this.itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
-        this.blitOffset = 0;
+//        this.blitOffset = 0;
         this.itemRenderer.zLevel = 0.0F;
     }
 

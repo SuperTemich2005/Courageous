@@ -3,7 +3,6 @@ package co.uk.squishling.courageous.blocks.pottery_wheel;
 import co.uk.squishling.courageous.blocks.BlockBase;
 import co.uk.squishling.courageous.blocks.IBlock;
 import co.uk.squishling.courageous.tabs.PotteryTab;
-import co.uk.squishling.courageous.tabs.WorldTab;
 import co.uk.squishling.courageous.util.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -14,7 +13,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -48,19 +47,14 @@ public class PotteryWheel extends BlockBase implements IBlock {
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
         if (Reference.isServer(world)) {
             TileEntity te = world.getTileEntity(pos);
 
             if (te instanceof INamedContainerProvider) NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) te, te.getPos());
         }
 
-        return true;
-    }
-
-    @Override
-    public boolean isSolid(BlockState p_200124_1_) {
-        return false;
+        return ActionResultType.SUCCESS;
     }
 
     @Override
@@ -71,11 +65,6 @@ public class PotteryWheel extends BlockBase implements IBlock {
     @Override
     public BlockRenderType getRenderType(BlockState p_149645_1_) {
         return super.getRenderType(p_149645_1_);
-    }
-
-    @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
     @Override

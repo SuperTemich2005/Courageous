@@ -29,9 +29,9 @@ public class FallenLeaves extends LeavesLike {
         return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.PODZOL || block == Blocks.FARMLAND;
     }
 
-    @Override
-    public boolean isSolid(BlockState state) {
-        return false;
-    }
+//    @Override
+//    public boolean isSolid(BlockState state) {
+//        return false;
+//    }
 
 }

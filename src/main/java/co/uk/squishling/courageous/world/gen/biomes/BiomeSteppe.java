@@ -55,13 +55,8 @@ public class BiomeSteppe extends Biome {
     }
 
     @Override
-    public int getGrassColor(BlockPos pos) {
+    public int getGrassColor(double p_225528_1_, double p_225528_3_) {
         return 0xab8e35;
-    }
-
-    @Override
-    public int getFoliageColor(BlockPos pos) {
-        return super.getFoliageColor(pos);
     }
 
 }

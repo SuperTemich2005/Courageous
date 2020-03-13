@@ -4,6 +4,7 @@ import co.uk.squishling.courageous.world.gen.BiomeRegistry;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
@@ -15,7 +16,7 @@ import java.util.Random;
 
 public class BiomeTundra extends Biome {
 
-    private static PerlinNoiseGenerator noiseGen = new PerlinNoiseGenerator(new Random(6378l), 6);
+    private static PerlinNoiseGenerator noiseGen = new PerlinNoiseGenerator(new SharedSeedRandom(6378l), 6, 0);
 
     public BiomeTundra() {
         super(new Builder().surfaceBuilder(
@@ -61,14 +62,13 @@ public class BiomeTundra extends Biome {
     }
 
     @Override
-    public int getGrassColor(BlockPos pos) {
-        if (noiseGen.getValue(pos.getX(), pos.getZ()) > 0) return 0xab552f;
+    public int getGrassColor(double x, double z) {
+        if (noiseGen.noiseAt(x, z, false) > 0) return 0xab552f;
         return 0xab7a2f;
     }
 
     @Override
-    public int getFoliageColor(BlockPos p_180625_1_) {
+    public int getFoliageColor() {
         return 0xb4411a;
     }
-
 }

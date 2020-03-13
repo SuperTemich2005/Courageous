@@ -40,7 +40,7 @@ public class BiomeRedwoodForest extends Biome {
         ModFeatures.addPillagerOutpost(this);
         ModFeatures.addVilage(this, "taiga");
 
-        ModFeatures.addTree(this, ModFeatures.GIANT_REDWOOD_TREE, 8, 0.1f, 1);
+//        ModFeatures.addTree(this, ModFeatures.GIANT_REDWOOD_TREE, 8, 0.1f, 1);
         ModFeatures.addTree(this, ModFeatures.ALPINE_TREE, 3, 0.1f, 1);
         ModFeatures.addSparseTrees(this);
 
@@ -62,15 +62,15 @@ public class BiomeRedwoodForest extends Biome {
     }
 
     @Override
-    public int getGrassColor(BlockPos pos) {
-//        return 0x53b65f;
-        return 0x2d8137;
+    public int getGrassColor(double p_225528_1_, double p_225528_3_) {
+        return super.getGrassColor(p_225528_1_, p_225528_3_);
+        // return 0x2d8137;
     }
 
 
     @Override
-    public int getFoliageColor(BlockPos pos) {
-//        return 0xa1ba5a;
+    public int getFoliageColor() {
         return 0x748541;
     }
+
 }

@@ -5,13 +5,18 @@ import co.uk.squishling.courageous.world.gen.features.MudLake;
 import co.uk.squishling.courageous.world.gen.features.BulrushesFeature;
 import co.uk.squishling.courageous.world.gen.features.trees.*;
 import co.uk.squishling.courageous.world.gen.features.trees.fruit.*;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.GenerationStage.Decoration;
+import net.minecraft.world.gen.blockplacer.DoublePlantBlockPlacer;
+import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.feature.structure.PillagerOutpostConfig;
+import net.minecraft.world.gen.feature.BlockClusterFeatureConfig.Builder;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.placement.*;
 
@@ -21,25 +26,25 @@ public class ModFeatures {
 
     public static final ArrayList<Feature> FEATURES = new ArrayList<Feature>();
 
-    public static final AbstractTreeFeature ALPINE_TREE = new AlpineTreeFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature REDWOOD_TREE = new RedwoodTreeFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature ALPINE_TREE = new AlpineTreeFeature(TreeFeatureConfig::deserialize);
+    public static final AbstractTreeFeature REDWOOD_TREE = new RedwoodTreeFeature(TreeFeatureConfig::deserialize);
 
-    public static final AbstractTreeFeature DOUGLAS_FIR_TREE = new DouglasFirTreeFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature DOUGLAS_FIR_TREE = new DouglasFirTreeFeature(TreeFeatureConfig::deserialize);
 
-    public static final AbstractTreeFeature GIANT_REDWOOD_TREE = new GiantRedwoodTreeFeature(NoFeatureConfig::deserialize);
+//    public static final AbstractTreeFeature GIANT_REDWOOD_TREE = new GiantRedwoodTreeFeature(TreeFeatureConfig::deserialize);
 
-    public static final AbstractTreeFeature PALM_TREE = new PalmTreeFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature MAPLE_TREE = new MapleTreeFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature PALM_TREE = new PalmTreeFeature(TreeFeatureConfig::deserialize);
+    public static final AbstractTreeFeature MAPLE_TREE = new MapleTreeFeature(TreeFeatureConfig::deserialize);
 
-    public static final AbstractTreeFeature PEAR_TREE = new PearTreeFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature ORANGE_TREE = new OrangeTreeFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature LEMON_TREE = new LemonTreeFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature PLUM_TREE = new PlumTreeFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature AVOCADO_TREE = new AvocadoTreeFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature KIWI_FRUIT_TREE = new KiwiFruitTreeFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature APPLE_TREE = new AppleTreeFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature PEAR_TREE = new PearTreeFeature(TreeFeatureConfig::deserialize);
+    public static final AbstractTreeFeature ORANGE_TREE = new OrangeTreeFeature(TreeFeatureConfig::deserialize);
+    public static final AbstractTreeFeature LEMON_TREE = new LemonTreeFeature(TreeFeatureConfig::deserialize);
+    public static final AbstractTreeFeature PLUM_TREE = new PlumTreeFeature(TreeFeatureConfig::deserialize);
+    public static final AbstractTreeFeature AVOCADO_TREE = new AvocadoTreeFeature(TreeFeatureConfig::deserialize);
+    public static final AbstractTreeFeature KIWI_FRUIT_TREE = new KiwiFruitTreeFeature(TreeFeatureConfig::deserialize);
+    public static final AbstractTreeFeature APPLE_TREE = new AppleTreeFeature(TreeFeatureConfig::deserialize);
 
-    public static final Feature MUD_LAKE = new MudLake(LakesConfig::deserialize);
+    public static final Feature MUD_LAKE = new MudLake(NoFeatureConfig::deserialize);
     public static final Feature BULRUSHES = new BulrushesFeature(SeaGrassConfig::deserialize);
 
     public static void addAlpineTrees(Biome biome) {
@@ -101,7 +106,7 @@ public class ModFeatures {
 
     public static void addDesertStructures(Biome biome) {
         addVilage(biome, "desert");
-        biome.addStructure(Feature.DESERT_PYRAMID, IFeatureConfig.NO_FEATURE_CONFIG);
+        biome.addFeature(Decoration.SURFACE_STRUCTURES, Feature.DESERT_PYRAMID.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
     }
 
     public static void addSavannaStructures(Biome biome) {
@@ -110,43 +115,43 @@ public class ModFeatures {
     }
 
     public static void addSparseSavannaTrees(Biome biome) {
-        biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR, new MultipleRandomFeatureConfig(new Feature[]{Feature.SAVANNA_TREE}, new IFeatureConfig[]{IFeatureConfig.NO_FEATURE_CONFIG}, new float[]{0.8F}, Feature.NORMAL_TREE, IFeatureConfig.NO_FEATURE_CONFIG), Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(0, 0.02F, 1)));
+        biome.addFeature(Decoration.VEGETAL_DECORATION, Feature.ACACIA_TREE.withConfiguration(DefaultBiomeFeatures.ACACIA_TREE_CONFIG).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(0, 0.05F, 1))));
     }
 
     public static void addPillagerOutpost(Biome biome) {
-        biome.addStructure(Feature.PILLAGER_OUTPOST, new PillagerOutpostConfig(0.004D));
+        biome.addFeature(Decoration.SURFACE_STRUCTURES, Feature.PILLAGER_OUTPOST.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
     }
 
     public static void addVilage(Biome biome, String type) {
-        biome.addStructure(Feature.VILLAGE, new VillageConfig("village/" + type + "/town_centers", 6));
+        biome.addFeature(Decoration.SURFACE_STRUCTURES, Feature.VILLAGE.withConfiguration(new VillageConfig("village/" + type + "/town_centers", 6)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
     }
 
     public static void addTree(Biome biome, AbstractTreeFeature tree, int perChunk, float extraChance, int extra) {
-        biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(tree, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(perChunk, extraChance, extra)));
+        biome.addFeature(Decoration.VEGETAL_DECORATION, tree.withConfiguration(DefaultBiomeFeatures.OAK_TREE_CONFIG).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(perChunk, extraChance, extra))));
     }
 
     public static void addDefaultTrees(Biome biome, int perChunk, float extraChance, int extra) {
-        biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR, new MultipleRandomFeatureConfig(new Feature[]{Feature.BIRCH_TREE, Feature.FANCY_TREE}, new IFeatureConfig[]{IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG}, new float[]{0.2F, 0.1F}, Feature.NORMAL_TREE, IFeatureConfig.NO_FEATURE_CONFIG), Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(perChunk, extraChance, extra)));
+        biome.addFeature(Decoration.VEGETAL_DECORATION, Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(Feature.NORMAL_TREE.withConfiguration(DefaultBiomeFeatures.field_230129_h_).func_227227_a_(0.2F), Feature.FANCY_TREE.withConfiguration(DefaultBiomeFeatures.field_230131_m_).func_227227_a_(0.1F)), Feature.NORMAL_TREE.withConfiguration(DefaultBiomeFeatures.field_230132_o_))).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(perChunk, extraChance, extra))));
     }
 
     public static void addPlant(Biome biome, BlockState state, int frequency) {
-        biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(state), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(frequency)));
+        biome.addFeature(Decoration.VEGETAL_DECORATION, Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(state), new SimpleBlockPlacer())).tries(32).build()).withPlacement(Placement.COUNT_HEIGHTMAP_DOUBLE.configure(new FrequencyConfig(frequency))));
     }
 
     public static void addDoublePlant(Biome biome, BlockState state, int frequency) {
-        biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DOUBLE_PLANT, new DoublePlantConfig(state), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(frequency)));
+        biome.addFeature(Decoration.VEGETAL_DECORATION, Feature.RANDOM_PATCH.withConfiguration((new Builder(new SimpleBlockStateProvider(state), new DoublePlantBlockPlacer())).tries(64).func_227317_b_().build()).withPlacement(Placement.COUNT_HEIGHTMAP_DOUBLE.configure(new FrequencyConfig(frequency))));
     }
 
     public static void addMudLake(Biome biome, int chance) {
-        biome.addFeature(Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(MUD_LAKE, new LakesConfig(Blocks.WATER.getDefaultState()), Placement.WATER_LAKE, new LakeChanceConfig(chance)));
+        biome.addFeature(Decoration.LOCAL_MODIFICATIONS, MUD_LAKE.withConfiguration(new NoFeatureConfig()).withPlacement(Placement.WATER_LAKE.configure(new ChanceConfig(chance))));
     }
 
     public static void addSeaPlant(Biome biome, Feature feature) {
-        biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(feature, new SeaGrassConfig(22, 0.6D), Placement.TOP_SOLID_HEIGHTMAP, IPlacementConfig.NO_PLACEMENT_CONFIG));
+        biome.addFeature(Decoration.VEGETAL_DECORATION, feature.withConfiguration(new SeaGrassConfig(22, 0.6D)).withPlacement(Placement.TOP_SOLID_HEIGHTMAP.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
     }
 
     public static void addSwampDecoration(Biome biome) {
-        biome.addFeature(Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.SEAGRASS, new SeaGrassConfig(64, 0.6D), Placement.TOP_SOLID_HEIGHTMAP, IPlacementConfig.NO_PLACEMENT_CONFIG));
+        addSeaPlant(biome, Feature.SEAGRASS);
         DefaultBiomeFeatures.addSwampVegetation(biome);
         DefaultBiomeFeatures.addSwampClayDisks(biome);
     }

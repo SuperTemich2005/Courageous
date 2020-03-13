@@ -58,13 +58,8 @@ public class BiomeChaparral extends Biome {
     }
 
     @Override
-    public int getGrassColor(BlockPos pos) {
+    public int getGrassColor(double x, double y) {
         return 0xab8e35;
-    }
-
-    @Override
-    public int getFoliageColor(BlockPos pos) {
-        return super.getFoliageColor(pos);
     }
 
 }

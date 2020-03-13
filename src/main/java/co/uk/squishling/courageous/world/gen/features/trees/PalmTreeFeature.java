@@ -12,22 +12,24 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorldWriter;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
+import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
 
-public class PalmTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
+public class PalmTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig> {
 
     private static final BlockState TRUNK = ModBlocks.PALM_LOG.getDefaultState();
     private static final BlockState LEAF = ModBlocks.PALM_LEAVES.getDefaultState();
 
     private static final ArrayList<BlockPos> LEAVES = new ArrayList<BlockPos>();
 
-    public PalmTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> p_i51443_1_) {
-        super(p_i51443_1_, false);
+    public PalmTreeFeature(Function<Dynamic<?>, ? extends BaseTreeFeatureConfig> p_i51443_1_) {
+        super(p_i51443_1_);
 
         LEAVES.add(new BlockPos(-4, 0, 0));
         LEAVES.add(new BlockPos(4, 0, 0));
@@ -70,20 +72,20 @@ public class PalmTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     }
 
     @Override
-    protected boolean place(Set changedBlocks, IWorldGenerationReader worldIn, Random rand, BlockPos position, MutableBoundingBox boundsIn) {
+    protected boolean func_225557_a_(IWorldGenerationReader worldIn, Random rand, BlockPos position, Set<BlockPos> set, Set<BlockPos> set1, MutableBoundingBox boundsIn, BaseTreeFeatureConfig treeFeatureConfig) {
         int min = 5;
         int max = 9;
 
         int trunkHeight = rand.nextInt(max - min) + min;
         if (!canCreate(worldIn, position, trunkHeight)) return false;
-        buildTree(changedBlocks, worldIn, position, boundsIn, trunkHeight);
+        buildTree(worldIn, position, trunkHeight);
 
         return true;
     }
 
-    private void buildTree(Set<BlockPos> blocks, IWorldGenerationReader world, BlockPos pos, MutableBoundingBox bounds, int height) {
-        for (int i = 0; i < height; i++) placeLog(world, pos.up(i), bounds, blocks);
-        placeLeaves(world, pos.up(height), bounds, blocks);
+    private void buildTree(IWorldGenerationReader world, BlockPos pos, int height) {
+        for (int i = 0; i < height; i++) placeLog(world, pos.up(i));
+        placeLeaves(world, pos.up(height));
 
         // Rest of leaves
         for (int i = 0; i < 4; i++) {
@@ -95,17 +97,17 @@ public class PalmTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
                 switch (i) {
                     case 0:
-                        placeLeaves(world, pos.add(x, height + y, 0), bounds, blocks);
-                        if (x < 3) placeLeaves(world, pos.add(x + 1, height + y, 0), bounds, blocks);
+                        placeLeaves(world, pos.add(x, height + y, 0));
+                        if (x < 3) placeLeaves(world, pos.add(x + 1, height + y, 0));
                     case 1:
-                        placeLeaves(world, pos.add(-x, height + y, 0), bounds, blocks);
-                        if (x < 3) placeLeaves(world, pos.add(-x - 1, height + y, 0), bounds, blocks);
+                        placeLeaves(world, pos.add(-x, height + y, 0));
+                        if (x < 3) placeLeaves(world, pos.add(-x - 1, height + y, 0));
                     case 2:
-                        placeLeaves(world, pos.add(0, height + y, x), bounds, blocks);
-                        if (x < 3) placeLeaves(world, pos.add(0, height + y, x + 1), bounds, blocks);
+                        placeLeaves(world, pos.add(0, height + y, x));
+                        if (x < 3) placeLeaves(world, pos.add(0, height + y, x + 1));
                     case 3:
-                        placeLeaves(world, pos.add(0, height + y, -x), bounds, blocks);
-                        if (x < 3) placeLeaves(world, pos.add(0, height + y, -x - 1), bounds, blocks);
+                        placeLeaves(world, pos.add(0, height + y, -x));
+                        if (x < 3) placeLeaves(world, pos.add(0, height + y, -x - 1));
                 }
 
                 y--;
@@ -131,12 +133,12 @@ public class PalmTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
         return true;
     }
 
-    private void placeLog(IWorldWriter world, BlockPos pos, MutableBoundingBox bounds, Set<BlockPos> changedBlocks) {
-        this.setLogState(changedBlocks, world, pos, TRUNK, bounds);
+    private void placeLog(IWorldWriter world, BlockPos pos) {
+        this.setBlockState(world, pos, TRUNK);
     }
 
-    private void placeLeaves(IWorldGenerationReader world, BlockPos pos, MutableBoundingBox bounds, Set<BlockPos> changedBlocks) {
-        if (isAirOrLeaves(world, pos)) this.setLogState(changedBlocks, world, pos, LEAF, bounds);
+    private void placeLeaves(IWorldGenerationReader world, BlockPos pos) {
+        if (isAirOrLeaves(world, pos)) this.setBlockState(world, pos, LEAF);
     }
 
 }

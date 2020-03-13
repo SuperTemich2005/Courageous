@@ -11,22 +11,24 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorldWriter;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
+import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
 
-public class DouglasFirTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
+public class DouglasFirTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig> {
 
     private static final BlockState TRUNK = Blocks.SPRUCE_LOG.getDefaultState();
     private static final BlockState LEAF = ModBlocks.DOUGLAS_FIR_LEAVES.getDefaultState();
 
     private static final ArrayList<ArrayList<BlockPos>> BLOBS_LIST = new ArrayList<ArrayList<BlockPos>>();
 
-    public DouglasFirTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> config) {
-        super(config, false);
+    public DouglasFirTreeFeature(Function<Dynamic<?>, ? extends BaseTreeFeatureConfig> config) {
+        super(config);
 
         BLOBS_LIST.add(new ArrayList<BlockPos>());
         BLOBS_LIST.get(0).add(new BlockPos(0, 0, 0));
@@ -155,19 +157,19 @@ public class DouglasFirTreeFeature extends AbstractTreeFeature<NoFeatureConfig> 
     }
 
     @Override
-    protected boolean place(Set changedBlocks, IWorldGenerationReader worldIn, Random rand, BlockPos position, MutableBoundingBox boundsIn) {
+    protected boolean func_225557_a_(IWorldGenerationReader worldIn, Random rand, BlockPos position, Set<BlockPos> set, Set<BlockPos> set1, MutableBoundingBox boundsIn, BaseTreeFeatureConfig treeFeatureConfig) {
         int trunkHeight = rand.nextInt(3) + 10;
         if (!canCreate(worldIn, position, trunkHeight)) return false;
 
-        buildTree(worldIn, position, trunkHeight, boundsIn, changedBlocks);
+        buildTree(worldIn, position, trunkHeight);
 
         return true;
     }
 
-    private void buildTree(IWorldGenerationReader world, BlockPos pos, int height, MutableBoundingBox bounds, Set blocks) {
+    private void buildTree(IWorldGenerationReader world, BlockPos pos, int height) {
         // Place logs
         for (int i = 0; i < height; i++) {
-            placeLog(world, pos.up(i), bounds, blocks);
+            placeLog(world, pos.up(i));
         }
 
         ArrayList<ArrayList<BlockPos>> BLOBS = (ArrayList<ArrayList<BlockPos>>) BLOBS_LIST.clone();
@@ -183,7 +185,7 @@ public class DouglasFirTreeFeature extends AbstractTreeFeature<NoFeatureConfig> 
 
             for (int j = 1; j < BLOB.size(); j++) {
                 BlockPos pos2 = BLOB.get(j);
-                placeLeaves(world, new BlockPos(pos.getX() + pos2.getX(), pos.getY() + y + height + pos2.getY() - 2, pos.getZ() + pos2.getZ()), bounds, blocks);
+                placeLeaves(world, new BlockPos(pos.getX() + pos2.getX(), pos.getY() + y + height + pos2.getY() - 2, pos.getZ() + pos2.getZ()));
             }
             BLOBS.remove(0);
         }
@@ -199,12 +201,12 @@ public class DouglasFirTreeFeature extends AbstractTreeFeature<NoFeatureConfig> 
         return true;
     }
 
-    private void placeLog(IWorldWriter world, BlockPos pos, MutableBoundingBox bounds, Set<BlockPos> changedBlocks) {
-        this.setLogState(changedBlocks, world, pos, TRUNK, bounds);
+    private void placeLog(IWorldWriter world, BlockPos pos) {
+        this.setBlockState(world, pos, TRUNK);
     }
 
-    private void placeLeaves(IWorldGenerationReader world, BlockPos pos, MutableBoundingBox bounds, Set<BlockPos> changedBlocks) {
-        if (isAirOrLeaves(world, pos)) this.setLogState(changedBlocks, world, pos, LEAF, bounds);
+    private void placeLeaves(IWorldGenerationReader world, BlockPos pos) {
+        if (isAirOrLeaves(world, pos)) this.setBlockState(world, pos, LEAF);
     }
 
 }

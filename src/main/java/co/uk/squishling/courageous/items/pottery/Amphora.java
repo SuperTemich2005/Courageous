@@ -53,12 +53,10 @@ public class Amphora extends ItemBase {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand handIn) {
-        //System.out.println("A");
         ItemStack stack = player.getHeldItem(handIn);
 
         FluidStack contents = getFluid(stack);
 
-        // : RayTraceContext.FluidMode.NONE
         RayTraceResult raytraceresult = rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
         if (raytraceresult.getType() != Type.BLOCK) return new ActionResult<>(ActionResultType.PASS, stack);
         BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) raytraceresult;
@@ -102,6 +100,7 @@ public class Amphora extends ItemBase {
 
         return new ActionResult<>(ActionResultType.PASS, stack);
     }
+
     @Override
     public int getItemStackLimit(ItemStack stack) {
         return 1;
@@ -117,7 +116,6 @@ public class Amphora extends ItemBase {
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
         return !getFluid(stack).isEmpty();
-        //  && !ForgeRegistries.FLUIDS.getValue(new ResourceLocation(stack.getTag().getString("fluid"))).getDefaultState().isEmpty()
     }
 
 
@@ -176,4 +174,5 @@ public class Amphora extends ItemBase {
         }
         return false;
     }
+
 }

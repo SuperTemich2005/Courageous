@@ -57,7 +57,7 @@ public class CustomFood extends Item {
     public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity entity) {
         if (Reference.isServer(world)) {
             entity.playSound(sound, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
-            world.playSound((PlayerEntity)null, entity.posX, entity.posY, entity.posZ, sound, SoundCategory.NEUTRAL, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
+            world.playSound((PlayerEntity)null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), sound, SoundCategory.NEUTRAL, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
             stack.shrink(1);
 
             if (entity instanceof PlayerEntity) {
@@ -66,7 +66,7 @@ public class CustomFood extends Item {
                 player.getFoodStats().setFoodSaturationLevel(player.getFoodStats().getSaturationLevel() + getFood().getSaturation());
 
                 if (getContainerItem() != null && !player.inventory.addItemStackToInventory(new ItemStack(getContainerItem()))) {
-                    world.addEntity(new ItemEntity(world, player.posX, player.posY, player.posX, new ItemStack(getContainerItem())));
+                    world.addEntity(new ItemEntity(world, player.getPosX(), player.getPosY(), player.getPosX(), new ItemStack(getContainerItem())));
                 }
             }
 

@@ -56,14 +56,8 @@ public class BiomeAutumnalForest extends Biome {
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.WITCH, 5, 1, 1));
     }
 
-//    @Override
-//    public int getGrassColor(BlockPos p_180627_1_) {
-//        return 0x8f9c48;
-//    }
-
     @Override
-    public int getFoliageColor(BlockPos p_180625_1_) {
+    public int getFoliageColor() {
         return 0xff6700;
     }
-
 }

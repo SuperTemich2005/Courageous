@@ -58,13 +58,8 @@ public class BiomeTemperateRainforest extends Biome {
     }
 
     @Override
-    public int getGrassColor(BlockPos p_180627_1_) {
+    public int getGrassColor(double p_225528_1_, double p_225528_3_) {
         return 0x8f9c48;
-    }
-
-    @Override
-    public int getFoliageColor(BlockPos p_180625_1_) {
-        return super.getFoliageColor(p_180625_1_);
     }
 
 }

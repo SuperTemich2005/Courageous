@@ -13,13 +13,15 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorldWriter;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
+import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraftforge.common.IPlantable;
 
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
 
-public class MapleTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
+public class MapleTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig> {
     private static final BlockState DEFAULT_TRUNK = ModBlocks.MAPLE_LOG.getDefaultState();
     private static final BlockState DEFAULT_LEAF = ModBlocks.MAPLE_LEAVES.getDefaultState();
     protected final int minTreeHeight;
@@ -27,12 +29,12 @@ public class MapleTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     private final BlockState trunk = ModBlocks.MAPLE_LOG_SYRUP.getDefaultState();
     private final BlockState leaf;
 
-    public MapleTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn) {
-        this(configFactoryIn, false, 4, DEFAULT_TRUNK, DEFAULT_LEAF, false);
+    public MapleTreeFeature(Function<Dynamic<?>, ? extends BaseTreeFeatureConfig> configFactoryIn) {
+        this(configFactoryIn, 4, DEFAULT_TRUNK, DEFAULT_LEAF, false);
     }
 
-    public MapleTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn, boolean doBlockNotifyOnPlace, int minTreeHeightIn, BlockState trunkState, BlockState leafState, boolean vinesGrowIn) {
-        super(configFactoryIn, doBlockNotifyOnPlace);
+    public MapleTreeFeature(Function<Dynamic<?>, ? extends BaseTreeFeatureConfig> configFactoryIn, int minTreeHeightIn, BlockState trunkState, BlockState leafState, boolean vinesGrowIn) {
+        super(configFactoryIn);
         this.minTreeHeight = minTreeHeightIn;
         this.leaf = leafState;
         this.vinesGrow = vinesGrowIn;
@@ -41,7 +43,8 @@ public class MapleTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
         ModFeatures.FEATURES.add(this);
     }
 
-    public boolean place(Set<BlockPos> changedBlocks, IWorldGenerationReader worldIn, Random rand, BlockPos position, MutableBoundingBox boundsIn) {
+    @Override
+    public boolean func_225557_a_(IWorldGenerationReader worldIn, Random rand, BlockPos position, Set<BlockPos> set, Set<BlockPos> set1,  MutableBoundingBox boundsIn, BaseTreeFeatureConfig config) {
         int i = this.getHeight(rand);
         boolean flag = true;
         if (position.getY() >= 1 && position.getY() + i + 1 <= worldIn.getMaxHeight()) {
@@ -55,7 +58,7 @@ public class MapleTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                     k = 2;
                 }
 
-                BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+                BlockPos.Mutable blockpos$mutableblockpos = new BlockPos.Mutable();
 
                 for(int l = position.getX() - k; l <= position.getX() + k && flag; ++l) {
                     for(int i1 = position.getZ() - k; i1 <= position.getZ() + k && flag; ++i1) {
@@ -72,7 +75,7 @@ public class MapleTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
             if (!flag) {
                 return false;
-            } else if (isSoil(worldIn, position.down(), getSapling()) && position.getY() < worldIn.getMaxHeight() - i - 1) {
+            } else if (isSoil(worldIn, position.down(), (IPlantable) ModBlocks.MAPLE_SAPLING) && position.getY() < worldIn.getMaxHeight() - i - 1) {
                 this.setDirtAt(worldIn, position.down(), position);
                 int j2 = 3;
                 int k2 = 0;
@@ -89,7 +92,7 @@ public class MapleTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                             if (Math.abs(k1) != j4 || Math.abs(i2) != j4 || rand.nextInt(2) != 0 && l3 != 0) {
                                 BlockPos blockpos = new BlockPos(j1, l2, l1);
                                 if (isAirOrLeaves(worldIn, blockpos) || isTallPlants(worldIn, blockpos)) {
-                                    setLeaves(changedBlocks, worldIn, rand, blockpos, boundsIn);
+                                    setLeaves(worldIn, rand, blockpos);
                                 }
                             }
                         }
@@ -99,8 +102,8 @@ public class MapleTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                 int index = rand.nextInt(i);
                 for(int i3 = 0; i3 < i; ++i3) {
                     if (isAirOrLeaves(worldIn, position.up(i3)) || isTallPlants(worldIn, position.up(i3))) {
-                        if (i3 == index) this.setLogState(changedBlocks, worldIn, position.up(i3), this.trunk.with(MapleLog.GROWN, rand.nextInt(2) == 0), boundsIn);
-                        else this.setLogState(changedBlocks, worldIn, position.up(i3), DEFAULT_TRUNK, boundsIn);
+                        if (i3 == index) setBlockState(worldIn, position.up(i3), this.trunk.with(MapleLog.GROWN, rand.nextInt(2) == 0));
+                        else this.setBlockState(worldIn, position.up(i3), DEFAULT_TRUNK);
 
                         if (this.vinesGrow && i3 > 0) {
                             if (rand.nextInt(3) > 0 && isAir(worldIn, position.add(-1, i3, 0))) {
@@ -117,52 +120,6 @@ public class MapleTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
                             if (rand.nextInt(3) > 0 && isAir(worldIn, position.add(0, i3, 1))) {
                                 this.addVine(worldIn, position.add(0, i3, 1), VineBlock.NORTH);
-                            }
-                        }
-                    }
-                }
-
-                if (this.vinesGrow) {
-                    for(int j3 = position.getY() - 3 + i; j3 <= position.getY() + i; ++j3) {
-                        int i4 = j3 - (position.getY() + i);
-                        int k4 = 2 - i4 / 2;
-                        BlockPos.MutableBlockPos blockpos$mutableblockpos1 = new BlockPos.MutableBlockPos();
-
-                        for(int l4 = position.getX() - k4; l4 <= position.getX() + k4; ++l4) {
-                            for(int i5 = position.getZ() - k4; i5 <= position.getZ() + k4; ++i5) {
-                                blockpos$mutableblockpos1.setPos(l4, j3, i5);
-                                if (isLeaves(worldIn, blockpos$mutableblockpos1)) {
-                                    BlockPos blockpos3 = blockpos$mutableblockpos1.west();
-                                    BlockPos blockpos4 = blockpos$mutableblockpos1.east();
-                                    BlockPos blockpos1 = blockpos$mutableblockpos1.north();
-                                    BlockPos blockpos2 = blockpos$mutableblockpos1.south();
-                                    if (rand.nextInt(4) == 0 && isAir(worldIn, blockpos3)) {
-                                        this.addHangingVine(worldIn, blockpos3, VineBlock.EAST);
-                                    }
-
-                                    if (rand.nextInt(4) == 0 && isAir(worldIn, blockpos4)) {
-                                        this.addHangingVine(worldIn, blockpos4, VineBlock.WEST);
-                                    }
-
-                                    if (rand.nextInt(4) == 0 && isAir(worldIn, blockpos1)) {
-                                        this.addHangingVine(worldIn, blockpos1, VineBlock.SOUTH);
-                                    }
-
-                                    if (rand.nextInt(4) == 0 && isAir(worldIn, blockpos2)) {
-                                        this.addHangingVine(worldIn, blockpos2, VineBlock.NORTH);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    if (rand.nextInt(5) == 0 && i > 5) {
-                        for(int k3 = 0; k3 < 2; ++k3) {
-                            for(Direction direction : Direction.Plane.HORIZONTAL) {
-                                if (rand.nextInt(4 - k3) == 0) {
-                                    Direction direction1 = direction.getOpposite();
-                                    this.placeCocoa(worldIn, rand.nextInt(3), position.add(direction1.getXOffset(), i - 5 + k3, direction1.getZOffset()), direction);
-                                }
                             }
                         }
                     }
@@ -200,8 +157,8 @@ public class MapleTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
     }
 
-    private void setLeaves(Set<BlockPos> changedBlocks, IWorldGenerationReader worldIn, Random rand, BlockPos position, MutableBoundingBox boundsIn) {
-        this.setLogState(changedBlocks, worldIn, position, this.leaf, boundsIn);
+    private void setLeaves(IWorldGenerationReader worldIn, Random rand, BlockPos position) {
+        this.setBlockState(worldIn, position, this.leaf);
     }
 
 }

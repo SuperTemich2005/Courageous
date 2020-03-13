@@ -18,7 +18,7 @@ public class MudBlock extends BlockBase implements IBlock {
 
     public void onEntityWalk(World world, BlockPos pos, Entity entity) {
         double absMotion = Math.abs(entity.getMotion().y);
-        if (absMotion < 0.1D && !entity.isSneaking()) {
+        if (absMotion < 0.1D && !entity.isCrouching()) {
             double newMotion = 0.4D + absMotion * 0.2D;
             entity.setMotion(entity.getMotion().mul(newMotion, 1.0D, newMotion));
         }

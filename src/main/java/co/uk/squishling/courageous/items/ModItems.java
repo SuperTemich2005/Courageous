@@ -1,7 +1,6 @@
 package co.uk.squishling.courageous.items;
 
 import co.uk.squishling.courageous.items.pottery.Amphora;
-import co.uk.squishling.courageous.items.pottery.WateringCan;
 import co.uk.squishling.courageous.tabs.FoodTab;
 import co.uk.squishling.courageous.tabs.PotteryTab;
 import co.uk.squishling.courageous.tabs.WorldTab;
@@ -62,7 +61,5 @@ public class ModItems {
     public static final Item RED_AMPHORA        = new Amphora("red_amphora");
     public static final Item WHITE_AMPHORA      = new Amphora("white_amphora");
     public static final Item YELLOW_AMPHORA     = new Amphora("yellow_amphora");
-
-    public static final Item WATERING_CAN       = new WateringCan("watering_can");
 
 }

@@ -61,16 +61,12 @@ public class BiomeDouglasFirForest extends Biome {
     }
 
     @Override
-    public int getGrassColor(BlockPos pos) {
-//        return 0x53b65f;
+    public int getGrassColor(double p_225528_1_, double p_225528_3_) {
         return 0x8f9c48;
     }
 
-
     @Override
-    public int getFoliageColor(BlockPos pos) {
-//        return 0xa1ba5a;
+    public int getFoliageColor() {
         return 0x515c2e;
     }
-
 }

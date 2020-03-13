@@ -8,14 +8,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
@@ -37,20 +35,21 @@ public class HarvestableLeaves extends CustomLeaves {
         return !state.get(PERSISTENT) || !state.get(GROWN);
     }
 
-    public void randomTick(BlockState state, World worldIn, BlockPos pos, Random random) {
-        super.randomTick(state, worldIn, pos, random);
+    @Override
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        super.randomTick(state, world, pos, random);
 
-        if (Reference.isServer(worldIn)) if (!state.get(GROWN) && random.nextInt(20) == 0 && worldIn.getLightSubtracted(pos.up(), 0) >= 9) {
-            worldIn.setBlockState(pos, state.with(GROWN, true), 2);
+        if (Reference.isServer(world)) if (!state.get(GROWN) && random.nextInt(20) == 0 && world.getLightSubtracted(pos.up(), 0) >= 9) {
+            world.setBlockState(pos, state.with(GROWN, true), 2);
         }
     }
 
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (Reference.isServer(worldIn)) if (state.get(GROWN)) {
             spawnAsEntity(worldIn, pos, new ItemStack(this.item, worldIn.getRandom().nextInt(max - min) + min));
             worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_SWEET_BERRIES_PICK_FROM_BUSH, SoundCategory.BLOCKS, 1.0F, 0.8F + worldIn.rand.nextFloat() * 0.4F);
             worldIn.setBlockState(pos, state.with(GROWN, false), 2);
-            return true;
+            return ActionResultType.SUCCESS;
         }
 
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);

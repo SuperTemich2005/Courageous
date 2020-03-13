@@ -6,7 +6,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IEnviromentBlockReader;
+import net.minecraft.world.ILightReader;
+import net.minecraft.world.biome.BiomeColors;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ public class ModBlockColors implements IBlockColor {
     private static HashMap<Block, Integer> BLOCKS = new HashMap<Block, Integer>();
 
     @Override
-    public int getColor(BlockState blockState, @Nullable IEnviromentBlockReader iEnviromentBlockReader, @Nullable BlockPos blockPos, int i) {
+    public int getColor(BlockState blockState, @Nullable ILightReader iLightReader, @Nullable BlockPos blockPos, int i) {
         for (Block block : BLOCKS.keySet()) if (blockState.getBlock().equals(block)) return BLOCKS.get(block);
-        for (Block block : LEAVES) if (blockState.getBlock().equals(block)) return iEnviromentBlockReader.getBiome(blockPos).getFoliageColor(blockPos);
+        for (Block block : LEAVES) if (blockState.getBlock().equals(block)) return BiomeColors.getFoliageColor(iLightReader, blockPos);
 
         return 0;
     }
