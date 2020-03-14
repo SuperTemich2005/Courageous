@@ -23,7 +23,7 @@ import java.util.function.Function;
 
 public class MapleTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig> {
     private static final BlockState DEFAULT_TRUNK = ModBlocks.MAPLE_LOG.getDefaultState();
-    private static final BlockState DEFAULT_LEAF = ModBlocks.MAPLE_LEAVES.getDefaultState();
+    private static final BlockState DEFAULT_LEAF = ModBlocks.MAPLE_LEAVES.getDefaultState().with(LeavesBlock.DISTANCE, 1);
     protected final int minTreeHeight;
     private final boolean vinesGrow;
     private final BlockState trunk = ModBlocks.MAPLE_LOG_SYRUP.getDefaultState();

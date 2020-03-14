@@ -1,5 +1,6 @@
 package co.uk.squishling.courageous.world.gen.biomes;
 
+import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -7,6 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraftforge.common.IPlantable;
 
 public class BiomeRedwoodForest extends Biome {
 
@@ -41,6 +43,7 @@ public class BiomeRedwoodForest extends Biome {
         ModFeatures.addVilage(this, "taiga");
 
 //        ModFeatures.addTree(this, ModFeatures.GIANT_REDWOOD_TREE, 8, 0.1f, 1);
+        ModFeatures.addGiantSpruceTree(this, ModBlocks.REDWOOD_LOG.getDefaultState(), ModBlocks.REDWOOD_LEAVES.getDefaultState(), (IPlantable) ModBlocks.REDWOOD_SAPLING, 3, 0.1f, 1);
         ModFeatures.addTree(this, ModFeatures.ALPINE_TREE, 3, 0.1f, 1);
         ModFeatures.addSparseTrees(this);
 

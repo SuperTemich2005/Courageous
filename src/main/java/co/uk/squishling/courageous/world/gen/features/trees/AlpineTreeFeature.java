@@ -6,6 +6,7 @@ import co.uk.squishling.courageous.util.Reference;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorldWriter;
@@ -23,7 +24,7 @@ import java.util.function.Function;
 public class AlpineTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig> {
 
     private static final BlockState TRUNK = Blocks.SPRUCE_LOG.getDefaultState();
-    private static final BlockState LEAF = ModBlocks.ALPINE_LEAVES.getDefaultState();
+    private static final BlockState LEAF = ModBlocks.ALPINE_LEAVES.getDefaultState().with(LeavesBlock.DISTANCE, 1);
 
     private static final ArrayList<ArrayList<BlockPos>> BLOBS_LIST = new ArrayList<ArrayList<BlockPos>>();
 

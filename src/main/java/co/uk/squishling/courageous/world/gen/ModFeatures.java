@@ -19,6 +19,8 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.BlockClusterFeatureConfig.Builder;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.placement.*;
+import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
+import net.minecraftforge.common.IPlantable;
 
 import java.util.ArrayList;
 
@@ -57,6 +59,12 @@ public class ModFeatures {
 
     public static void addSparseTrees(Biome biome) {
         addDefaultTrees(biome, 1, 0.1f, 1);
+    }
+
+    // -1761374426436900763
+    // 42266 -1533
+    public static void addGiantSpruceTree(Biome biome, BlockState LOG, BlockState LEAVES, IPlantable sapling, int perChunk, float extraChance, int extra) {
+        biome.addFeature(Decoration.VEGETAL_DECORATION, Feature.MEGA_SPRUCE_TREE.withConfiguration(new HugeTreeFeatureConfig.Builder(new SimpleBlockStateProvider(LOG), new SimpleBlockStateProvider(LEAVES)).baseHeight(15).func_227283_b_(15).func_227284_c_(13).setSapling(sapling).build()).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(perChunk, extraChance, extra))));
     }
 
     public static void addFruitForestTrees(Biome biome) {

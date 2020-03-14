@@ -1,21 +1,24 @@
 package co.uk.squishling.courageous.trees;
 
+import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.trees.BigTree;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
+import net.minecraftforge.common.IPlantable;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class RedwoodTree extends Tree {
+public class RedwoodTree extends BigTree {
 
-//    @Nullable
-//    @Override
-//    protected ConfiguredFeature<HugeTreeFeatureConfig, ?> getHugeTreeFeature(Random random) {
-//        return ModFeatures.GIANT_REDWOOD_TREE.withConfiguration(DefaultBiomeFeatures.MEGA_SPRUCE_TREE_CONFIG);
-//    }
+    @Nullable
+    @Override
+    protected ConfiguredFeature<HugeTreeFeatureConfig, ?> getHugeTreeFeature(Random random) {
+        return Feature.MEGA_SPRUCE_TREE.withConfiguration(new HugeTreeFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.REDWOOD_LOG.getDefaultState()), new SimpleBlockStateProvider(ModBlocks.REDWOOD_LEAVES.getDefaultState())).baseHeight(15).func_227283_b_(15).func_227284_c_(13).setSapling((IPlantable) ModBlocks.REDWOOD_SAPLING).build());
+    }
 
     @Nullable
     @Override

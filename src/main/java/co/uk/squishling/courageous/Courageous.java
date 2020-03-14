@@ -6,6 +6,7 @@ import co.uk.squishling.courageous.blocks.ModContainers;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelScreen;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTileEntity;
+import co.uk.squishling.courageous.blocks.vegetation.LeavesLike;
 import co.uk.squishling.courageous.items.ModItems;
 import co.uk.squishling.courageous.util.EventHandler;
 import co.uk.squishling.courageous.util.ModBlockColors;
@@ -15,11 +16,15 @@ import co.uk.squishling.courageous.util.config.ConfigHandler;
 import co.uk.squishling.courageous.util.networking.ModPacketHandler;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.Block;
+import net.minecraft.block.BushBlock;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.renderer.RenderSkyboxCube;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.resources.ClientResourcePackInfo;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
@@ -129,6 +134,11 @@ public class Courageous {
 
         ModBlockColors.registerBlockColors();
         ModItemColors.registerItemColors();
+
+        for (Block block : ModBlocks.BLOCKS) {
+            if (block instanceof BushBlock || block instanceof LeavesBlock || block instanceof LeavesLike) RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
+        }
+        RenderTypeLookup.setRenderLayer(ModBlocks.ALPINE_LEAVES, RenderType.getCutoutMipped());
 
         ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
     }
@@ -250,7 +260,7 @@ public class Courageous {
                     ResourceLocationsArray[i] = new ResourceLocation(panoramaLoc.getNamespace(), panoramaLoc.getPath() + '_' + i + ".png");
                 }
                 //Replace the resource locations in the main menu's skybox field using reflection
-                ObfuscationReflectionHelper.setPrivateValue(RenderSkyboxCube.class, MainMenuScreen.PANORAMA_RESOURCES, ResourceLocationsArray, "locations");
+                ObfuscationReflectionHelper.setPrivateValue(RenderSkyboxCube.class, MainMenuScreen.PANORAMA_RESOURCES, ResourceLocationsArray, "field_209143_a");
             }
         }
     }

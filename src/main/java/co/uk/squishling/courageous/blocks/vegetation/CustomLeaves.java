@@ -10,7 +10,7 @@ import net.minecraft.item.ItemGroup;
 public class CustomLeaves extends LeavesBlock implements IBlock {
 
     public CustomLeaves(String name) {
-        super(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).sound(SoundType.PLANT).tickRandomly());
+        super(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).sound(SoundType.PLANT).tickRandomly().notSolid());
         DefaultBlockProperties.defaults(this, name);
     }
 

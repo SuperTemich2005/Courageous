@@ -63,7 +63,7 @@ public class BiomeTundra extends Biome {
 
     @Override
     public int getGrassColor(double x, double z) {
-        if (noiseGen.noiseAt(x, z, false) > 0) return 0xab552f;
+        if (noiseGen.noiseAt(x, z, false) >= 5) return 0xab552f;
         return 0xab7a2f;
     }
 

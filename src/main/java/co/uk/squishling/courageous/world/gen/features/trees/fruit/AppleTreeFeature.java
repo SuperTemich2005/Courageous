@@ -17,6 +17,7 @@ import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.IShearable;
 
 import java.util.Random;
 import java.util.Set;
@@ -24,7 +25,7 @@ import java.util.function.Function;
 
 public class AppleTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig> {
     private static final BlockState DEFAULT_TRUNK = Blocks.OAK_LOG.getDefaultState();
-    private static final BlockState DEFAULT_LEAF = ModBlocks.APPLE_LEAVES.getDefaultState().with(HarvestableLeaves.GROWN, false).with(LeavesBlock.PERSISTENT, false);
+    private static final BlockState DEFAULT_LEAF = ModBlocks.APPLE_LEAVES.getDefaultState().with(HarvestableLeaves.GROWN, false).with(LeavesBlock.PERSISTENT, false).with(LeavesBlock.DISTANCE, 1);
     protected final int minTreeHeight;
     private final boolean vinesGrow;
     private final BlockState trunk;

@@ -7,6 +7,7 @@ import co.uk.squishling.courageous.util.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorldWriter;
@@ -24,7 +25,7 @@ import java.util.function.Function;
 public class PalmTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig> {
 
     private static final BlockState TRUNK = ModBlocks.PALM_LOG.getDefaultState();
-    private static final BlockState LEAF = ModBlocks.PALM_LEAVES.getDefaultState();
+    private static final BlockState LEAF = ModBlocks.PALM_LEAVES.getDefaultState().with(LeavesBlock.DISTANCE, 1);
 
     private static final ArrayList<BlockPos> LEAVES = new ArrayList<BlockPos>();
 

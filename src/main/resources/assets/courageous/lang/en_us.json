@@ -119,5 +119,19 @@
 
     "book.courageous.guide.name": "Survivalist's Handbook",
     "book.courageous.guide.landing_text": "Courageous is a mod about overhauling survival Minecraft, whilst keeping it fun.  The mod intends to not interrupt gameplay, but rather supplement it.",
-    "book.courageous.guide.subtitle": "A Guide to Courageous"
+    "book.courageous.guide.subtitle": "A Guide to Courageous",
+
+    "biome.courageous.autumnal_forest": "Autumnal Forest",
+    "biome.courageous.snowy_mountain": "Snowy Mountain",
+    "biome.courageous.fruit_forest": "Fruit Forest",
+    "biome.courageous.temperate_rainforest": "Temperate Rainforest",
+    "biome.courageous.alpine_forest": "Alpine Forest",
+    "biome.courageous.chaparral": "Chaparral",
+    "biome.courageous.steppe": "Steppe",
+    "biome.courageous.lush_desert": "Lush Desert",
+    "biome.courageous.douglas_fir_forest": "Douglas Fir Forest",
+    "biome.courageous.redwood_forest": "Redwood Forest",
+    "biome.courageous.sparse_alpine_forest": "Sparse Alpine Forest",
+    "biome.courageous.tundra": "Tundra",
+    "biome.courageous.wetlands": "Wetlands"
 }

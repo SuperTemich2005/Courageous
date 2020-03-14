@@ -61,7 +61,7 @@ public class BiomeRegistry {
         SPARSE_ALPINE_FOREST = registerBiome(new BiomeSparseAlpineForest(), BiomeType.COOL, "sparse_alpine_forest", 8, Type.FOREST, Type.COLD, Type.CONIFEROUS, Type.HILLS);
         TEMPERATE_RAINFOREST = registerBiome(new BiomeTemperateRainforest(), BiomeType.COOL, "temperate_rainforest", 13, Type.FOREST, Type.CONIFEROUS, Type.HILLS, Type.DENSE);
 
-        REDWOOD_FOREST = registerBiome(new BiomeRedwoodForest(), BiomeType.COOL, "redwood_forest", 10, Type.FOREST, Type.CONIFEROUS, Type.WET, Type.DENSE);
+        REDWOOD_FOREST = registerBiome(new BiomeRedwoodForest(), BiomeType.COOL, "redwood_forest", 11, Type.FOREST, Type.CONIFEROUS, Type.WET, Type.DENSE);
         DOUGLAS_FIR_FOREST = registerBiome(new BiomeDouglasFirForest(), BiomeType.COOL, "douglas_fir_forest", 12, Type.FOREST, Type.CONIFEROUS, Type.DENSE, Type.COLD);
 
         TUNDRA = registerBiome(new BiomeTundra(), BiomeType.ICY, "tundra", 1, Type.COLD, Type.SPARSE, Type.DRY, Type.PLAINS, Type.SNOWY);

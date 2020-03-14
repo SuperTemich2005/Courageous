@@ -22,7 +22,7 @@ import java.util.function.Function;
 
 public class LemonTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig> {
     private static final BlockState DEFAULT_TRUNK = Blocks.OAK_LOG.getDefaultState();
-    private static final BlockState DEFAULT_LEAF = ModBlocks.LEMON_LEAVES.getDefaultState().with(HarvestableLeaves.GROWN, false).with(LeavesBlock.PERSISTENT, false);
+    private static final BlockState DEFAULT_LEAF = ModBlocks.LEMON_LEAVES.getDefaultState().with(HarvestableLeaves.GROWN, false).with(LeavesBlock.PERSISTENT, false).with(LeavesBlock.DISTANCE, 1);
     protected final int minTreeHeight;
     private final boolean vinesGrow;
     private final BlockState trunk;

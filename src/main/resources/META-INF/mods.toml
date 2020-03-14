@@ -20,7 +20,7 @@ loaderVersion="[31,)" #mandatory (28 is current forge version)
 modId="courageous" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="Alpha 1.2" #mandatory
+version="Alpha 1.3" #mandatory
 
  # A display name for the mod
 displayName="Courageous" #mandatory
@@ -92,5 +92,12 @@ Courageous is a mod about making Minecraft survival more realistic, without maki
     modId="minecraft"
     mandatory=true
     versionRange="[1.15,1.15.2]"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.courageous]]
+    modId="patchouli"
+    mandatory=true
+    versionRange="[1.2,)"
     ordering="NONE"
     side="BOTH"
