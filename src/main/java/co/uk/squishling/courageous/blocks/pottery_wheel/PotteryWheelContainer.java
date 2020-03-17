@@ -30,15 +30,15 @@ public class PotteryWheelContainer extends Container implements IHasTileEntity {
         inventory = new InvWrapper(playerInventory);
 
         tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            addSlot(handler, 0, 47, 34);
-            addSlot(handler, 1, 113, 34);
+            addSlot(handler, 1, 47, 34);
+            addSlot(handler, 0, 113, 34);
         });
         layoutPlayerInventorySlots(8, 84);
     }
 
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerIn, (Block) ModBlocks.POTTERY_WHEEL);
+        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerIn, ModBlocks.POTTERY_WHEEL);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class PotteryWheelContainer extends Container implements IHasTileEntity {
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
-            if (index == 0) {
-                if (!this.mergeItemStack(itemstack1, 1, this.inventorySlots.size(), true)) {
+            if (index < 2) {
+                if (!this.mergeItemStack(itemstack1, 2, this.inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             } else if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
@@ -64,24 +64,6 @@ public class PotteryWheelContainer extends Container implements IHasTileEntity {
         }
 
         return itemstack;
-    }
-
-//    @Override
-//    protected boolean mergeItemStack(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
-//        boolean result = false;
-//        int checkIndex = reverseDirection ? endIndex - 1 : startIndex;
-//
-//        Slot slot;
-//        ItemStack stack1 = ItemStack.EMPTY;
-//
-//        if (stack.isStackable())
-//
-//        return result;
-//    }
-
-    @Override
-    public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
-        return super.canMergeSlot(stack, slotIn);
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {

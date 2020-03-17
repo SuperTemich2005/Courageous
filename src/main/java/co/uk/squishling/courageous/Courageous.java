@@ -5,6 +5,7 @@ import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.blocks.ModContainers;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelScreen;
+import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTESR;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTileEntity;
 import co.uk.squishling.courageous.blocks.vegetation.LeavesLike;
 import co.uk.squishling.courageous.items.ModItems;
@@ -14,6 +15,8 @@ import co.uk.squishling.courageous.util.ModItemColors;
 import co.uk.squishling.courageous.util.Reference;
 import co.uk.squishling.courageous.util.config.ConfigHandler;
 import co.uk.squishling.courageous.util.networking.ModPacketHandler;
+import co.uk.squishling.courageous.util.rendering.FallingWaterParticle;
+import co.uk.squishling.courageous.util.rendering.ModParticles;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.block.BushBlock;
@@ -29,6 +32,8 @@ import net.minecraft.client.resources.ClientResourcePackInfo;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.resources.*;
 import net.minecraft.resources.ResourcePackInfo.IFactory;
 import net.minecraft.resources.ResourcePackInfo.Priority;
@@ -39,11 +44,13 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -131,6 +138,7 @@ public class Courageous {
         LOGGER.info("Client setup");
 
         trySetRandomPanorama();
+//        injectResourcePack();
 
         ModBlockColors.registerBlockColors();
         ModItemColors.registerItemColors();
@@ -138,8 +146,8 @@ public class Courageous {
         for (Block block : ModBlocks.BLOCKS) {
             if (block instanceof BushBlock || block instanceof LeavesBlock || block instanceof LeavesLike) RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
         }
-        RenderTypeLookup.setRenderLayer(ModBlocks.ALPINE_LEAVES, RenderType.getCutoutMipped());
 
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.POTTERY_WHEEL, PotteryWheelTESR::new);
         ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
     }
 
@@ -183,6 +191,18 @@ public class Courageous {
             LOGGER.info("Container types registry");
 
             event.getRegistry().register(ModContainers.POTTERY_WHEEL_CONTAINER);
+        }
+
+
+
+        @SubscribeEvent
+        public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
+            Minecraft.getInstance().particles.registerFactory(ModParticles.FALLING_WATER_PARTICLE, FallingWaterParticle.Factory::new);
+        }
+
+        @SubscribeEvent
+        public static void registerParticleTypes(RegistryEvent.Register<ParticleType<?>> event) {
+            event.getRegistry().register(ModParticles.FALLING_WATER_PARTICLE.setRegistryName(Reference.MOD_ID, "falling_water"));
         }
 
     }

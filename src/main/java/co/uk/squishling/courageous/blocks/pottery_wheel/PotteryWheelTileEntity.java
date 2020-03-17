@@ -66,14 +66,14 @@ public class PotteryWheelTileEntity extends TileEntity implements ITickableTileE
         if (Reference.isServer(world)) {
             // Server
             handler.ifPresent(h -> {
-                if (working && getClayValue(h.getStackInSlot(0)) < requiredClay) {
+                if (working && getClayValue(h.getStackInSlot(1)) < requiredClay) {
                     working = false;
                     workingTicks = 0;
                     notifyUpdate();
                 }
 
                 if (working && workingTicks >= tickTime) onFinish();
-                if (world.isBlockPowered(getPos()) && !working && getClayValue(h.getStackInSlot(0)) >= requiredClay) {
+                if (world.isBlockPowered(getPos()) && !working && getClayValue(h.getStackInSlot(1)) >= requiredClay) {
                     working = true;
                     notifyUpdate();
                 }
@@ -101,13 +101,13 @@ public class PotteryWheelTileEntity extends TileEntity implements ITickableTileE
         notifyUpdate();
 
         handler.ifPresent(h -> {
-            ItemStack in = h.getStackInSlot(0);
-            ItemStack out = h.getStackInSlot(1);
+            ItemStack in = h.getStackInSlot(1);
+            ItemStack out = h.getStackInSlot(0);
 
             if (getClayValue(in) < requiredClay) return;
 
             if (out.getItem() == POTTERY_PIECES.get(selectedIndex) && out.getCount() < out.getMaxStackSize()) out.setCount(out.getCount() + 1);
-            else if(out.isEmpty()) h.setStackInSlot(1, new ItemStack(POTTERY_PIECES.get(selectedIndex), 1));
+            else if(out.isEmpty()) h.setStackInSlot(0, new ItemStack(POTTERY_PIECES.get(selectedIndex), 1));
             else return;
 
             in.setCount(in.getCount() - requiredClay / CLAY_VALUES_MAP.get(in.getItem()));
@@ -168,7 +168,7 @@ public class PotteryWheelTileEntity extends TileEntity implements ITickableTileE
         return new ItemStackHandler(2) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return slot == 1 || CLAY_VALUES_MAP.containsKey(stack.getItem());
+                return slot != 0 && CLAY_VALUES_MAP.containsKey(stack.getItem());
             }
 
             @Nonnull
@@ -185,13 +185,14 @@ public class PotteryWheelTileEntity extends TileEntity implements ITickableTileE
         };
     }
 
-    // TODO https://discordapp.com/channels/438697837958791178/438698107568521267/680787581624909859
+
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return handler.cast();
         return super.getCapability(cap, side);
     }
+    // TODO https://discordapp.com/channels/438697837958791178/438698107568521267/680787581624909859
 
 //    @Nonnull
 //    @Override
