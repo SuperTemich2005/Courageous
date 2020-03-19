@@ -28,7 +28,6 @@
     "item.courageous.unfired_white_amphora": "Unfired White Amphora",
     "item.courageous.unfired_yellow_amphora": "Unfired Yellow Amphora",
 
-
     "item.courageous.amphora": "Amphora",
     "item.courageous.black_amphora": "Black Amphora",
     "item.courageous.brown_amphora": "Brown Amphora",
@@ -47,6 +46,25 @@
     "item.courageous.white_amphora": "White Amphora",
     "item.courageous.yellow_amphora": "Yellow Amphora",
 
+    "item.courageous.unfired_watering_can": "Unfired Watering Can",
+
+    "item.courageous.watering_can": "Watering Can",
+    "item.courageous.black_watering_can": "Black Watering Can",
+    "item.courageous.brown_watering_can": "Brown Watering Can",
+    "item.courageous.blue_watering_can": "Blue Watering Can",
+    "item.courageous.cyan_watering_can": "Cyan Watering Can",
+    "item.courageous.gray_watering_can": "Gray Watering Can",
+    "item.courageous.green_watering_can": "Green Watering Can",
+    "item.courageous.light_blue_watering_can": "Light Blue Watering Can",
+    "item.courageous.light_gray_watering_can": "Light Gray Watering Can",
+    "item.courageous.lime_watering_can": "Lime Watering Can",
+    "item.courageous.magenta_watering_can": "Magenta Watering Can",
+    "item.courageous.orange_watering_can": "Orange Watering Can",
+    "item.courageous.pink_watering_can": "Pink Watering Can",
+    "item.courageous.purple_watering_can": "Purple Watering Can",
+    "item.courageous.red_watering_can": "Red Watering Can",
+    "item.courageous.white_watering_can": "White Watering Can",
+    "item.courageous.yellow_watering_can": "Yellow Watering Can",
 
     "block.courageous.fallen_leaves": "Fallen Leaves",
 

@@ -116,22 +116,7 @@ public class Courageous {
         EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.REDWOOD_WOOD, (RotatedPillarBlock) ModBlocks.STRIPPED_REDWOOD_WOOD);
 
         PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.BROWN_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.BLACK_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.BLUE_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.CYAN_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.GRAY_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.GREEN_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.LIGHT_BLUE_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.LIGHT_GRAY_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.LIME_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.MAGENTA_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.ORANGE_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.PINK_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.PURPLE_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.RED_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.WHITE_UNFIRED_AMPHORA);
-//        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.YELLOW_UNFIRED_AMPHORA);
+        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_WATERING_CAN);
     }
 
     private void clientRegistry(final FMLClientSetupEvent event) {

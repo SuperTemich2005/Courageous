@@ -63,6 +63,25 @@ public class ModItems {
     public static final Item WHITE_AMPHORA      = new Amphora("white_amphora");
     public static final Item YELLOW_AMPHORA     = new Amphora("yellow_amphora");
 
-    public static final Item WATERING_CAN = new WateringCan("watering_can");
+
+    public static final Item UNFIRED_WATERING_CAN    = new ItemBase("unfired_watering_can", PotteryTab.POTTERY);
+
+    public static final Item WATERING_CAN            = new WateringCan("watering_can");
+    public static final Item BLACK_WATERING_CAN      = new WateringCan("black_watering_can");
+    public static final Item BLUE_WATERING_CAN       = new WateringCan("blue_watering_can");
+    public static final Item BROWN_WATERING_CAN      = new WateringCan("brown_watering_can");
+    public static final Item CYAN_WATERING_CAN       = new WateringCan("cyan_watering_can");
+    public static final Item GRAY_WATERING_CAN       = new WateringCan("gray_watering_can");
+    public static final Item GREEN_WATERING_CAN      = new WateringCan("green_watering_can");
+    public static final Item LIGHT_BLUE_WATERING_CAN = new WateringCan("light_blue_watering_can");
+    public static final Item LIGHT_GRAY_WATERING_CAN = new WateringCan("light_gray_watering_can");
+    public static final Item LIME_WATERING_CAN       = new WateringCan("lime_watering_can");
+    public static final Item MAGENTA_WATERING_CAN    = new WateringCan("magenta_watering_can");
+    public static final Item ORANGE_WATERING_CAN     = new WateringCan("orange_watering_can");
+    public static final Item PINK_WATERING_CAN       = new WateringCan("pink_watering_can");
+    public static final Item PURPLE_WATERING_CAN     = new WateringCan("purple_watering_can");
+    public static final Item RED_WATERING_CAN        = new WateringCan("red_watering_can");
+    public static final Item WHITE_WATERING_CAN      = new WateringCan("white_watering_can");
+    public static final Item YELLOW_WATERING_CAN     = new WateringCan("yellow_watering_can");
 
 }

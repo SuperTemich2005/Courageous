@@ -2,8 +2,13 @@ package co.uk.squishling.courageous.items.pottery;
 
 import co.uk.squishling.courageous.items.ItemBase;
 import co.uk.squishling.courageous.tabs.PotteryTab;
+import co.uk.squishling.courageous.util.rendering.FallingWaterParticle;
+import co.uk.squishling.courageous.util.rendering.FallingWaterParticleData;
+import co.uk.squishling.courageous.util.rendering.ModParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.CropsBlock;
+import net.minecraft.block.IGrowable;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
@@ -24,6 +29,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
@@ -66,7 +72,7 @@ public class WateringCan extends ItemBase {
         BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) raytraceresult;
         BlockPos pos = blockraytraceresult.getPos();
 
-        if (!world.getFluidState(pos).isEmpty()) {
+        if (!world.getFluidState(pos).isEmpty() && player.isCrouching()) {
             if (contents.getAmount() >= getCapacity(stack) || !world.getFluidState(pos).getFluid().equals(ForgeRegistries.FLUIDS.getValue(new ResourceLocation("minecraft:water")))) return new ActionResult<>(ActionResultType.PASS, stack);
             FluidStack fluidToFill = new FluidStack(world.getFluidState(pos).getFluid(), FluidAttributes.BUCKET_VOLUME);
 
@@ -86,12 +92,22 @@ public class WateringCan extends ItemBase {
             BlockState targetState = world.getBlockState(pos1);
             if (targetState.isAir(world, pos1) || !targetState.getMaterial().isSolid() || targetState.getMaterial().isReplaceable()) {
                 if (!world.isRemote) {
-//                    world.setBlockState(pos1, contents.getFluid().getDefaultState().getBlockState());
-//                    drain(stack, 50);
+                    if (random.nextInt(7) == 0) applyBonemeal(stack, world, pos, player);
+                    drain(stack, 50);
                 }
 
+                if (world.getBlockState(pos).getBlock() instanceof CropsBlock && ((IGrowable) world.getBlockState(pos).getBlock()).canGrow(world, pos, world.getBlockState(pos), world.isRemote))
+                    world.addParticle(ParticleTypes.COMPOSTER, pos.getX() + 0.4f + random.nextFloat() / 5, pos.getY() + 0.1f + random.nextFloat() / 5, pos.getZ() + 0.4f + random.nextFloat() / 5, 0f, 0f, 0f);
+
                 player.playSound(SoundEvents.WEATHER_RAIN_ABOVE, 0.2F, 1.5F);
-                world.addParticle(ParticleTypes.NAUTILUS, player.getPosX(), player.getPosY() + 1, player.getPosZ(), 1f, -0.5f, 0f);
+
+                world.addParticle(ModParticles.FALLING_WATER_PARTICLE_DATA, player.getPosX(), player.getPosY() + 1.25, player.getPosZ(), (player.getLookVec().getX() * 0.6f - 0.05f) + random.nextFloat() / 10f, 0f, (player.getLookVec().getZ() * 0.6f - 0.05f) + random.nextFloat() / 10f);
+                world.addParticle(ModParticles.FALLING_WATER_PARTICLE_DATA, player.getPosX(), player.getPosY() + 1.25, player.getPosZ(), (player.getLookVec().getX() * 0.6f - 0.05f) + random.nextFloat() / 10f, 0f, (player.getLookVec().getZ() * 0.6f - 0.05f) + random.nextFloat() / 10f);
+
+                world.addParticle(ParticleTypes.SPLASH, pos.getX() + 0.4f + random.nextFloat() / 5, pos.getY() + 1.1f + random.nextFloat() / 5, pos.getZ() + random.nextFloat(), 0f, 0f, 0f);
+                world.addParticle(ParticleTypes.SPLASH, pos.getX() + 0.4f + random.nextFloat() / 5, pos.getY() + 1.1f + random.nextFloat() / 5, pos.getZ() + random.nextFloat(), 0f, 0f, 0f);
+                world.addParticle(ParticleTypes.SPLASH, pos.getX() + 0.4f + random.nextFloat() / 5, pos.getY() + 1.1f + random.nextFloat() / 5, pos.getZ() + random.nextFloat(), 0f, 0f, 0f);
+                world.addParticle(ParticleTypes.SPLASH, pos.getX() + 0.4f + random.nextFloat() / 5, pos.getY() + 1.1f + random.nextFloat() / 5, pos.getZ() + random.nextFloat(), 0f, 0f, 0f);
 
                 player.addStat(Stats.ITEM_USED.get(this));
                 return new ActionResult<>(ActionResultType.SUCCESS, stack);
@@ -99,6 +115,26 @@ public class WateringCan extends ItemBase {
         }
 
         return new ActionResult<>(ActionResultType.PASS, stack);
+    }
+
+    public static boolean applyBonemeal(ItemStack stack, World worldIn, BlockPos pos, PlayerEntity player) {
+        BlockState blockstate = worldIn.getBlockState(pos);
+        int hook = net.minecraftforge.event.ForgeEventFactory.onApplyBonemeal(player, worldIn, pos, blockstate, stack);
+        if (hook != 0) return hook > 0;
+        if (blockstate.getBlock() instanceof CropsBlock) {
+            IGrowable igrowable = (IGrowable)blockstate.getBlock();
+            if (igrowable.canGrow(worldIn, pos, blockstate, worldIn.isRemote)) {
+                if (!worldIn.isRemote) {
+                    if (igrowable.canUseBonemeal(worldIn, worldIn.rand, pos, blockstate)) {
+                        igrowable.grow((ServerWorld) worldIn, worldIn.rand, pos, blockstate);
+                    }
+                }
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
