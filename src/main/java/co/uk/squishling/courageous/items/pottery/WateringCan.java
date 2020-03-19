@@ -60,7 +60,6 @@ public class WateringCan extends ItemBase {
         }
     }
 
-
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand handIn) {
         ItemStack stack = player.getHeldItem(handIn);
@@ -101,13 +100,8 @@ public class WateringCan extends ItemBase {
 
                 player.playSound(SoundEvents.WEATHER_RAIN_ABOVE, 0.2F, 1.5F);
 
-                world.addParticle(ModParticles.FALLING_WATER_PARTICLE_DATA, player.getPosX(), player.getPosY() + 1.25, player.getPosZ(), (player.getLookVec().getX() * 0.6f - 0.05f) + random.nextFloat() / 10f, 0f, (player.getLookVec().getZ() * 0.6f - 0.05f) + random.nextFloat() / 10f);
-                world.addParticle(ModParticles.FALLING_WATER_PARTICLE_DATA, player.getPosX(), player.getPosY() + 1.25, player.getPosZ(), (player.getLookVec().getX() * 0.6f - 0.05f) + random.nextFloat() / 10f, 0f, (player.getLookVec().getZ() * 0.6f - 0.05f) + random.nextFloat() / 10f);
-
-                world.addParticle(ParticleTypes.SPLASH, pos.getX() + 0.4f + random.nextFloat() / 5, pos.getY() + 1.1f + random.nextFloat() / 5, pos.getZ() + random.nextFloat(), 0f, 0f, 0f);
-                world.addParticle(ParticleTypes.SPLASH, pos.getX() + 0.4f + random.nextFloat() / 5, pos.getY() + 1.1f + random.nextFloat() / 5, pos.getZ() + random.nextFloat(), 0f, 0f, 0f);
-                world.addParticle(ParticleTypes.SPLASH, pos.getX() + 0.4f + random.nextFloat() / 5, pos.getY() + 1.1f + random.nextFloat() / 5, pos.getZ() + random.nextFloat(), 0f, 0f, 0f);
-                world.addParticle(ParticleTypes.SPLASH, pos.getX() + 0.4f + random.nextFloat() / 5, pos.getY() + 1.1f + random.nextFloat() / 5, pos.getZ() + random.nextFloat(), 0f, 0f, 0f);
+                for (int i = 0; i < 2; i++) world.addParticle(ModParticles.FALLING_WATER_PARTICLE_DATA, player.getPosX(), player.getPosY() + 1.25, player.getPosZ(), (player.getLookVec().getX() * 0.6f - 0.05f) + random.nextFloat() / 10f, 0f, (player.getLookVec().getZ() * 0.6f - 0.05f) + random.nextFloat() / 10f);
+                for (int i = 0; i < 4; i++) world.addParticle(ParticleTypes.SPLASH, pos.getX() + 0.4f + random.nextFloat() / 5, pos.getY() + 1.1f + random.nextFloat() / 5, pos.getZ() + random.nextFloat(), 0f, 0f, 0f);
 
                 player.addStat(Stats.ITEM_USED.get(this));
                 return new ActionResult<>(ActionResultType.SUCCESS, stack);

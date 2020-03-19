@@ -75,10 +75,11 @@ public class BiomeRegistry {
         SNOWY_MOUNTAIN = registerBiome(new BiomeSnowyMountain(), BiomeType.ICY, "snowy_mountain", 22, Type.SPARSE, Type.WET, Type.HILLS, Type.SNOWY, Type.COLD);
     }
 
-    public static Biome registerBiome(Biome biome, BiomeManager.BiomeType biomeType, String name, int weight, BiomeDictionary.Type... types) {
+    public static Biome registerBiome(Biome biome, BiomeType biomeType, String name, int weight, Type... types) {
         biome.setRegistryName(Reference.MOD_ID, name);
         ForgeRegistries.BIOMES.register(biome);
         BiomeDictionary.addTypes(biome, types);
+        BiomeDictionary.addTypes(biome, Type.OVERWORLD);
         Courageous.LOGGER.info(name + " registered");
 
         if (!ConfigHandler.COMMON.spawnBiomes.get() ||
