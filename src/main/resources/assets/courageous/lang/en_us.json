@@ -141,7 +141,7 @@
 
     "biome.courageous.autumnal_forest": "Autumnal Forest",
     "biome.courageous.snowy_mountain": "Snowy Mountain",
-    "biome.courageous.fruit_forest": "Fruit Forest",
+    "biome.courageous.fruitful_forest": "Fruit Forest",
     "biome.courageous.temperate_rainforest": "Temperate Rainforest",
     "biome.courageous.alpine_forest": "Alpine Forest",
     "biome.courageous.chaparral": "Chaparral",
@@ -151,5 +151,7 @@
     "biome.courageous.redwood_forest": "Redwood Forest",
     "biome.courageous.sparse_alpine_forest": "Sparse Alpine Forest",
     "biome.courageous.tundra": "Tundra",
-    "biome.courageous.wetlands": "Wetlands"
+    "biome.courageous.wetlands": "Wetlands",
+
+    "subtitle.courageous.pottery_wheel_spin": "Pottery Wheel Spins"
 }

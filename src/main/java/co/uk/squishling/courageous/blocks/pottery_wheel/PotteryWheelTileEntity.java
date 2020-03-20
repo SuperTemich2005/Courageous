@@ -3,6 +3,7 @@ package co.uk.squishling.courageous.blocks.pottery_wheel;
 import co.uk.squishling.courageous.blocks.IHasButton;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
 import co.uk.squishling.courageous.items.ModItems;
+import co.uk.squishling.courageous.util.ModSounds;
 import co.uk.squishling.courageous.util.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.ItemEntity;
@@ -20,6 +21,7 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
@@ -75,12 +77,10 @@ public class PotteryWheelTileEntity extends TileEntity implements ITickableTileE
                 if (working && workingTicks >= tickTime) onFinish();
                 if (world.isBlockPowered(getPos()) && !working && getClayValue(h.getStackInSlot(1)) >= requiredClay) {
                     working = true;
+                    world.playSound(null, getPos(), ModSounds.POTTERY_WHEEL_SPIN, SoundCategory.BLOCKS, 0.5f, 1f);
                     notifyUpdate();
                 }
             });
-        } else {
-            // Client
-//            System.out.println(working);
         }
     }
 

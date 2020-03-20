@@ -20,7 +20,7 @@ loaderVersion="[31,)" #mandatory (28 is current forge version)
 modId="courageous" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="Alpha 1.4" #mandatory
+version="Alpha 1.4.2" #mandatory
 
  # A display name for the mod
 displayName="Courageous" #mandatory
@@ -36,34 +36,19 @@ displayURL="https://discord.gg/wtHw4zy" #optional
 
 # A text field displayed in the mod UI
 credits='''
-
-Artists
-======
- >> Vik <<
-TheMasterwight20025
-Squishling
-Ilyass
-phoenix_wb
-ilja615
-BeardieButt
-
-Builders
-=======
-Squishling
-ilja615
-
-Programmers
-===========
- >> Squishling <<
-
-Modellers
-========
- >> BeardieButt <<
-Squishling
+Squishling - Programmer
+Vik - Artist
+BeardieButt - Modeller
 
 Contributors
 ===========
-Sindarin
+Sindarin - Code
+TheMasterwight20025 - Art (unused)
+Squishling - Art (unused)
+Ilyass - Art (unused)
+phoenix_wb - Art (unused)
+ilja615 - Art (unused)
+BeardieButt - Art (unused)
 '''
 
 # A text field displayed in the mod UI
