@@ -11,6 +11,7 @@ import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTESR;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTileEntity;
 import co.uk.squishling.courageous.blocks.vegetation.LeavesLike;
 import co.uk.squishling.courageous.items.ModItems;
+import co.uk.squishling.courageous.recipes.ModRecipes;
 import co.uk.squishling.courageous.util.*;
 import co.uk.squishling.courageous.util.config.ConfigHandler;
 import co.uk.squishling.courageous.util.networking.ModPacketHandler;
@@ -91,6 +92,8 @@ public class Courageous {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new EventHandler());
+
+        ModRecipes.RECIPE_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     // Preinit
@@ -113,14 +116,6 @@ public class Courageous {
 
         PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_AMPHORA);
         PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_WATERING_CAN);
-
-        ArchitectsTableContainer.ARCITECTS_LIST.put(new ItemStack(Blocks.OAK_PLANKS).getItem(), new QuickList<ItemStack>()
-                .append(new ItemStack(Blocks.ACACIA_PLANKS))
-                .append(new ItemStack(Blocks.BIRCH_PLANKS))
-                .append(new ItemStack(Blocks.SPRUCE_PLANKS))
-                .append(new ItemStack(Blocks.DARK_OAK_PLANKS))
-                .append(new ItemStack(Blocks.JUNGLE_PLANKS)));
-
     }
 
     private void clientRegistry(final FMLClientSetupEvent event) {
