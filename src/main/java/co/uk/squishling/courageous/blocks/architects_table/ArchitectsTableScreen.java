@@ -195,24 +195,4 @@ public class ArchitectsTableScreen extends ContainerScreen<ArchitectsTableContai
             this.recipeIndexOffset = 0;
         }
     }
-
-    /*private void drawItemStack(ItemStack stack, int x, int y) {
-        if (stack == null) return;
-        this.itemRenderer.zLevel = 200.0F;
-        this.itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
-        this.itemRenderer.zLevel = 0.0F;
-    }
-
-    protected void renderButtonToolTip(int mouseX, int mouseY) {
-
-        if (this.minecraft.player.inventory.getItemStack().isEmpty()) {
-            for (ItemStack item : ICONS.keySet()) {
-                if (item != null && mouseX >= ICONS.get(item).getLeft() && mouseY >= ICONS.get(item).getRight() && mouseX < ICONS.get(item).getLeft() + 16 && mouseY < ICONS.get(item).getRight() + 16) {
-                    super.renderTooltip(item, mouseX, mouseY);
-                }
-            }
-        }
-
-    }*/
-
 }

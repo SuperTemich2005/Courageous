@@ -116,14 +116,6 @@ public class Courageous {
 
         PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_AMPHORA);
         PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_WATERING_CAN);
-
-        /*ArchitectsTableContainer.ARCITECTS_LIST.put(new ItemStack(Blocks.OAK_PLANKS).getItem(), new QuickList<ItemStack>()
-                .append(new ItemStack(Blocks.ACACIA_PLANKS))
-                .append(new ItemStack(Blocks.BIRCH_PLANKS))
-                .append(new ItemStack(Blocks.SPRUCE_PLANKS))
-                .append(new ItemStack(Blocks.DARK_OAK_PLANKS))
-                .append(new ItemStack(Blocks.JUNGLE_PLANKS)));
-*/
     }
 
     private void clientRegistry(final FMLClientSetupEvent event) {
