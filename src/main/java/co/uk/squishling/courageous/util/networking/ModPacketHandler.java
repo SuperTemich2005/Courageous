@@ -29,6 +29,7 @@ public class ModPacketHandler {
 
     public static void registerPackets() {
         registerMessage(PacketPotterySelect.class, PacketPotterySelect::toBytes, PacketPotterySelect::new, PacketPotterySelect::handle);
+        registerMessage(PacketSlotChanged.class, PacketSlotChanged::toBytes, PacketSlotChanged::new, PacketSlotChanged::handle);
     }
 
 }

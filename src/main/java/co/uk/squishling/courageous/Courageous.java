@@ -4,6 +4,8 @@ import co.uk.squishling.courageous.blocks.IBlock;
 import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.blocks.ModContainers;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
+import co.uk.squishling.courageous.blocks.architects_table.ArchitectsTableContainer;
+import co.uk.squishling.courageous.blocks.architects_table.ArchitectsTableScreen;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelScreen;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTESR;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTileEntity;
@@ -15,22 +17,27 @@ import co.uk.squishling.courageous.util.networking.ModPacketHandler;
 import co.uk.squishling.courageous.util.rendering.FallingWaterParticle;
 import co.uk.squishling.courageous.util.rendering.ModParticles;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
-import net.minecraft.block.Block;
-import net.minecraft.block.BushBlock;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.renderer.RenderSkyboxCube;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.resources.ClientResourcePackInfo;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleType;
+import net.minecraft.resources.*;
+import net.minecraft.resources.ResourcePackInfo.IFactory;
+import net.minecraft.resources.ResourcePackInfo.Priority;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.api.distmarker.Dist;
@@ -49,6 +56,7 @@ import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.loading.moddiscovery.ModFile;
 import net.minecraftforge.fml.packs.ModFileResourcePack;
@@ -57,6 +65,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -104,6 +113,14 @@ public class Courageous {
 
         PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_AMPHORA);
         PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_WATERING_CAN);
+
+        ArchitectsTableContainer.ARCITECTS_LIST.put(new ItemStack(Blocks.OAK_PLANKS).getItem(), new QuickList<ItemStack>()
+                .append(new ItemStack(Blocks.ACACIA_PLANKS))
+                .append(new ItemStack(Blocks.BIRCH_PLANKS))
+                .append(new ItemStack(Blocks.SPRUCE_PLANKS))
+                .append(new ItemStack(Blocks.DARK_OAK_PLANKS))
+                .append(new ItemStack(Blocks.JUNGLE_PLANKS)));
+
     }
 
     private void clientRegistry(final FMLClientSetupEvent event) {
@@ -120,7 +137,9 @@ public class Courageous {
         }
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.POTTERY_WHEEL, PotteryWheelTESR::new);
+
         ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
+        ScreenManager.registerFactory(ModContainers.ARCHITECTS_TABLE_CONTAINER, ArchitectsTableScreen::new);
     }
 
     @EventBusSubscriber(bus=Bus.MOD)
@@ -161,6 +180,7 @@ public class Courageous {
             LOGGER.info("Container types registry");
 
             event.getRegistry().register(ModContainers.POTTERY_WHEEL_CONTAINER);
+            event.getRegistry().register(ModContainers.ARCHITECTS_TABLE_CONTAINER);
         }
 
         @SubscribeEvent
@@ -234,32 +254,32 @@ public class Courageous {
 //        }
 //    }
 
-//    @OnlyIn(Dist.CLIENT)
-//    public static void trySetRandomPanorama() {
-//        //Get this mod's resource pack
-//        Optional<ModFileResourcePack> optionalResourcePack = ResourcePackLoader.getResourcePackFor(Reference.MOD_ID);
-//        //If found, try replacing the panorama
-//        if (optionalResourcePack.isPresent()) {
-//            //First of all, get the actual resource pack
-//            ModFileResourcePack resourcePack = optionalResourcePack.get();
-//            //Then, get a set of subfolders from the panoramas directory
-//            Set<String> folders = getSubfoldersFromDirectory(resourcePack.getModFile(), "assets/" + Reference.MOD_ID + "/panoramas");
-//            //If there's at least 1 such folder, replace the panorama
-//            if (folders.size() > 0) {
-//                //Get a random panorama from the list of folders
-//                String chosenPanorama = (String) folders.toArray()[new Random().nextInt(folders.size())];
-//                //Generate a base resource location for it
-//                ResourceLocation panoramaLoc = new ResourceLocation(Reference.MOD_ID, "panoramas/" + chosenPanorama + "/panorama");
-//                //Generate the array of resource locations
-//                ResourceLocation[] ResourceLocationsArray = new ResourceLocation[6];
-//                for (int i = 0; i < 6; ++i) {
-//                    ResourceLocationsArray[i] = new ResourceLocation(panoramaLoc.getNamespace(), panoramaLoc.getPath() + '_' + i + ".png");
-//                }
-//                //Replace the resource locations in the main menu's skybox field using reflection
-//                ObfuscationReflectionHelper.setPrivateValue(RenderSkyboxCube.class, MainMenuScreen.PANORAMA_RESOURCES, ResourceLocationsArray, "field_209143_a");
-//            }
-//        }
-//    }
+    @OnlyIn(Dist.CLIENT)
+    public static void trySetRandomPanorama() {
+        //Get this mod's resource pack
+        Optional<ModFileResourcePack> optionalResourcePack = ResourcePackLoader.getResourcePackFor(Reference.MOD_ID);
+        //If found, try replacing the panorama
+        if (optionalResourcePack.isPresent()) {
+            //First of all, get the actual resource pack
+            ModFileResourcePack resourcePack = optionalResourcePack.get();
+            //Then, get a set of subfolders from the panoramas directory
+            Set<String> folders = getSubfoldersFromDirectory(resourcePack.getModFile(), "assets/" + Reference.MOD_ID + "/panoramas");
+            //If there's at least 1 such folder, replace the panorama
+            if (folders.size() > 0) {
+                //Get a random panorama from the list of folders
+                String chosenPanorama = (String) folders.toArray()[new Random().nextInt(folders.size())];
+                //Generate a base resource location for it
+                ResourceLocation panoramaLoc = new ResourceLocation(Reference.MOD_ID, "panoramas/" + chosenPanorama + "/panorama");
+                //Generate the array of resource locations
+                ResourceLocation[] ResourceLocationsArray = new ResourceLocation[6];
+                for (int i = 0; i < 6; ++i) {
+                    ResourceLocationsArray[i] = new ResourceLocation(panoramaLoc.getNamespace(), panoramaLoc.getPath() + '_' + i + ".png");
+                }
+                //Replace the resource locations in the main menu's skybox field using reflection
+                ObfuscationReflectionHelper.setPrivateValue(RenderSkyboxCube.class, MainMenuScreen.PANORAMA_RESOURCES, ResourceLocationsArray, "field_209143_a");
+            }
+        }
+    }
 
     /**
      * Get a list of the subfolder names in a specific directory from a specific mod file

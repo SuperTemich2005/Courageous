@@ -8,6 +8,7 @@ import net.minecraft.block.RotatedPillarBlock;
 //import net.minecraft.client.gui.screen.MainMenuScreen;
 //import net.minecraft.client.gui.screen.MainMenuScreen;
 //import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
@@ -23,6 +24,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 //import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
@@ -82,12 +86,13 @@ public class EventHandler {
 
     //Panorama Replacement
     //Remove the code here to prevent it switching every time you switch back to the main menu
-//    @SubscribeEvent
-//    public static void onMenuOpenEvent(GuiOpenEvent event) {
-//        if (event.getGui() instanceof MainMenuScreen) {
-//            Courageous.trySetRandomPanorama();
-//        }
-//    }
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void onMenuOpenEvent(GuiOpenEvent event) {
+        if (event.getGui() instanceof MainMenuScreen) {
+            Courageous.trySetRandomPanorama();
+        }
+    }
 
 
 }

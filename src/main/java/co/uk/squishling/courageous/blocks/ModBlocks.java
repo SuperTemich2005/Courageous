@@ -1,5 +1,6 @@
 package co.uk.squishling.courageous.blocks;
 
+import co.uk.squishling.courageous.blocks.architects_table.ArchitectsTable;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheel;
 import co.uk.squishling.courageous.blocks.vegetation.*;
 import co.uk.squishling.courageous.tabs.ArchitectsTab;
@@ -76,7 +77,7 @@ public class ModBlocks {
     public static final Block FALLEN_LEAVES = new FallenLeaves();
 
     public static final Block POTTERY_WHEEL = new PotteryWheel();
-    public static final Block ARCHITECTS_TABLE = new BlockBase("architects_table", Material.WOOD);
+    public static final Block ARCHITECTS_TABLE = new ArchitectsTable();
 
     public static final Block MUD = new MudBlock();
 

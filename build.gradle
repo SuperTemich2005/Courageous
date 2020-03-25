@@ -111,7 +111,7 @@ dependencies {
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-    //compile fg.deobf("vazkii.patchouli:Patchouli:1.15.2-1.2-29.147")
+    compile fg.deobf("vazkii.patchouli:Patchouli:1.15.2-1.2-29.147")
     //compile fg.deobf("curse.maven:spanorama-creator:2899880")
 }
 
