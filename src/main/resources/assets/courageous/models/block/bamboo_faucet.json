@@ -1,0 +1,383 @@
+{
+  "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+  "textures": {
+    "bamboo_stalk": "minecraft:block/bamboo_stalk",
+    "particle": "minecraft:block/bamboo_stalk"
+  },
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        5,
+        2,
+        0
+      ],
+      "scale": [
+        1.625,
+        1.625,
+        1.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        1,
+        -4
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        2,
+        -7
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ]
+    },
+    "head": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        -6
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        350,
+        20,
+        0
+      ],
+      "translation": [
+        -1,
+        9.5,
+        -1
+      ],
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        315,
+        0
+      ],
+      "translation": [
+        5,
+        7.5,
+        4
+      ],
+      "scale": [
+        1.375,
+        1.375,
+        1.375
+      ]
+    }
+  },
+  "elements": [
+    {
+      "name": "Bottom",
+      "from": [
+        6.5,
+        3,
+        10
+      ],
+      "to": [
+        9.5,
+        4,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            13,
+            2,
+            16,
+            3
+          ]
+        },
+        "east": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            0,
+            1,
+            6
+          ],
+          "rotation": 270
+        },
+        "south": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            13,
+            6,
+            16,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            2,
+            0,
+            3,
+            6
+          ],
+          "rotation": 90
+        },
+        "up": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            0,
+            3,
+            6
+          ],
+          "rotation": 180
+        },
+        "down": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            0,
+            3,
+            6
+          ]
+        }
+      }
+    },
+    {
+      "name": "R",
+      "from": [
+        6.5,
+        4,
+        10
+      ],
+      "to": [
+        7.5,
+        5,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            15,
+            1,
+            16,
+            2
+          ]
+        },
+        "east": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            1,
+            0,
+            2,
+            6
+          ],
+          "rotation": 270
+        },
+        "south": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            13,
+            5,
+            14,
+            6
+          ]
+        },
+        "west": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            1,
+            0,
+            2,
+            6
+          ],
+          "rotation": 90
+        },
+        "up": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            2,
+            0,
+            3,
+            6
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "name": "L",
+      "from": [
+        8.5,
+        4,
+        10
+      ],
+      "to": [
+        9.5,
+        5,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            13,
+            1,
+            14,
+            2
+          ]
+        },
+        "east": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            1,
+            0,
+            2,
+            6
+          ],
+          "rotation": 270
+        },
+        "south": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            15,
+            5,
+            16,
+            6
+          ]
+        },
+        "west": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            1,
+            0,
+            2,
+            6
+          ],
+          "rotation": 90
+        },
+        "up": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            0,
+            1,
+            6
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "name": "Top",
+      "from": [
+        6.5,
+        5,
+        13
+      ],
+      "to": [
+        9.5,
+        6,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            13,
+            0,
+            16,
+            1
+          ]
+        },
+        "east": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            3,
+            1,
+            6
+          ],
+          "rotation": 270
+        },
+        "south": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            13,
+            4,
+            16,
+            5
+          ]
+        },
+        "west": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            2,
+            3,
+            3,
+            6
+          ],
+          "rotation": 90
+        },
+        "up": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            3,
+            3,
+            6
+          ],
+          "rotation": 180
+        },
+        "down": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            3,
+            3,
+            6
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "courageous:block/bamboo_faucet"
+    },
+    "facing=south": {
+      "model": "courageous:block/bamboo_faucet",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "courageous:block/bamboo_faucet",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "courageous:block/bamboo_faucet",
+      "y": 90
+    }
+  }
+}
