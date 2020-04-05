@@ -1,0 +1,25 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "courageous:block/pot/empty"
+      }
+    },
+    {
+      "when": {
+        "open": "false"
+      },
+      "apply": {
+        "model": "courageous:block/pot/covered"
+      }
+    },
+    {
+      "when": {
+        "attached": "true"
+      },
+      "apply": {
+        "model": "courageous:block/pot/support"
+      }
+    }
+  ]
+}

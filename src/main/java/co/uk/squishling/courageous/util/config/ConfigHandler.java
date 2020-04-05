@@ -62,6 +62,12 @@ public class ConfigHandler {
         public final BooleanValue removeDimensions;
         public final BooleanValue removeStructures;
 
+        public final ForgeConfigSpec.IntValue distillerProgressChance;
+        public final ForgeConfigSpec.IntValue distillerMaxDrainPerTick;
+        public final ForgeConfigSpec.IntValue bambooFaucetCapacity;
+        public final ForgeConfigSpec.IntValue bambooFaucetSpeed;
+
+
         CommonConfig(Builder builder) {
             builder.push("Main");
             spawnBiomes = builder
@@ -115,6 +121,20 @@ public class ConfigHandler {
             removeStructures = builder
                     .comment("Whether to remove fantasy/magic structures from Minecraft, like strongholds, underwater ruins, and more.  Only active if `removeFantasy` is.")
                     .define("removeStructures", true);
+            builder.pop();
+            builder.push("Machine Settings");
+            distillerProgressChance = builder
+                    .comment("Chance per tick for the distiller to make recipe progress, 1/n [1..32767|default:60]")
+                    .defineInRange("distillerProgressChance", 60, 1, 32767);
+            distillerMaxDrainPerTick = (ForgeConfigSpec.IntValue) builder
+                    .comment("Max amount of fluid output in mb per tick on the distiller. Beware: setting this too low will result in overpressure and exploding distillation devices. [0..32767|default:100]")
+                    .defineInRange("distillerMaxDrainPerTick", 100, 0, 32767);
+            bambooFaucetCapacity = (ForgeConfigSpec.IntValue) builder
+                    .comment("Max amount of fluid output in mb stored at any moment in the bamboo faucet [0..32767|default:100]")
+                    .defineInRange("bambooFaucetCapacity", 100, 0, 32767);
+            bambooFaucetSpeed = (ForgeConfigSpec.IntValue) builder
+                    .comment("Max speed of fluid output in mb per tick from the bamboo faucet [0..32767|default:10]")
+                    .defineInRange("bambooFaucetSpeed", 10, 0, 32767);
             builder.pop();
         }
 

@@ -1,0 +1,64 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "courageous:block/pot/empty"
+      }
+    },
+    {
+      "when": {
+        "open": "false"
+      },
+      "apply": {
+        "model": "courageous:block/pot/covered"
+      }
+    },
+    {
+      "when": {
+        "attached": "true"
+      },
+      "apply": {
+        "model": "courageous:block/pot/support"
+      }
+    },
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "courageous:block/pot/distiller",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "courageous:block/pot/distiller",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "courageous:block/pot/distiller",
+        "y": 270,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "courageous:block/pot/distiller",
+        "y": 90,
+        "uvlock": true
+      }
+    }
+  ]
+}

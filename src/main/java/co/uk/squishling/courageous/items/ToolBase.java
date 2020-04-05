@@ -1,7 +1,6 @@
 package co.uk.squishling.courageous.items;
 
 import co.uk.squishling.courageous.tabs.ArchitectsTab;
-import co.uk.squishling.courageous.tabs.WorldTab;
 import co.uk.squishling.courageous.util.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.item.IItemTier;
@@ -17,7 +16,7 @@ public class ToolBase extends ToolItem {
         super(damage, speed, tier, blocks, new Item.Properties().group(ArchitectsTab.ARCHITECT));
         this.setRegistryName(new ResourceLocation(Reference.MOD_ID, name));
 
-        ModItems.ITEMS.add(this);
+        ModItems.ITEMS_ARRAY.add(this);
     }
 
 }
