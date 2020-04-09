@@ -1,20 +1,28 @@
 package co.uk.squishling.courageous.items;
 
+import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.items.pottery.Amphora;
 import co.uk.squishling.courageous.items.pottery.WateringCan;
 import co.uk.squishling.courageous.tabs.FoodTab;
+import co.uk.squishling.courageous.tabs.GeneralTab;
 import co.uk.squishling.courageous.tabs.PotteryTab;
 import co.uk.squishling.courageous.tabs.WorldTab;
+import co.uk.squishling.courageous.util.Reference;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Food.Builder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.potion.*;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 
 public class ModItems {
 
-    public static ArrayList<Item> ITEMS = new ArrayList<Item>();
+    public static ArrayList<Item> ITEMS_ARRAY = new ArrayList<Item>();
 
     public static final Item PEAR = new CustomFood("pear", 4, 0.4f, FoodTab.FOOD);
     public static final Item ORANGE = new CustomFood("orange",3, 0.3f, FoodTab.FOOD);
@@ -84,4 +92,9 @@ public class ModItems {
     public static final Item WHITE_WATERING_CAN      = new WateringCan("white_watering_can");
     public static final Item YELLOW_WATERING_CAN     = new WateringCan("yellow_watering_can");
 
+    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Reference.MOD_ID);
+
+    public static final RegistryObject<Item> FLUID_POT = ITEMS.register("fluid_pot", () -> new BlockItem(ModBlocks.FLUID_POT.get(), new BlockItem.Properties().group(PotteryTab.POTTERY).maxStackSize(1)));
+    public static final RegistryObject<Item> FAUCET = ITEMS.register("bamboo_faucet", () -> new BlockItem(ModBlocks.FAUCET.get(), new BlockItem.Properties().group(GeneralTab.GENERAL)));
+    public static final RegistryObject<Item> UNFIRED_FLUID_POT = ITEMS.register("unfired_fluid_pot", () -> new BlockItem(ModBlocks.UNFIRED_FLUID_POT.get(), new BlockItem.Properties().group(PotteryTab.POTTERY)));
 }

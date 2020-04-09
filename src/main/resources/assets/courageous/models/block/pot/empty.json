@@ -1,0 +1,6 @@
+{
+  "parent": "courageous:block/pot/base",
+  "textures": {
+    "all": "minecraft:block/terracotta"
+  }
+}

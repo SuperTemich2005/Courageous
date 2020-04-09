@@ -128,6 +128,10 @@
 
     "block.courageous.pottery_wheel": "Pottery Wheel",
     "block.courageous.architects_table": "Architect's Table",
+  "block.courageous.unfired_fluid_pot": "Unfired Fluid Pot",
+  "block.courageous.fluid_pot": "Fluid Pot",
+  "block.courageous.distiller": "Distiller",
+  "block.courageous.bamboo_faucet": "Bamboo Faucet",
 
     "itemGroup.courageous_pottery": "Courageous' Pottery",
     "itemGroup.courageous_architect": "Courageous' Architecture",

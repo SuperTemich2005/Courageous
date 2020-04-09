@@ -1,6 +1,5 @@
 package co.uk.squishling.courageous.items;
 
-import co.uk.squishling.courageous.tabs.WorldTab;
 import co.uk.squishling.courageous.util.Reference;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -23,7 +22,7 @@ public class CustomFood extends Item {
         super(new Item.Properties().group(group).food(food));
         this.setRegistryName(Reference.MOD_ID, name);
 
-        ModItems.ITEMS.add(this);
+        ModItems.ITEMS_ARRAY.add(this);
     }
 
     public CustomFood(String name, int hunger, float saturation, ItemGroup group) {
@@ -34,7 +33,7 @@ public class CustomFood extends Item {
         super(new Item.Properties().group(group).food(food).containerItem(containerItem));
         this.setRegistryName(Reference.MOD_ID, name);
 
-        ModItems.ITEMS.add(this);
+        ModItems.ITEMS_ARRAY.add(this);
     }
 
     public Item sound(SoundEvent sound) {

@@ -1,10 +1,8 @@
 package co.uk.squishling.courageous;
 
-import co.uk.squishling.courageous.blocks.IBlock;
 import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.blocks.ModContainers;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
-import co.uk.squishling.courageous.blocks.architects_table.ArchitectsTableContainer;
 import co.uk.squishling.courageous.blocks.architects_table.ArchitectsTableScreen;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelScreen;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTESR;
@@ -12,33 +10,32 @@ import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTileEntity;
 import co.uk.squishling.courageous.blocks.vegetation.LeavesLike;
 import co.uk.squishling.courageous.items.ModItems;
 import co.uk.squishling.courageous.recipes.ModRecipes;
+import co.uk.squishling.courageous.tiles.ModTiles;
+import co.uk.squishling.courageous.tiles.renderers.FaucetRenderer;
+import co.uk.squishling.courageous.tiles.renderers.FluidPotRenderer;
 import co.uk.squishling.courageous.util.*;
 import co.uk.squishling.courageous.util.config.ConfigHandler;
 import co.uk.squishling.courageous.util.networking.ModPacketHandler;
+import co.uk.squishling.courageous.util.rendering.FallingFluidParticle;
 import co.uk.squishling.courageous.util.rendering.FallingWaterParticle;
 import co.uk.squishling.courageous.util.rendering.ModParticles;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BushBlock;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.renderer.RenderSkyboxCube;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.resources.ClientResourcePackInfo;
 import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleType;
-import net.minecraft.resources.*;
-import net.minecraft.resources.ResourcePackInfo.IFactory;
-import net.minecraft.resources.ResourcePackInfo.Priority;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.api.distmarker.Dist;
@@ -57,7 +54,6 @@ import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.loading.moddiscovery.ModFile;
 import net.minecraftforge.fml.packs.ModFileResourcePack;
@@ -65,11 +61,13 @@ import net.minecraftforge.fml.packs.ResourcePackLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mod(Reference.MOD_ID)
@@ -94,6 +92,9 @@ public class Courageous {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
 
         ModRecipes.RECIPE_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ModBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ModTiles.TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ModItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     // Preinit
@@ -116,6 +117,7 @@ public class Courageous {
 
         PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_AMPHORA);
         PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_WATERING_CAN);
+        PotteryWheelTileEntity.POTTERY_PIECES.add(ModItems.UNFIRED_FLUID_POT.get());
     }
 
     private void clientRegistry(final FMLClientSetupEvent event) {
@@ -127,11 +129,15 @@ public class Courageous {
         ModBlockColors.registerBlockColors();
         ModItemColors.registerItemColors();
 
-        for (Block block : ModBlocks.BLOCKS) {
+        for (Block block : ModBlocks.BLOCKS_ARRAY) {
             if (block instanceof BushBlock || block instanceof LeavesBlock || block instanceof LeavesLike) RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
         }
+        RenderTypeLookup.setRenderLayer(ModBlocks.FLUID_POT.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.DISTILLER.get(), RenderType.getCutout());
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.POTTERY_WHEEL, PotteryWheelTESR::new);
+        ClientRegistry.bindTileEntityRenderer(ModTiles.FLUID_POT.get(), FluidPotRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTiles.FAUCET.get(), FaucetRenderer::new);
 
         ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
         ScreenManager.registerFactory(ModContainers.ARCHITECTS_TABLE_CONTAINER, ArchitectsTableScreen::new);
@@ -144,7 +150,7 @@ public class Courageous {
         public static void registerItems(final RegistryEvent.Register<Item> event) {
             LOGGER.info("Items registry");
 
-            for (Item item : ModItems.ITEMS) {
+            for (Item item : ModItems.ITEMS_ARRAY) {
                 event.getRegistry().register(item);
             }
         }
@@ -153,7 +159,7 @@ public class Courageous {
         public static void registerBlocks(final RegistryEvent.Register<Block> event) {
             LOGGER.info("Blocks registry");
 
-            event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[ModBlocks.BLOCKS.size()]));
+            event.getRegistry().registerAll(ModBlocks.BLOCKS_ARRAY.toArray(new Block[ModBlocks.BLOCKS_ARRAY.size()]));
         }
 
         @SubscribeEvent
@@ -181,11 +187,13 @@ public class Courageous {
         @SubscribeEvent
         public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
             Minecraft.getInstance().particles.registerFactory(ModParticles.FALLING_WATER_PARTICLE, FallingWaterParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.FALLING_FLUID_PARTICLE, FallingFluidParticle.FallingFluidParticleFactory::new);
         }
 
         @SubscribeEvent
         public static void registerParticleTypes(RegistryEvent.Register<ParticleType<?>> event) {
             event.getRegistry().register(ModParticles.FALLING_WATER_PARTICLE.setRegistryName(Reference.MOD_ID, "falling_water"));
+            event.getRegistry().register(ModParticles.FALLING_FLUID_PARTICLE.setRegistryName(Reference.MOD_ID, "falling_fluid"));
         }
 
         @SubscribeEvent

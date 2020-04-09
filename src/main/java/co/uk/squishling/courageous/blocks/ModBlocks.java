@@ -1,22 +1,29 @@
 package co.uk.squishling.courageous.blocks;
 
 import co.uk.squishling.courageous.blocks.architects_table.ArchitectsTable;
+import co.uk.squishling.courageous.blocks.pot.BlockDistiller;
+import co.uk.squishling.courageous.blocks.pot.BlockFluidPot;
+import co.uk.squishling.courageous.blocks.pot.BlockFluidPotBase;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheel;
 import co.uk.squishling.courageous.blocks.vegetation.*;
-import co.uk.squishling.courageous.tabs.ArchitectsTab;
-import co.uk.squishling.courageous.trees.*;
 import co.uk.squishling.courageous.items.ModItems;
+import co.uk.squishling.courageous.trees.*;
+import co.uk.squishling.courageous.util.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.Items;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 
 public class ModBlocks {
 
-    public static ArrayList<Block> BLOCKS = new ArrayList<Block>();
+    public static ArrayList<Block> BLOCKS_ARRAY = new ArrayList<Block>();
 
     public static final Block PALM_SAPLING = new CustomSapling("palm_sapling", new PalmTree());
     public static final Block PALM_LEAVES = new CustomLeaves("palm_leaves");
@@ -80,5 +87,12 @@ public class ModBlocks {
     public static final Block ARCHITECTS_TABLE = new ArchitectsTable();
 
     public static final Block MUD = new MudBlock();
+
+    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, Reference.MOD_ID);
+
+    public static final RegistryObject<Block> FLUID_POT = BLOCKS.register("fluid_pot", BlockFluidPot::new);
+    public static final RegistryObject<Block> UNFIRED_FLUID_POT = BLOCKS.register("unfired_fluid_pot", () -> new BlockFluidPotBase(Block.Properties.create(Material.CLAY).sound(SoundType.GROUND).hardnessAndResistance(0.6F)));
+    public static final RegistryObject<Block> DISTILLER = BLOCKS.register("distiller", BlockDistiller::new);
+    public static final RegistryObject<Block> FAUCET = BLOCKS.register("bamboo_faucet", BlockBambooFaucet::new);
 
 }

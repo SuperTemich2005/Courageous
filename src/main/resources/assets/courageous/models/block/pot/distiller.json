@@ -1,0 +1,237 @@
+{
+  "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+  "textures": {
+    "bamboo_stalk": "minecraft:block/bamboo_stalk"
+  },
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "head": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        315,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        315,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    }
+  },
+  "elements": [
+    {
+      "name": "Cube",
+      "from": [
+        6.5,
+        3,
+        0
+      ],
+      "to": [
+        9.5,
+        6,
+        2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            13,
+            4,
+            16,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            4,
+            3,
+            6
+          ],
+          "rotation": 270
+        },
+        "west": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            4,
+            3,
+            6
+          ],
+          "rotation": 90
+        },
+        "up": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            4,
+            3,
+            6
+          ],
+          "rotation": 180
+        },
+        "down": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            5,
+            3,
+            7
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        7.5,
+        14,
+        7.5
+      ],
+      "to": [
+        10.5,
+        18,
+        10.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            5,
+            3,
+            9
+          ]
+        },
+        "east": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            5,
+            3,
+            9
+          ]
+        },
+        "south": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            5,
+            3,
+            9
+          ]
+        },
+        "west": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            0,
+            5,
+            3,
+            9
+          ]
+        },
+        "up": {
+          "texture": "#bamboo_stalk",
+          "uv": [
+            13,
+            4,
+            16,
+            7
+          ],
+          "rotation": 180
+        }
+      }
+    }
+  ]
+}

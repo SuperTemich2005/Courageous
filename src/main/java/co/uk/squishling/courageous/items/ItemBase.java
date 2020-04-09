@@ -1,6 +1,5 @@
 package co.uk.squishling.courageous.items;
 
-import co.uk.squishling.courageous.tabs.WorldTab;
 import co.uk.squishling.courageous.util.Reference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -11,7 +10,7 @@ public class ItemBase extends Item {
         super(new Item.Properties().group(group));
         this.setRegistryName(Reference.MOD_ID, name);
 
-        ModItems.ITEMS.add(this);
+        ModItems.ITEMS_ARRAY.add(this);
     }
 
 }
