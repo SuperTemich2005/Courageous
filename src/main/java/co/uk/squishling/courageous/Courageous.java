@@ -30,16 +30,23 @@ import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.renderer.RenderSkyboxCube;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.resources.ClientResourcePackInfo;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.particles.ParticleType;
+import net.minecraft.resources.*;
+import net.minecraft.resources.ResourcePackInfo.IFactory;
+import net.minecraft.resources.ResourcePackInfo.Priority;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -54,6 +61,7 @@ import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.loading.moddiscovery.ModFile;
 import net.minecraftforge.fml.packs.ModFileResourcePack;
@@ -61,13 +69,14 @@ import net.minecraftforge.fml.packs.ResourcePackLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Mod(Reference.MOD_ID)
@@ -123,11 +132,8 @@ public class Courageous {
     private void clientRegistry(final FMLClientSetupEvent event) {
         LOGGER.info("Client setup");
 
-//        trySetRandomPanorama();
+        trySetRandomPanorama();
 //        injectResourcePack();
-
-        ModBlockColors.registerBlockColors();
-        ModItemColors.registerItemColors();
 
         for (Block block : ModBlocks.BLOCKS_ARRAY) {
             if (block instanceof BushBlock || block instanceof LeavesBlock || block instanceof LeavesLike) RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
@@ -141,6 +147,9 @@ public class Courageous {
 
         ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
         ScreenManager.registerFactory(ModContainers.ARCHITECTS_TABLE_CONTAINER, ArchitectsTableScreen::new);
+
+        ModBlockColors.registerBlockColors();
+        ModItemColors.registerItemColors();
     }
 
     @EventBusSubscriber(bus=Bus.MOD)
@@ -201,6 +210,16 @@ public class Courageous {
             LOGGER.info("Sounds registry");
 
             event.getRegistry().register(ModSounds.POTTERY_WHEEL_SPIN);
+        }
+
+        @SubscribeEvent
+        public static void registerBlockColorHandler(final ColorHandlerEvent.Block event) {
+
+        }
+
+        @SubscribeEvent
+        public static void registerItemColorHandler(final ColorHandlerEvent.Item event) {
+
         }
 
     }

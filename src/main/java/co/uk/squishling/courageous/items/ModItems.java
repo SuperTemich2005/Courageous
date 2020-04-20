@@ -3,11 +3,14 @@ package co.uk.squishling.courageous.items;
 import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.items.pottery.Amphora;
 import co.uk.squishling.courageous.items.pottery.WateringCan;
+import co.uk.squishling.courageous.items.sandwich.Sandwich;
+import co.uk.squishling.courageous.items.sandwich.SandwichISTER;
 import co.uk.squishling.courageous.tabs.FoodTab;
 import co.uk.squishling.courageous.tabs.GeneralTab;
 import co.uk.squishling.courageous.tabs.PotteryTab;
 import co.uk.squishling.courageous.tabs.WorldTab;
 import co.uk.squishling.courageous.util.Reference;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Food.Builder;
 import net.minecraft.item.Item;
@@ -23,6 +26,15 @@ import java.util.ArrayList;
 public class ModItems {
 
     public static ArrayList<Item> ITEMS_ARRAY = new ArrayList<Item>();
+
+    public static ItemStackTileEntityRenderer getSandwichISTER() {
+        return new SandwichISTER();
+    }
+
+    public static final Item KNIFE = new Knife("knife");
+
+    public static final Item BREAD_SLICE = new CustomFood("bread_slice", 1, 0.12f, FoodTab.FOOD);
+    public static final Item SANDWICH = new Sandwich();
 
     public static final Item PEAR = new CustomFood("pear", 4, 0.4f, FoodTab.FOOD);
     public static final Item ORANGE = new CustomFood("orange",3, 0.3f, FoodTab.FOOD);

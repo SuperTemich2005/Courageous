@@ -1,4 +1,8 @@
 {
+    "item.courageous.knife": "Cooking Knife",
+
+    "item.courageous.bread_slice": "Slice of Bread",
+
     "item.courageous.pear": "Pear",
     "item.courageous.orange": "Orange",
     "item.courageous.plum": "Plum",
@@ -126,12 +130,14 @@
 
     "block.courageous.mud": "Mud",
 
+    "block.courageous.spiked_wall": "Spiked Wall",
+
     "block.courageous.pottery_wheel": "Pottery Wheel",
     "block.courageous.architects_table": "Architect's Table",
-  "block.courageous.unfired_fluid_pot": "Unfired Fluid Pot",
-  "block.courageous.fluid_pot": "Fluid Pot",
-  "block.courageous.distiller": "Distiller",
-  "block.courageous.bamboo_faucet": "Bamboo Faucet",
+    "block.courageous.unfired_fluid_pot": "Unfired Fluid Pot",
+    "block.courageous.fluid_pot": "Fluid Pot",
+    "block.courageous.distiller": "Distiller",
+    "block.courageous.bamboo_faucet": "Bamboo Faucet",
 
     "itemGroup.courageous_pottery": "Courageous' Pottery",
     "itemGroup.courageous_architect": "Courageous' Architecture",

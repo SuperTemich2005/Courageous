@@ -18,8 +18,10 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
@@ -29,7 +31,9 @@ import javax.annotation.Nullable;
 
 public class PotteryWheel extends BlockBase implements IBlock {
 
-    private static final VoxelShape SHAPE = Block.makeCuboidShape(0d, 0d, 0d, 16d, 15d, 16d);
+    private static final VoxelShape SHAPE = VoxelShapes.or(VoxelShapes.or(Block.makeCuboidShape(2d, 13d, 2d, 14d, 15d, 14d),
+            Block.makeCuboidShape(4d, 12d, 4d, 12d, 13d, 12d)),
+            Block.makeCuboidShape(0d, 0d, 0d, 16d, 12d, 16d));
 
     public PotteryWheel() {
         super("pottery_wheel", Block.Properties.create(Material.ROCK).hardnessAndResistance(0.5f));

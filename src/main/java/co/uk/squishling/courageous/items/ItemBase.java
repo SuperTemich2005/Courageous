@@ -13,4 +13,11 @@ public class ItemBase extends Item {
         ModItems.ITEMS_ARRAY.add(this);
     }
 
+    public ItemBase(String name, Item.Properties properties) {
+        super(properties);
+        this.setRegistryName(Reference.MOD_ID, name);
+
+        ModItems.ITEMS_ARRAY.add(this);
+    }
+
 }
