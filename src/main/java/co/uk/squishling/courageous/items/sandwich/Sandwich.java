@@ -55,6 +55,7 @@ public class Sandwich extends ItemBase {
         stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
             for (int i = 0; i < handler.getSlots(); i++) if (handler.getStackInSlot(i).isEmpty()) {
                 handler.insertItem(i, ingredient, false);
+                break;
             }
         });
     }

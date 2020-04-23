@@ -20,20 +20,22 @@ public class SandwichISTER extends ItemStackTileEntityRenderer {
         matrix.translate(1f, 1f, 0.8f);
 
         Minecraft.getInstance().getItemRenderer().renderItem(new ItemStack(ModItems.BREAD_SLICE), TransformType.FIXED, combinedLightIn, combinedOverlayIn, matrix, bufferIn);
-        matrix.translate(0f, 0f, 0.06f);
         matrix.scale(0.8f, 0.8f, 1f);
-        Minecraft.getInstance().getItemRenderer().renderItem(new ItemStack(Items.GRASS), TransformType.FIXED, combinedLightIn, combinedOverlayIn, matrix, bufferIn);
-        matrix.translate(0f, 0f, 0.06f);
-        Minecraft.getInstance().getItemRenderer().renderItem(new ItemStack(Items.APPLE), TransformType.FIXED, combinedLightIn, combinedOverlayIn, matrix, bufferIn);
-        matrix.translate(0f, 0f, 0.06f);
-        Minecraft.getInstance().getItemRenderer().renderItem(new ItemStack(ModItems.AVOCADO), TransformType.FIXED, combinedLightIn, combinedOverlayIn, matrix, bufferIn);
+
+        stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
+            for (int i = 0; i < h.getSlots(); i++) {
+
+                if (!h.getStackInSlot(i).isEmpty()) {
+
+                    matrix.translate(0f, 0f, 0.06f);
+                    Minecraft.getInstance().getItemRenderer().renderItem(h.getStackInSlot(i), TransformType.FIXED, combinedLightIn, combinedOverlayIn, matrix, bufferIn);
+                }
+            }
+        });
+
         matrix.translate(0f, 0f, 0.06f);
         matrix.scale(1.2f, 1.2f, 1f);
         Minecraft.getInstance().getItemRenderer().renderItem(new ItemStack(ModItems.BREAD_SLICE), TransformType.FIXED, combinedLightIn, combinedOverlayIn, matrix, bufferIn);
-
-        stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-            Minecraft.getInstance().getItemRenderer().renderItem(h.getStackInSlot(0), TransformType.FIXED, combinedLightIn, combinedOverlayIn, matrix, bufferIn);
-        });
 
         matrix.pop();
     }
