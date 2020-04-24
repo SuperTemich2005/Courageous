@@ -47,7 +47,11 @@ public class Sandwich extends ItemBase {
             @Nonnull
             @Override
             public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-                if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return handler.cast();
+                if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && stack.hasTag() && stack.getTag().get("handler") != null) {
+                    ItemStackHandler h = new ItemStackHandler();
+                    h.deserializeNBT((CompoundNBT) stack.getTag().get("handler"));
+                    return LazyOptional.of(() -> h).cast();
+                }
                 return LazyOptional.empty();
             }
         };
@@ -61,6 +65,7 @@ public class Sandwich extends ItemBase {
         stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
             for (int i = 0; i < h.getSlots(); i++) if (h.getStackInSlot(i).isEmpty()) {
                 h.insertItem(i, ingredient, false);
+                stack.getOrCreateTag().put("handler", ((ItemStackHandler) h).serializeNBT());
                 break;
             }
         });
