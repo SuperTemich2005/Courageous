@@ -185,20 +185,12 @@ public class PotteryWheelTileEntity extends TileEntity implements ITickableTileE
         };
     }
 
-
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return handler.cast();
         return super.getCapability(cap, side);
     }
-    // TODO https://discordapp.com/channels/438697837958791178/438698107568521267/680787581624909859
-
-//    @Nonnull
-//    @Override
-//    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-//        return null;
-//    }
 
     // --- Container stuff ---
     @Override

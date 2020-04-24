@@ -27,6 +27,8 @@ import javax.annotation.Nullable;
 
 public class Sandwich extends ItemBase {
 
+    private LazyOptional<ItemStackHandler> handler = LazyOptional.of(() -> getHandler()).cast();
+
     public Sandwich() {
         super("sandwich", new Item.Properties().group(FoodTab.FOOD).setISTER(() -> SandwichISTER::new));
     }
@@ -45,16 +47,20 @@ public class Sandwich extends ItemBase {
             @Nonnull
             @Override
             public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-                return cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (LazyOptional<T>) LazyOptional.of(() -> new ItemStackHandler(4))
-                        : LazyOptional.empty();
+                if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return handler.cast();
+                return LazyOptional.empty();
             }
         };
     }
 
+    private ItemStackHandler getHandler() {
+        return new ItemStackHandler(4);
+    }
+
     public void addIngredient(ItemStack stack, ItemStack ingredient) {
-        stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            for (int i = 0; i < handler.getSlots(); i++) if (handler.getStackInSlot(i).isEmpty()) {
-                handler.insertItem(i, ingredient, false);
+        stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
+            for (int i = 0; i < h.getSlots(); i++) if (h.getStackInSlot(i).isEmpty()) {
+                h.insertItem(i, ingredient, false);
                 break;
             }
         });

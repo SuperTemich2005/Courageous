@@ -12,6 +12,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 public class SandwichISTER extends ItemStackTileEntityRenderer {
 
+    private int x = 0;
+
     @Override
     public void render(ItemStack stack, MatrixStack matrix, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
         super.render(stack, matrix, bufferIn, combinedLightIn, combinedOverlayIn);
@@ -26,7 +28,11 @@ public class SandwichISTER extends ItemStackTileEntityRenderer {
             for (int i = 0; i < h.getSlots(); i++) {
 
                 if (!h.getStackInSlot(i).isEmpty()) {
-
+                    x++;
+                    if (x >= 200) {
+                        System.out.println(h.getStackInSlot(i).getItem().getRegistryName());
+                        x = 0;
+                    }
                     matrix.translate(0f, 0f, 0.06f);
                     Minecraft.getInstance().getItemRenderer().renderItem(h.getStackInSlot(i), TransformType.FIXED, combinedLightIn, combinedOverlayIn, matrix, bufferIn);
                 }
