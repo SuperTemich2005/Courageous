@@ -47,7 +47,7 @@ public class CustomSapling extends SaplingBlock implements IGrowable, IBlock {
 
     @Override
     public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
-        tree.func_225545_a_(world, world.getChunkProvider().getChunkGenerator(), pos, state, rand);
+        tree.func_225545_a_(world, world.getChunkProvider().getChunkGenerator(), pos.down(), state, rand);
     }
 
     @Override

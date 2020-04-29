@@ -57,7 +57,8 @@ public class CustomFood extends Item {
         if (Reference.isServer(world)) {
             entity.playSound(sound, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
             world.playSound((PlayerEntity)null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), sound, SoundCategory.NEUTRAL, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
-            stack.shrink(1);
+
+            if (!(entity instanceof PlayerEntity) || !((PlayerEntity) entity).isCreative()) stack.shrink(1);
 
             if (entity instanceof PlayerEntity) {
                 PlayerEntity player = ((PlayerEntity)entity);

@@ -22,8 +22,6 @@ public class SandwichISTER extends ItemStackTileEntityRenderer {
         matrix.push();
 
         matrix.translate(0.5f, 0.5f, 0.5f);
-        matrix.rotate(Vector3f.XP.rotationDegrees(90));
-        matrix.rotate(Vector3f.YN.rotationDegrees(90));
 
         Minecraft.getInstance().getItemRenderer().renderItem(new ItemStack(ModItems.BREAD_SLICE), TransformType.FIXED, combinedLightIn, combinedOverlayIn, matrix, bufferIn);
 
