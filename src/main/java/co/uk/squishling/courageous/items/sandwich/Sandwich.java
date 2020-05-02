@@ -7,11 +7,8 @@ import co.uk.squishling.courageous.util.Util;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Food;
+import net.minecraft.item.*;
 import net.minecraft.item.Food.Builder;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.*;
@@ -67,7 +64,9 @@ public class Sandwich extends ItemBase {
                                 return 1;
                             }
                         };
+
                         h.deserializeNBT((CompoundNBT) stack.getTag().get(HANDLER));
+
                         return LazyOptional.of(() -> h).cast();
                     } else {
                         return LazyOptional.of(() -> new ItemStackHandler(4) {
@@ -92,12 +91,9 @@ public class Sandwich extends ItemBase {
     @Override
     public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity entity) {
         if (Util.isServer(world)) {
-            System.out.println(stack.getTag());
 
             entity.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
             world.playSound(null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.NEUTRAL, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
-
-            if (!(entity instanceof PlayerEntity) || !((PlayerEntity) entity).isCreative()) stack.shrink(1);
 
             if (entity instanceof PlayerEntity) {
 
@@ -109,6 +105,7 @@ public class Sandwich extends ItemBase {
                     foods.add(ModItems.BREAD_SLICE.getFood());
 
                     for (int i = 0; i < handler.getSlots(); i++) {
+                        System.out.println(handler.getStackInSlot(i));
                         ItemStack handlerStack = handler.getStackInSlot(i);
 
                         if (handlerStack.getItem().getFood() != null) foods.add(handlerStack.getItem().getFood());
@@ -126,6 +123,8 @@ public class Sandwich extends ItemBase {
                 });
 
             }
+
+            if (!(entity instanceof PlayerEntity) || !((PlayerEntity) entity).isCreative()) stack.shrink(1);
 
         }
 
