@@ -3,7 +3,7 @@ package co.uk.squishling.courageous.blocks.pottery_wheel;
 import co.uk.squishling.courageous.blocks.BlockBase;
 import co.uk.squishling.courageous.blocks.IBlock;
 import co.uk.squishling.courageous.tabs.PotteryTab;
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -18,7 +18,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -52,7 +51,7 @@ public class PotteryWheel extends BlockBase implements IBlock {
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
-        if (Reference.isServer(world)) {
+        if (Util.isServer(world)) {
             TileEntity te = world.getTileEntity(pos);
 
             if (te instanceof INamedContainerProvider) NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) te, te.getPos());

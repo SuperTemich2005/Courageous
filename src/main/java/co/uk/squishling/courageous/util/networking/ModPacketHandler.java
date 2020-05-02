@@ -1,6 +1,6 @@
 package co.uk.squishling.courageous.util.networking;
 
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -17,7 +17,7 @@ public class ModPacketHandler {
 
     private static final String PROTOCOL_VERSION = "1";
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(Reference.MOD_ID, "main"),
+            new ResourceLocation(Util.MOD_ID, "main"),
             () -> PROTOCOL_VERSION,
             PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals

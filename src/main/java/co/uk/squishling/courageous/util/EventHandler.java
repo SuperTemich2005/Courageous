@@ -3,7 +3,6 @@ package co.uk.squishling.courageous.util;
 import co.uk.squishling.courageous.Courageous;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.RotatedPillarBlock;
 //import net.minecraft.client.gui.screen.MainMenuScreen;
 //import net.minecraft.client.gui.screen.MainMenuScreen;
@@ -16,13 +15,11 @@ import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.potion.Effects;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 //import net.minecraftforge.client.event.GuiOpenEvent;
@@ -38,7 +35,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 import java.util.HashMap;
 
-@EventBusSubscriber(modid = Reference.MOD_ID, bus = Bus.FORGE)
+@EventBusSubscriber(modid = Util.MOD_ID, bus = Bus.FORGE)
 public class EventHandler {
 
     public static HashMap<RotatedPillarBlock, RotatedPillarBlock> STRIPPED_LOG_MAP = new HashMap<RotatedPillarBlock, RotatedPillarBlock>();

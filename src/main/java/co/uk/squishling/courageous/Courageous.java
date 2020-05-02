@@ -30,18 +30,12 @@ import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.renderer.RenderSkyboxCube;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.resources.ClientResourcePackInfo;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.particles.ParticleType;
-import net.minecraft.resources.*;
-import net.minecraft.resources.ResourcePackInfo.IFactory;
-import net.minecraft.resources.ResourcePackInfo.Priority;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.api.distmarker.Dist;
@@ -61,7 +55,6 @@ import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.loading.moddiscovery.ModFile;
 import net.minecraftforge.fml.packs.ModFileResourcePack;
@@ -69,21 +62,17 @@ import net.minecraftforge.fml.packs.ResourcePackLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Mod(Reference.MOD_ID)
+@Mod(Util.MOD_ID)
 public class Courageous {
 
     public static Courageous instance;
-    public static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
+    public static final Logger LOGGER = LogManager.getLogger(Util.MOD_ID);
 
     public Courageous() {
         instance = this;
@@ -201,8 +190,8 @@ public class Courageous {
 
         @SubscribeEvent
         public static void registerParticleTypes(RegistryEvent.Register<ParticleType<?>> event) {
-            event.getRegistry().register(ModParticles.FALLING_WATER_PARTICLE.setRegistryName(Reference.MOD_ID, "falling_water"));
-            event.getRegistry().register(ModParticles.FALLING_FLUID_PARTICLE.setRegistryName(Reference.MOD_ID, "falling_fluid"));
+            event.getRegistry().register(ModParticles.FALLING_WATER_PARTICLE.setRegistryName(Util.MOD_ID, "falling_water"));
+            event.getRegistry().register(ModParticles.FALLING_FLUID_PARTICLE.setRegistryName(Util.MOD_ID, "falling_fluid"));
         }
 
         @SubscribeEvent
@@ -279,19 +268,19 @@ public class Courageous {
     @OnlyIn(Dist.CLIENT)
     public static void trySetRandomPanorama() {
         //Get this mod's resource pack
-        Optional<ModFileResourcePack> optionalResourcePack = ResourcePackLoader.getResourcePackFor(Reference.MOD_ID);
+        Optional<ModFileResourcePack> optionalResourcePack = ResourcePackLoader.getResourcePackFor(Util.MOD_ID);
         //If found, try replacing the panorama
         if (optionalResourcePack.isPresent()) {
             //First of all, get the actual resource pack
             ModFileResourcePack resourcePack = optionalResourcePack.get();
             //Then, get a set of subfolders from the panoramas directory
-            Set<String> folders = getSubfoldersFromDirectory(resourcePack.getModFile(), "assets/" + Reference.MOD_ID + "/panoramas");
+            Set<String> folders = getSubfoldersFromDirectory(resourcePack.getModFile(), "assets/" + Util.MOD_ID + "/panoramas");
             //If there's at least 1 such folder, replace the panorama
             if (folders.size() > 0) {
                 //Get a random panorama from the list of folders
                 String chosenPanorama = (String) folders.toArray()[new Random().nextInt(folders.size())];
                 //Generate a base resource location for it
-                ResourceLocation panoramaLoc = new ResourceLocation(Reference.MOD_ID, "panoramas/" + chosenPanorama + "/panorama");
+                ResourceLocation panoramaLoc = new ResourceLocation(Util.MOD_ID, "panoramas/" + chosenPanorama + "/panorama");
                 //Generate the array of resource locations
                 ResourceLocation[] ResourceLocationsArray = new ResourceLocation[6];
                 for (int i = 0; i < 6; ++i) {

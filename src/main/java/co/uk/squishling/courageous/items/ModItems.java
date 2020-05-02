@@ -9,7 +9,7 @@ import co.uk.squishling.courageous.tabs.FoodTab;
 import co.uk.squishling.courageous.tabs.GeneralTab;
 import co.uk.squishling.courageous.tabs.PotteryTab;
 import co.uk.squishling.courageous.tabs.WorldTab;
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Food.Builder;
@@ -104,7 +104,7 @@ public class ModItems {
     public static final Item WHITE_WATERING_CAN      = new WateringCan("white_watering_can");
     public static final Item YELLOW_WATERING_CAN     = new WateringCan("yellow_watering_can");
 
-    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Reference.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Util.MOD_ID);
 
     public static final RegistryObject<Item> FLUID_POT = ITEMS.register("fluid_pot", () -> new BlockItem(ModBlocks.FLUID_POT.get(), new BlockItem.Properties().group(PotteryTab.POTTERY).maxStackSize(1)));
     public static final RegistryObject<Item> FAUCET = ITEMS.register("bamboo_faucet", () -> new BlockItem(ModBlocks.FAUCET.get(), new BlockItem.Properties().group(GeneralTab.GENERAL)));

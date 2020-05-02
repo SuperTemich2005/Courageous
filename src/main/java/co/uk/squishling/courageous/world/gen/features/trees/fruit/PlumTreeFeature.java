@@ -2,7 +2,7 @@ package co.uk.squishling.courageous.world.gen.features.trees.fruit;
 
 import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.blocks.vegetation.HarvestableLeaves;
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.*;
@@ -39,7 +39,7 @@ public class PlumTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig> 
         this.leaf = leafState;
         this.vinesGrow = vinesGrowIn;
 
-        this.setRegistryName(Reference.MOD_ID, "plum_tree");
+        this.setRegistryName(Util.MOD_ID, "plum_tree");
         ModFeatures.FEATURES.add(this);
     }
 

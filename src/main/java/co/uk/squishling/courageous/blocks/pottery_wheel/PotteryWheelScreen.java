@@ -1,17 +1,14 @@
 package co.uk.squishling.courageous.blocks.pottery_wheel;
 
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import co.uk.squishling.courageous.util.networking.ModPacketHandler;
 import co.uk.squishling.courageous.util.networking.PacketPotterySelect;
 import co.uk.squishling.courageous.util.rendering.SquareButton;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -21,7 +18,7 @@ import java.util.HashMap;
 
 public class PotteryWheelScreen extends ContainerScreen<PotteryWheelContainer> {
 
-    private ResourceLocation GUI = new ResourceLocation(Reference.MOD_ID, "textures/gui/pottery_wheel.png");
+    private ResourceLocation GUI = new ResourceLocation(Util.MOD_ID, "textures/gui/pottery_wheel.png");
     private int selected;
 
     private HashMap<Item, Pair<Integer, Integer>> ICONS = new HashMap<Item, Pair<Integer, Integer>>();

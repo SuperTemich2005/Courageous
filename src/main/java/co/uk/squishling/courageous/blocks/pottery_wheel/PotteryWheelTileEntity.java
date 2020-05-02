@@ -2,11 +2,9 @@ package co.uk.squishling.courageous.blocks.pottery_wheel;
 
 import co.uk.squishling.courageous.blocks.IHasButton;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
-import co.uk.squishling.courageous.items.ModItems;
 import co.uk.squishling.courageous.util.ModSounds;
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import net.minecraft.block.Block;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -15,7 +13,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -34,7 +31,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class PotteryWheelTileEntity extends TileEntity implements ITickableTileEntity, INamedContainerProvider, IHasButton {
 
@@ -65,7 +61,7 @@ public class PotteryWheelTileEntity extends TileEntity implements ITickableTileE
         // Common
         if (working) workingTicks++;
 
-        if (Reference.isServer(world)) {
+        if (Util.isServer(world)) {
             // Server
             handler.ifPresent(h -> {
                 if (working && getClayValue(h.getStackInSlot(1)) < requiredClay) {

@@ -4,7 +4,7 @@ import co.uk.squishling.courageous.util.config.ConfigHandler;
 import co.uk.squishling.courageous.world.gen.biomes.*;
 import co.uk.squishling.courageous.world.gen.surface.SnowyMountainSurfaceBuilder;
 import co.uk.squishling.courageous.Courageous;
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import co.uk.squishling.courageous.world.gen.surface.ChaparralSurfaceBuilder;
 import co.uk.squishling.courageous.world.gen.surface.TundraSurfaceBuilder;
 import net.minecraft.entity.EntityClassification;
@@ -76,7 +76,7 @@ public class BiomeRegistry {
     }
 
     public static Biome registerBiome(Biome biome, BiomeType biomeType, String name, int weight, Type... types) {
-        biome.setRegistryName(Reference.MOD_ID, name);
+        biome.setRegistryName(Util.MOD_ID, name);
         ForgeRegistries.BIOMES.register(biome);
         BiomeDictionary.addTypes(biome, types);
         BiomeDictionary.addTypes(biome, Type.OVERWORLD);

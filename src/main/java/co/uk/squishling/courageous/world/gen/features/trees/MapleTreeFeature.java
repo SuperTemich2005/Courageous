@@ -2,7 +2,7 @@ package co.uk.squishling.courageous.world.gen.features.trees;
 
 import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.blocks.vegetation.MapleLog;
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.*;
@@ -14,7 +14,6 @@ import net.minecraft.world.IWorldWriter;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraftforge.common.IPlantable;
 
 import java.util.Random;
@@ -39,7 +38,7 @@ public class MapleTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig>
         this.leaf = leafState;
         this.vinesGrow = vinesGrowIn;
 
-        this.setRegistryName(Reference.MOD_ID, "maple_tree");
+        this.setRegistryName(Util.MOD_ID, "maple_tree");
         ModFeatures.FEATURES.add(this);
     }
 

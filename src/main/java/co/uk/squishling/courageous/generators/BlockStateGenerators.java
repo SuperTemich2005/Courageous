@@ -4,7 +4,7 @@ import co.uk.squishling.courageous.blocks.BlockBambooFaucet;
 import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.blocks.pot.BlockDistiller;
 import co.uk.squishling.courageous.blocks.pot.BlockFluidPot;
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import net.minecraft.block.SixWayBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.Direction;
@@ -13,7 +13,7 @@ import net.minecraftforge.client.model.generators.*;
 
 public class BlockStateGenerators extends BlockStateProvider {
     public BlockStateGenerators(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, Reference.MOD_ID, exFileHelper);
+        super(gen, Util.MOD_ID, exFileHelper);
     }
 
     public MultiPartBlockStateBuilder FluidPot(BlockFluidPot block, ModelFile open, ModelFile closed, ModelFile supports) {
@@ -52,20 +52,20 @@ public class BlockStateGenerators extends BlockStateProvider {
     protected void registerStatesAndModels() {
         registeredBlocks.put(ModBlocks.FLUID_POT.get(),
                 FluidPot((BlockFluidPot) ModBlocks.FLUID_POT.get(),
-                        models().getExistingFile(new ResourceLocation(Reference.MOD_ID, "block/pot/empty")),
-                        models().getExistingFile(new ResourceLocation(Reference.MOD_ID, "block/pot/covered")),
-                        models().getExistingFile(new ResourceLocation(Reference.MOD_ID, "block/pot/support"))
+                        models().getExistingFile(new ResourceLocation(Util.MOD_ID, "block/pot/empty")),
+                        models().getExistingFile(new ResourceLocation(Util.MOD_ID, "block/pot/covered")),
+                        models().getExistingFile(new ResourceLocation(Util.MOD_ID, "block/pot/support"))
                 )
         );
         registeredBlocks.put(ModBlocks.DISTILLER.get(),
                 Distiller((BlockDistiller) ModBlocks.DISTILLER.get(),
-                        models().getExistingFile(new ResourceLocation(Reference.MOD_ID, "block/pot/distiller")),
-                        models().getExistingFile(new ResourceLocation(Reference.MOD_ID, "block/pot/empty")),
-                        models().getExistingFile(new ResourceLocation(Reference.MOD_ID, "block/pot/covered")),
-                        models().getExistingFile(new ResourceLocation(Reference.MOD_ID, "block/pot/support"))
+                        models().getExistingFile(new ResourceLocation(Util.MOD_ID, "block/pot/distiller")),
+                        models().getExistingFile(new ResourceLocation(Util.MOD_ID, "block/pot/empty")),
+                        models().getExistingFile(new ResourceLocation(Util.MOD_ID, "block/pot/covered")),
+                        models().getExistingFile(new ResourceLocation(Util.MOD_ID, "block/pot/support"))
                 )
         );
         registeredBlocks.put(ModBlocks.FAUCET.get(), Faucet((BlockBambooFaucet) ModBlocks.FAUCET.get(),
-                models().getExistingFile(new ResourceLocation(Reference.MOD_ID, "block/bamboo_faucet"))));
+                models().getExistingFile(new ResourceLocation(Util.MOD_ID, "block/bamboo_faucet"))));
     }
 }

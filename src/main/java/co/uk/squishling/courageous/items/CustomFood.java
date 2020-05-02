@@ -1,6 +1,6 @@
 package co.uk.squishling.courageous.items;
 
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +20,7 @@ public class CustomFood extends Item {
 
     public CustomFood(String name, Food food, ItemGroup group) {
         super(new Item.Properties().group(group).food(food));
-        this.setRegistryName(Reference.MOD_ID, name);
+        this.setRegistryName(Util.MOD_ID, name);
 
         ModItems.ITEMS_ARRAY.add(this);
     }
@@ -31,7 +31,7 @@ public class CustomFood extends Item {
 
     public CustomFood(String name, Food food, Item containerItem, ItemGroup group) {
         super(new Item.Properties().group(group).food(food).containerItem(containerItem));
-        this.setRegistryName(Reference.MOD_ID, name);
+        this.setRegistryName(Util.MOD_ID, name);
 
         ModItems.ITEMS_ARRAY.add(this);
     }
@@ -54,7 +54,7 @@ public class CustomFood extends Item {
 
     @Override
     public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity entity) {
-        if (Reference.isServer(world)) {
+        if (Util.isServer(world)) {
             entity.playSound(sound, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
             world.playSound((PlayerEntity)null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), sound, SoundCategory.NEUTRAL, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
 

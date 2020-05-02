@@ -8,7 +8,7 @@ import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheel;
 import co.uk.squishling.courageous.blocks.vegetation.*;
 import co.uk.squishling.courageous.items.ModItems;
 import co.uk.squishling.courageous.trees.*;
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
@@ -88,7 +88,7 @@ public class ModBlocks {
 
     public static final Block MUD = new MudBlock();
 
-    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, Reference.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, Util.MOD_ID);
 
     public static final RegistryObject<Block> FLUID_POT = BLOCKS.register("fluid_pot", BlockFluidPot::new);
     public static final RegistryObject<Block> UNFIRED_FLUID_POT = BLOCKS.register("unfired_fluid_pot", () -> new BlockFluidPotBase(Block.Properties.create(Material.CLAY).sound(SoundType.GROUND).hardnessAndResistance(0.6F)));
