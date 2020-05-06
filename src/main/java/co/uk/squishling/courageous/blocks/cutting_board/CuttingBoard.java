@@ -1,7 +1,9 @@
-package co.uk.squishling.courageous.blocks.pottery_wheel;
+package co.uk.squishling.courageous.blocks.cutting_board;
 
 import co.uk.squishling.courageous.blocks.BlockBase;
 import co.uk.squishling.courageous.blocks.IBlock;
+import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTileEntity;
+import co.uk.squishling.courageous.tabs.GeneralTab;
 import co.uk.squishling.courageous.tabs.PotteryTab;
 import co.uk.squishling.courageous.util.Util;
 import net.minecraft.block.Block;
@@ -28,25 +30,25 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
-public class PotteryWheel extends BlockBase implements IBlock {
+public class CuttingBoard extends BlockBase implements IBlock {
 
     private static final VoxelShape SHAPE = VoxelShapes.or(VoxelShapes.or(Block.makeCuboidShape(2d, 13d, 2d, 14d, 15d, 14d),
             Block.makeCuboidShape(4d, 12d, 4d, 12d, 13d, 12d)),
             Block.makeCuboidShape(0d, 0d, 0d, 16d, 12d, 16d));
 
-    public PotteryWheel() {
-        super("pottery_wheel", Block.Properties.create(Material.ROCK).hardnessAndResistance(0.5f));
+    public CuttingBoard() {
+        super("cutting_board", Properties.create(Material.WOOD).hardnessAndResistance(2.0F, 3.0F));
     }
 
     @Override
     public int getHarvestLevel(BlockState state) {
-        return 1;
+        return 0;
     }
 
     @Nullable
     @Override
     public ToolType getHarvestTool(BlockState state) {
-        return ToolType.PICKAXE;
+        return ToolType.AXE;
     }
 
     @Override
@@ -62,7 +64,7 @@ public class PotteryWheel extends BlockBase implements IBlock {
 
     @Override
     public boolean canBeConnectedTo(BlockState state, IBlockReader world, BlockPos pos, Direction facing) {
-        return facing != Direction.UP;
+        return false;
     }
 
     @Override
@@ -88,12 +90,12 @@ public class PotteryWheel extends BlockBase implements IBlock {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new PotteryWheelTileEntity();
+        return new CuttingBoardTileEntity();
     }
 
     @Override
     public ItemGroup getTab() {
-        return PotteryTab.POTTERY;
+        return GeneralTab.GENERAL;
     }
 
 }

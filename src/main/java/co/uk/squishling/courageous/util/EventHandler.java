@@ -67,32 +67,6 @@ public class EventHandler {
         }
     }
 
-    @SubscribeEvent
-    public void entityTick(LivingEvent.LivingUpdateEvent event) {
-        LivingEntity entity = event.getEntityLiving();
-
-        entity.getArmorInventoryList().forEach((stack) -> {
-            if (stack.getItem() == Items.DIAMOND_BOOTS) {
-                float f5 = 0.2f;
-                float f7 = entity.onGround ? f5 * 0.91F : 0.91F;
-                entity.moveRelative(entity.onGround ? entity.getAIMoveSpeed() * (0.21600002F / (f5 * f5 * f5)) : entity.jumpMovementFactor, entity.getMotion());
-                entity.move(MoverType.SELF, entity.getMotion());
-                Vec3d vec3d5 = entity.getMotion();
-
-                double d10 = vec3d5.y;
-
-                entity.setMotion(vec3d5.x * (double)f7, d10 * (double)0.98F, vec3d5.z * (double)f7);
-            }
-//            if (stack.getItem() == Items.DIAMOND_BOOTS) {
-//                Vec3d vec3d = entity.getMotion();
-//                if (Math.sqrt(Math.pow(vec3d.x, 2) + Math.pow(vec3d.z, 2)) > 0.05d && entity.onGround) {
-//                    double d0 = 0.91f;
-//                    entity.setMotion(new Vec3d(vec3d.x * d0, vec3d.y, vec3d.z * d0));
-//                }
-//            }
-        });
-    }
-
     //Panorama Replacement
     //Remove the code here to prevent it switching every time you switch back to the main menu
     @OnlyIn(Dist.CLIENT)

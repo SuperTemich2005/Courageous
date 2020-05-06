@@ -36,6 +36,12 @@ public class PotteryWheelScreen extends ContainerScreen<PotteryWheelContainer> {
             drawItemStack(new ItemStack(item), ICONS.get(item).getLeft(), ICONS.get(item).getRight());
         }
 
+        GlStateManager.color4f(1f, 1f, 1f, 1f);
+        minecraft.getTextureManager().bindTexture(GUI);
+        int relX = (width - xSize) / 2 + 77;
+        int relY = (height - ySize) / 2 + 35;
+        blit(relX, relY, 177, 0, 24, (((PotteryWheelTileEntity) getContainer().tileEntity).workingTicks / ((PotteryWheelTileEntity) getContainer().tileEntity).tickTime) * 17);
+
         renderHoveredToolTip(mouseX, mouseY);
         renderButtonToolTip(mouseX, mouseY);
     }
@@ -46,7 +52,7 @@ public class PotteryWheelScreen extends ContainerScreen<PotteryWheelContainer> {
 
         for (Item item : PotteryWheelTileEntity.POTTERY_PIECES) addItemButton(item);
 
-        select(0);
+        select(((PotteryWheelTileEntity) container.tileEntity).selectedIndex);
     }
 
     protected void addItemButton(Item item) {
@@ -95,6 +101,9 @@ public class PotteryWheelScreen extends ContainerScreen<PotteryWheelContainer> {
         int relX = (width - xSize) / 2;
         int relY = (height - ySize) / 2;
         blit(relX, relY, 0, 0, xSize, ySize);
+
+        int progress = (int) (24f * ((float) ((PotteryWheelTileEntity) container.tileEntity).workingTicks / (float) PotteryWheelTileEntity.tickTime));
+        blit(relX + 76, relY + 34, xSize, 0, progress, 16);
     }
 
     private void drawItemStack(ItemStack stack, int x, int y) {

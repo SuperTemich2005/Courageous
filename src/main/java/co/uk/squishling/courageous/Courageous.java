@@ -201,16 +201,6 @@ public class Courageous {
             event.getRegistry().register(ModSounds.POTTERY_WHEEL_SPIN);
         }
 
-        @SubscribeEvent
-        public static void registerBlockColorHandler(final ColorHandlerEvent.Block event) {
-
-        }
-
-        @SubscribeEvent
-        public static void registerItemColorHandler(final ColorHandlerEvent.Item event) {
-
-        }
-
     }
 
 //    public void injectResourcePack() {
