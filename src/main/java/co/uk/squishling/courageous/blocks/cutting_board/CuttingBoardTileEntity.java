@@ -2,7 +2,6 @@ package co.uk.squishling.courageous.blocks.cutting_board;
 
 import co.uk.squishling.courageous.blocks.IHasButton;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
-import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelContainer;
 import co.uk.squishling.courageous.items.Knife;
 import co.uk.squishling.courageous.items.ModItems;
 import co.uk.squishling.courageous.util.ModSounds;
@@ -41,7 +40,7 @@ public class CuttingBoardTileEntity extends TileEntity implements INamedContaine
 
 
     public CuttingBoardTileEntity() {
-        super(ModTileEntities.POTTERY_WHEEL);
+        super(ModTileEntities.CUTTING_BOARD);
     }
 
     @Override
@@ -96,7 +95,7 @@ public class CuttingBoardTileEntity extends TileEntity implements INamedContaine
 
     // ---- Capabilities ----
     private ItemStackHandler getHandler() {
-        return new ItemStackHandler(9) {
+        return new ItemStackHandler(10) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 if (slot == 0) return stack.getItem() instanceof Knife;
@@ -112,11 +111,6 @@ public class CuttingBoardTileEntity extends TileEntity implements INamedContaine
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
                 if (!isItemValid(slot, stack)) return stack;
                 return super.insertItem(slot, stack, simulate);
-            }
-
-            @Override
-            protected void onContentsChanged(int slot) {
-                markDirty();
             }
         };
     }
@@ -137,7 +131,7 @@ public class CuttingBoardTileEntity extends TileEntity implements INamedContaine
     @Nullable
     @Override
     public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new PotteryWheelContainer(i, world, pos, playerInventory);
+        return new CuttingBoardContainer(i, world, pos, playerInventory);
     }
 
 }

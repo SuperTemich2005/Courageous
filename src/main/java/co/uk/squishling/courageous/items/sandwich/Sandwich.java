@@ -131,7 +131,7 @@ public class Sandwich extends ItemBase {
         return stack;
     }
 
-    public void addIngredient(ItemStack stack, ItemStack ingredient) {
+    public static void addIngredient(ItemStack stack, ItemStack ingredient) {
         stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
             for (int i = 0; i < h.getSlots(); i++) {
                 if (h.insertItem(i, ingredient, false).isEmpty()) break;

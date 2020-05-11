@@ -4,6 +4,7 @@ import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.blocks.ModContainers;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
 import co.uk.squishling.courageous.blocks.architects_table.ArchitectsTableScreen;
+import co.uk.squishling.courageous.blocks.cutting_board.CuttingBoardScreen;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelScreen;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTESR;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTileEntity;
@@ -40,7 +41,6 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -90,7 +90,7 @@ public class Courageous {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
 
         ModRecipes.RECIPE_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        ModBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ModBlocks.DEFFERED_BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ModTiles.TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
         ModItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
@@ -124,7 +124,7 @@ public class Courageous {
         trySetRandomPanorama();
 //        injectResourcePack();
 
-        for (Block block : ModBlocks.BLOCKS_ARRAY) {
+        for (Block block : ModBlocks.BLOCKS) {
             if (block instanceof BushBlock || block instanceof LeavesBlock || block instanceof LeavesLike) RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
         }
         RenderTypeLookup.setRenderLayer(ModBlocks.FLUID_POT.get(), RenderType.getCutout());
@@ -135,6 +135,7 @@ public class Courageous {
         ClientRegistry.bindTileEntityRenderer(ModTiles.FAUCET.get(), FaucetRenderer::new);
 
         ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
+        ScreenManager.registerFactory(ModContainers.CUTTING_BOARD_CONTAINER, CuttingBoardScreen::new);
         ScreenManager.registerFactory(ModContainers.ARCHITECTS_TABLE_CONTAINER, ArchitectsTableScreen::new);
 
         ModBlockColors.registerBlockColors();
@@ -157,7 +158,7 @@ public class Courageous {
         public static void registerBlocks(final RegistryEvent.Register<Block> event) {
             LOGGER.info("Blocks registry");
 
-            event.getRegistry().registerAll(ModBlocks.BLOCKS_ARRAY.toArray(new Block[ModBlocks.BLOCKS_ARRAY.size()]));
+            event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[ModBlocks.BLOCKS.size()]));
         }
 
         @SubscribeEvent
@@ -179,6 +180,7 @@ public class Courageous {
             LOGGER.info("Container types registry");
 
             event.getRegistry().register(ModContainers.POTTERY_WHEEL_CONTAINER);
+            event.getRegistry().register(ModContainers.CUTTING_BOARD_CONTAINER);
             event.getRegistry().register(ModContainers.ARCHITECTS_TABLE_CONTAINER);
         }
 

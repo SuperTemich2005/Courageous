@@ -1,6 +1,7 @@
 package co.uk.squishling.courageous.blocks;
 
 import co.uk.squishling.courageous.blocks.architects_table.ArchitectsTable;
+import co.uk.squishling.courageous.blocks.cutting_board.CuttingBoard;
 import co.uk.squishling.courageous.blocks.pot.BlockDistiller;
 import co.uk.squishling.courageous.blocks.pot.BlockFluidPot;
 import co.uk.squishling.courageous.blocks.pot.BlockFluidPotBase;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 
 public class ModBlocks {
 
-    public static ArrayList<Block> BLOCKS_ARRAY = new ArrayList<Block>();
+    public static ArrayList<Block> BLOCKS = new ArrayList<Block>();
 
     public static final Block PALM_SAPLING = new CustomSapling("palm_sapling", new PalmTree());
     public static final Block PALM_LEAVES = new CustomLeaves("palm_leaves");
@@ -84,15 +85,16 @@ public class ModBlocks {
     public static final Block FALLEN_LEAVES = new FallenLeaves();
 
     public static final Block POTTERY_WHEEL = new PotteryWheel();
+    public static final Block CUTTING_BOARD = new CuttingBoard();
     public static final Block ARCHITECTS_TABLE = new ArchitectsTable();
 
     public static final Block MUD = new MudBlock();
 
-    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, Util.MOD_ID);
+    public static final DeferredRegister<Block> DEFFERED_BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, Util.MOD_ID);
 
-    public static final RegistryObject<Block> FLUID_POT = BLOCKS.register("fluid_pot", BlockFluidPot::new);
-    public static final RegistryObject<Block> UNFIRED_FLUID_POT = BLOCKS.register("unfired_fluid_pot", () -> new BlockFluidPotBase(Block.Properties.create(Material.CLAY).sound(SoundType.GROUND).hardnessAndResistance(0.6F)));
-    public static final RegistryObject<Block> DISTILLER = BLOCKS.register("distiller", BlockDistiller::new);
-    public static final RegistryObject<Block> FAUCET = BLOCKS.register("bamboo_faucet", BlockBambooFaucet::new);
+    public static final RegistryObject<Block> FLUID_POT = DEFFERED_BLOCKS.register("fluid_pot", BlockFluidPot::new);
+    public static final RegistryObject<Block> UNFIRED_FLUID_POT = DEFFERED_BLOCKS.register("unfired_fluid_pot", () -> new BlockFluidPotBase(Block.Properties.create(Material.CLAY).sound(SoundType.GROUND).hardnessAndResistance(0.6F)));
+    public static final RegistryObject<Block> DISTILLER = DEFFERED_BLOCKS.register("distiller", BlockDistiller::new);
+    public static final RegistryObject<Block> FAUCET = DEFFERED_BLOCKS.register("bamboo_faucet", BlockBambooFaucet::new);
 
 }

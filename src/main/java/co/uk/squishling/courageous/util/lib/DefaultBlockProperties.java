@@ -19,7 +19,7 @@ public class DefaultBlockProperties {
         ItemGroup group = GeneralTab.GENERAL;
         if (block instanceof IBlock) group = ((IBlock) block).getTab();
 
-        ModBlocks.BLOCKS_ARRAY.add(block);
+        ModBlocks.BLOCKS.add(block);
         ModItems.ITEMS_ARRAY.add(new BlockItem(block, new Item.Properties().group(group)).setRegistryName(new ResourceLocation(Util.MOD_ID, name)));
     }
 

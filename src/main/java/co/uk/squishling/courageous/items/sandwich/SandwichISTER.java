@@ -21,7 +21,7 @@ public class SandwichISTER extends ItemStackTileEntityRenderer {
         super.render(stack, matrix, bufferIn, combinedLightIn, combinedOverlayIn);
         matrix.push();
 
-        matrix.translate(0.4f, 0.4f, 0.5f);
+        matrix.translate(0.5f, 0.5f, 0.5f);
 
         Minecraft.getInstance().getItemRenderer().renderItem(new ItemStack(ModItems.BREAD_SLICE), TransformType.FIXED, combinedLightIn, combinedOverlayIn, matrix, bufferIn);
 

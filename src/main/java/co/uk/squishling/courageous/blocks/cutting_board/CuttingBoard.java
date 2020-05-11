@@ -2,9 +2,7 @@ package co.uk.squishling.courageous.blocks.cutting_board;
 
 import co.uk.squishling.courageous.blocks.BlockBase;
 import co.uk.squishling.courageous.blocks.IBlock;
-import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTileEntity;
 import co.uk.squishling.courageous.tabs.GeneralTab;
-import co.uk.squishling.courageous.tabs.PotteryTab;
 import co.uk.squishling.courageous.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
