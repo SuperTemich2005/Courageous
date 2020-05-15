@@ -5,6 +5,7 @@ import co.uk.squishling.courageous.blocks.ModContainers;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
 import co.uk.squishling.courageous.blocks.architects_table.ArchitectsTableScreen;
 import co.uk.squishling.courageous.blocks.cutting_board.CuttingBoardScreen;
+import co.uk.squishling.courageous.blocks.cutting_board.CuttingBoardTER;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelScreen;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTESR;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTileEntity;
@@ -131,6 +132,8 @@ public class Courageous {
         RenderTypeLookup.setRenderLayer(ModBlocks.DISTILLER.get(), RenderType.getCutout());
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.POTTERY_WHEEL, PotteryWheelTESR::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.CUTTING_BOARD, CuttingBoardTER::new);
+
         ClientRegistry.bindTileEntityRenderer(ModTiles.FLUID_POT.get(), FluidPotRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTiles.FAUCET.get(), FaucetRenderer::new);
 

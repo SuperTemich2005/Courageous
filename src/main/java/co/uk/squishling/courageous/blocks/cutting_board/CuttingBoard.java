@@ -7,6 +7,7 @@ import co.uk.squishling.courageous.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -16,8 +17,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -30,12 +33,10 @@ import javax.annotation.Nullable;
 
 public class CuttingBoard extends BlockBase implements IBlock {
 
-    private static final VoxelShape SHAPE = VoxelShapes.or(VoxelShapes.or(Block.makeCuboidShape(2d, 13d, 2d, 14d, 15d, 14d),
-            Block.makeCuboidShape(4d, 12d, 4d, 12d, 13d, 12d)),
-            Block.makeCuboidShape(0d, 0d, 0d, 16d, 12d, 16d));
+    private static final VoxelShape SHAPE = VoxelShapes.combine(Block.makeCuboidShape(3d, 0d, 0d, 13d, 1d, 16d), Block.makeCuboidShape(6d, 0d, 14d, 10d, 1d, 15d), IBooleanFunction.ONLY_FIRST);
 
     public CuttingBoard() {
-        super("cutting_board", Properties.create(Material.WOOD).hardnessAndResistance(2.0F, 3.0F));
+        super("cutting_board", Properties.create(Material.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
     }
 
     @Override
