@@ -4,7 +4,7 @@ import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.items.ModItems;
 import co.uk.squishling.courageous.tiles.TileDistiller;
 import co.uk.squishling.courageous.tiles.TileFluidPot;
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -33,7 +33,7 @@ import net.minecraftforge.fluids.FluidUtil;
 import javax.annotation.Nullable;
 
 public class BlockFluidPot extends BlockFluidPotBase {
-    public static final ResourceLocation coverTag = new ResourceLocation(Reference.MOD_ID, "pot_dirt_covers");
+    public static final ResourceLocation coverTag = new ResourceLocation(Util.MOD_ID, "pot_dirt_covers");
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     public static final BooleanProperty CAMPFIREATTACHED = BlockStateProperties.ATTACHED;
 

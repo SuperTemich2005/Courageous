@@ -2,7 +2,7 @@ package co.uk.squishling.courageous.world.gen.features.trees;
 
 import com.mojang.datafixers.Dynamic;
 import co.uk.squishling.courageous.blocks.ModBlocks;
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -13,8 +13,6 @@ import net.minecraft.world.IWorldWriter;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -198,7 +196,7 @@ public class AlpineTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig
         BLOBS_LIST.get(4).add(new BlockPos(0, 4, 2));
         BLOBS_LIST.get(4).add(new BlockPos(0, 4, -2));
 
-        this.setRegistryName(Reference.MOD_ID, "alpine_tree");
+        this.setRegistryName(Util.MOD_ID, "alpine_tree");
         ModFeatures.FEATURES.add(this);
     }
 

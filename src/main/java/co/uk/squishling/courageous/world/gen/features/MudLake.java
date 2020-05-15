@@ -1,10 +1,9 @@
 package co.uk.squishling.courageous.world.gen.features;
 
 import co.uk.squishling.courageous.blocks.ModBlocks;
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import com.mojang.datafixers.Dynamic;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
@@ -29,7 +28,7 @@ public class MudLake extends Feature<NoFeatureConfig> {
 
     public MudLake(Function<Dynamic<?>, ? extends NoFeatureConfig> p_i51485_1_) {
         super(p_i51485_1_);
-        this.setRegistryName(Reference.MOD_ID, "mud_lake");
+        this.setRegistryName(Util.MOD_ID, "mud_lake");
 
         ModFeatures.FEATURES.add(this);
     }

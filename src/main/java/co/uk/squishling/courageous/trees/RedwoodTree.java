@@ -17,7 +17,7 @@ public class RedwoodTree extends BigTree {
     @Nullable
     @Override
     protected ConfiguredFeature<HugeTreeFeatureConfig, ?> getHugeTreeFeature(Random random) {
-        return Feature.MEGA_SPRUCE_TREE.withConfiguration(new HugeTreeFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.REDWOOD_LOG.getDefaultState()), new SimpleBlockStateProvider(ModBlocks.REDWOOD_LEAVES.getDefaultState())).baseHeight(15).func_227283_b_(15).func_227284_c_(13).setSapling((IPlantable) ModBlocks.REDWOOD_SAPLING).build());
+        return Feature.MEGA_SPRUCE_TREE.withConfiguration(new HugeTreeFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.REDWOOD_LOG.getDefaultState()), new SimpleBlockStateProvider(ModBlocks.REDWOOD_LEAVES.getDefaultState())).baseHeight(15).heightInterval(15).crownHeight(13).setSapling((IPlantable) ModBlocks.REDWOOD_SAPLING).build());
     }
 
     @Nullable

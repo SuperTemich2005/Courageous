@@ -17,7 +17,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
-public class CustomSapling extends SaplingBlock implements IGrowable, IBlock {
+public class CustomSapling extends SaplingBlock implements IBlock {
 
     private Tree tree;
 
@@ -47,7 +47,8 @@ public class CustomSapling extends SaplingBlock implements IGrowable, IBlock {
 
     @Override
     public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
-        tree.func_225545_a_(world, world.getChunkProvider().getChunkGenerator(), pos, state, rand);
+//        tree.func_225545_a_(world, world.getChunkProvider().getChunkGenerator(), pos, state, rand);
+        func_226942_a_(world, pos, state, rand);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package co.uk.squishling.courageous.world.gen.features;
 
 import co.uk.squishling.courageous.blocks.ModBlocks;
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.BlockState;
@@ -26,7 +26,7 @@ public class BulrushesFeature extends Feature<SeaGrassConfig> {
 
     public BulrushesFeature(Function<Dynamic<?>, ? extends SeaGrassConfig> p_i51441_1_) {
         super(p_i51441_1_);
-        this.setRegistryName(Reference.MOD_ID, "bulrushes");
+        this.setRegistryName(Util.MOD_ID, "bulrushes");
 
         ModFeatures.FEATURES.add(this);
     }

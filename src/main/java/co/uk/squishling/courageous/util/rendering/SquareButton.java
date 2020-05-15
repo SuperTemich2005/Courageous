@@ -1,6 +1,6 @@
 package co.uk.squishling.courageous.util.rendering;
 
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
@@ -10,7 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class SquareButton extends Button {
-    private ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, "textures/gui/item_button.png");
+    private ResourceLocation resourceLocation = new ResourceLocation(Util.MOD_ID, "textures/gui/item_button.png");
     private final int xTexStart;
     private final int yTexStart;
     private final int field_212935_e;

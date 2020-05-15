@@ -18,4 +18,5 @@ public class DouglasFirTree extends Tree {
     protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean b) {
         return ModFeatures.DOUGLAS_FIR_TREE.withConfiguration(DefaultBiomeFeatures.OAK_TREE_CONFIG);
     }
+
 }

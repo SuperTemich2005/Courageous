@@ -64,7 +64,7 @@ public class ModFeatures {
     // -1761374426436900763
     // 42266 -1533
     public static void addGiantSpruceTree(Biome biome, BlockState LOG, BlockState LEAVES, IPlantable sapling, int perChunk, float extraChance, int extra) {
-        biome.addFeature(Decoration.VEGETAL_DECORATION, Feature.MEGA_SPRUCE_TREE.withConfiguration(new HugeTreeFeatureConfig.Builder(new SimpleBlockStateProvider(LOG), new SimpleBlockStateProvider(LEAVES)).baseHeight(15).func_227283_b_(15).func_227284_c_(13).setSapling(sapling).build()).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(perChunk, extraChance, extra))));
+        biome.addFeature(Decoration.VEGETAL_DECORATION, Feature.MEGA_SPRUCE_TREE.withConfiguration(new HugeTreeFeatureConfig.Builder(new SimpleBlockStateProvider(LOG), new SimpleBlockStateProvider(LEAVES)).baseHeight(15).heightInterval(15).crownHeight(13).setSapling(sapling).build()).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(perChunk, extraChance, extra))));
     }
 
     public static void addFruitForestTrees(Biome biome) {
@@ -139,7 +139,7 @@ public class ModFeatures {
     }
 
     public static void addDefaultTrees(Biome biome, int perChunk, float extraChance, int extra) {
-        biome.addFeature(Decoration.VEGETAL_DECORATION, Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(Feature.NORMAL_TREE.withConfiguration(DefaultBiomeFeatures.field_230129_h_).func_227227_a_(0.2F), Feature.FANCY_TREE.withConfiguration(DefaultBiomeFeatures.field_230131_m_).func_227227_a_(0.1F)), Feature.NORMAL_TREE.withConfiguration(DefaultBiomeFeatures.field_230132_o_))).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(perChunk, extraChance, extra))));
+        biome.addFeature(Decoration.VEGETAL_DECORATION, Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(Feature.NORMAL_TREE.withConfiguration(DefaultBiomeFeatures.field_230129_h_).withChance(0.2F), Feature.FANCY_TREE.withConfiguration(DefaultBiomeFeatures.field_230131_m_).withChance(0.1F)), Feature.NORMAL_TREE.withConfiguration(DefaultBiomeFeatures.field_230132_o_))).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(perChunk, extraChance, extra))));
     }
 
     public static void addPlant(Biome biome, BlockState state, int frequency) {

@@ -2,7 +2,7 @@ package co.uk.squishling.courageous.world.gen.features.trees.fruit;
 
 import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.blocks.vegetation.HarvestableLeaves;
-import co.uk.squishling.courageous.util.Reference;
+import co.uk.squishling.courageous.util.Util;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.*;
@@ -14,10 +14,7 @@ import net.minecraft.world.IWorldWriter;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.IShearable;
 
 import java.util.Random;
 import java.util.Set;
@@ -42,7 +39,7 @@ public class AppleTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig>
         this.leaf = leafState;
         this.vinesGrow = vinesGrowIn;
 
-        this.setRegistryName(Reference.MOD_ID, "apple_tree");
+        this.setRegistryName(Util.MOD_ID, "apple_tree");
         ModFeatures.FEATURES.add(this);
     }
 
@@ -95,7 +92,7 @@ public class AppleTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig>
                 for(int l = position.getX() - k; l <= position.getX() + k && flag; ++l) {
                     for(int i1 = position.getZ() - k; i1 <= position.getZ() + k && flag; ++i1) {
                         if (j >= 0 && j < worldIn.getMaxHeight()) {
-                            if (!func_214587_a(worldIn, blockpos$mutableblockpos.setPos(l, j, i1))) {
+                            if (!canBeReplacedByLogs(worldIn, blockpos$mutableblockpos.setPos(l, j, i1))) {
                                 flag = false;
                             }
                         } else {

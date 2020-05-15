@@ -4,6 +4,8 @@ import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.blocks.ModContainers;
 import co.uk.squishling.courageous.blocks.ModTileEntities;
 import co.uk.squishling.courageous.blocks.architects_table.ArchitectsTableScreen;
+import co.uk.squishling.courageous.blocks.cutting_board.CuttingBoardScreen;
+import co.uk.squishling.courageous.blocks.cutting_board.CuttingBoardTER;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelScreen;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTESR;
 import co.uk.squishling.courageous.blocks.pottery_wheel.PotteryWheelTileEntity;
@@ -64,17 +66,14 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
-@Mod(Reference.MOD_ID)
+@Mod(Util.MOD_ID)
 public class Courageous {
 
     public static Courageous instance;
-    public static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
+    public static final Logger LOGGER = LogManager.getLogger(Util.MOD_ID);
 
     public Courageous() {
         instance = this;
@@ -92,7 +91,7 @@ public class Courageous {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
 
         ModRecipes.RECIPE_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        ModBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ModBlocks.DEFFERED_BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ModTiles.TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
         ModItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
@@ -123,24 +122,27 @@ public class Courageous {
     private void clientRegistry(final FMLClientSetupEvent event) {
         LOGGER.info("Client setup");
 
-//        trySetRandomPanorama();
+        trySetRandomPanorama();
 //        injectResourcePack();
 
-        ModBlockColors.registerBlockColors();
-        ModItemColors.registerItemColors();
-
-        for (Block block : ModBlocks.BLOCKS_ARRAY) {
+        for (Block block : ModBlocks.BLOCKS) {
             if (block instanceof BushBlock || block instanceof LeavesBlock || block instanceof LeavesLike) RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
         }
         RenderTypeLookup.setRenderLayer(ModBlocks.FLUID_POT.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.DISTILLER.get(), RenderType.getCutout());
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.POTTERY_WHEEL, PotteryWheelTESR::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.CUTTING_BOARD, CuttingBoardTER::new);
+
         ClientRegistry.bindTileEntityRenderer(ModTiles.FLUID_POT.get(), FluidPotRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTiles.FAUCET.get(), FaucetRenderer::new);
 
         ScreenManager.registerFactory(ModContainers.POTTERY_WHEEL_CONTAINER, PotteryWheelScreen::new);
+        ScreenManager.registerFactory(ModContainers.CUTTING_BOARD_CONTAINER, CuttingBoardScreen::new);
         ScreenManager.registerFactory(ModContainers.ARCHITECTS_TABLE_CONTAINER, ArchitectsTableScreen::new);
+
+        ModBlockColors.registerBlockColors();
+        ModItemColors.registerItemColors();
     }
 
     @EventBusSubscriber(bus=Bus.MOD)
@@ -159,7 +161,7 @@ public class Courageous {
         public static void registerBlocks(final RegistryEvent.Register<Block> event) {
             LOGGER.info("Blocks registry");
 
-            event.getRegistry().registerAll(ModBlocks.BLOCKS_ARRAY.toArray(new Block[ModBlocks.BLOCKS_ARRAY.size()]));
+            event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[ModBlocks.BLOCKS.size()]));
         }
 
         @SubscribeEvent
@@ -181,6 +183,7 @@ public class Courageous {
             LOGGER.info("Container types registry");
 
             event.getRegistry().register(ModContainers.POTTERY_WHEEL_CONTAINER);
+            event.getRegistry().register(ModContainers.CUTTING_BOARD_CONTAINER);
             event.getRegistry().register(ModContainers.ARCHITECTS_TABLE_CONTAINER);
         }
 
@@ -192,8 +195,8 @@ public class Courageous {
 
         @SubscribeEvent
         public static void registerParticleTypes(RegistryEvent.Register<ParticleType<?>> event) {
-            event.getRegistry().register(ModParticles.FALLING_WATER_PARTICLE.setRegistryName(Reference.MOD_ID, "falling_water"));
-            event.getRegistry().register(ModParticles.FALLING_FLUID_PARTICLE.setRegistryName(Reference.MOD_ID, "falling_fluid"));
+            event.getRegistry().register(ModParticles.FALLING_WATER_PARTICLE.setRegistryName(Util.MOD_ID, "falling_water"));
+            event.getRegistry().register(ModParticles.FALLING_FLUID_PARTICLE.setRegistryName(Util.MOD_ID, "falling_fluid"));
         }
 
         @SubscribeEvent
@@ -260,19 +263,19 @@ public class Courageous {
     @OnlyIn(Dist.CLIENT)
     public static void trySetRandomPanorama() {
         //Get this mod's resource pack
-        Optional<ModFileResourcePack> optionalResourcePack = ResourcePackLoader.getResourcePackFor(Reference.MOD_ID);
+        Optional<ModFileResourcePack> optionalResourcePack = ResourcePackLoader.getResourcePackFor(Util.MOD_ID);
         //If found, try replacing the panorama
         if (optionalResourcePack.isPresent()) {
             //First of all, get the actual resource pack
             ModFileResourcePack resourcePack = optionalResourcePack.get();
             //Then, get a set of subfolders from the panoramas directory
-            Set<String> folders = getSubfoldersFromDirectory(resourcePack.getModFile(), "assets/" + Reference.MOD_ID + "/panoramas");
+            Set<String> folders = getSubfoldersFromDirectory(resourcePack.getModFile(), "assets/" + Util.MOD_ID + "/panoramas");
             //If there's at least 1 such folder, replace the panorama
             if (folders.size() > 0) {
                 //Get a random panorama from the list of folders
                 String chosenPanorama = (String) folders.toArray()[new Random().nextInt(folders.size())];
                 //Generate a base resource location for it
-                ResourceLocation panoramaLoc = new ResourceLocation(Reference.MOD_ID, "panoramas/" + chosenPanorama + "/panorama");
+                ResourceLocation panoramaLoc = new ResourceLocation(Util.MOD_ID, "panoramas/" + chosenPanorama + "/panorama");
                 //Generate the array of resource locations
                 ResourceLocation[] ResourceLocationsArray = new ResourceLocation[6];
                 for (int i = 0; i < 6; ++i) {
