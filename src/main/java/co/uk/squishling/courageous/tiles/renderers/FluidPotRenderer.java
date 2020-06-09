@@ -22,7 +22,7 @@ public class FluidPotRenderer extends TileEntityRenderer<TileFluidPot> {
     }
 
     @Override
-    public void render(TileFluidPot tileFluidPot, float v, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int i, int i1) {
+    public void render(TileFluidPot tileFluidPot, float v, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int combinedLightIn, int combinedOverlayIn) {
         FluidStack fluidStack = tileFluidPot.getFluidInTank(0);
         if (tileFluidPot.getBlockState().get(BlockFluidPot.OPEN) && !fluidStack.isEmpty()) {
             matrixStack.push();
@@ -35,8 +35,7 @@ public class FluidPotRenderer extends TileEntityRenderer<TileFluidPot> {
             Float layerHeight = (1 - topInset - bottomInset) * percentFull + bottomInset;
 
             //Put fluid into buffer
-            TileEntityRenderHelper.DrawFluidPlane(builder, matrixStack, fluid, tileFluidPot.getWorld(), tileFluidPot.getPos(), sideInset, sideInset, 1 - sideInset, 1 - sideInset, layerHeight, i1);
-
+            TileEntityRenderHelper.DrawFluidPlane(builder, matrixStack, fluid, tileFluidPot.getWorld(), tileFluidPot.getPos(), sideInset, sideInset, 1 - sideInset, 1 - sideInset, layerHeight, combinedLightIn, combinedOverlayIn);
             matrixStack.pop();
         }
     }
