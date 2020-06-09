@@ -16,6 +16,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.world.Explosion;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -65,6 +66,7 @@ public class TileDistiller extends TileFluidPot implements ITickableTileEntity {
                 //Explode if there is still too much fluid in output tank, otherwise fill output tank
                 if (output.fill(outFlow, FluidAction.EXECUTE) != outFlow.getAmount()) {
                     explode();
+                    return;
                 }
             }
             world.addParticle(ParticleTypes.POOF, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 0, 0, 0);
@@ -92,7 +94,7 @@ public class TileDistiller extends TileFluidPot implements ITickableTileEntity {
 
     //For when someone messes up doing a recipe
     private void explode() {
-        //TODO: Destroy the distiller
+        world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 1.0F, Explosion.Mode.BREAK);
     }
 
     public boolean isRecipePresent() {
