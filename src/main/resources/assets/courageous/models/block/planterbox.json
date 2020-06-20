@@ -1,0 +1,9 @@
+{
+    "parent": "block/cube_bottom_top",
+    "textures": {
+        "particle": "courageous:block/planterbox_top",
+        "top": "courageous:block/planterbox_top",
+        "side": "block/composter_side",
+        "bottom": "block/composter_bottom"
+    }
+}

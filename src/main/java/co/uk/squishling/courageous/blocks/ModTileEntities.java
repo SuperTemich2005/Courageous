@@ -13,5 +13,6 @@ public class ModTileEntities {
 
     public static final TileEntityType POTTERY_WHEEL = CustomTileEntityType.create(PotteryWheelTileEntity::new, "pottery_wheel", (Block) ModBlocks.POTTERY_WHEEL);
     public static final TileEntityType CUTTING_BOARD = CustomTileEntityType.create(CuttingBoardTileEntity::new, "cutting_board", (Block) ModBlocks.CUTTING_BOARD);
+    public static final TileEntityType PLANTER_BOX = CustomTileEntityType.create(CuttingBoardTileEntity::new, "planter_box", (Block) ModBlocks.PLANTER_BOX);
 
 }
