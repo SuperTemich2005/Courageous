@@ -14,7 +14,7 @@ import java.util.function.Function;
 
 public class ChaparralSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
 
-    public static final PerlinNoiseGenerator noiseGen = new PerlinNoiseGenerator(new SharedSeedRandom(13378l), 5, 0);
+    public static final PerlinNoiseGenerator noiseGen = new PerlinNoiseGenerator(new SharedSeedRandom(13378l), 2, 10);
 
     public ChaparralSurfaceBuilder(Function<Dynamic<?>, ? extends SurfaceBuilderConfig> deserializer) {
         super(deserializer);
@@ -22,9 +22,9 @@ public class ChaparralSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig
 
     @Override
     public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-        if (noiseGen.noiseAt(x, z, false) > 6) {
+        if (noiseGen.noiseAt(x, z, false) > 6f) {
             SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, GRASS_DIRT_SAND_CONFIG);
-        } else if (noiseGen.noiseAt(x, z, false) >= 3) {
+        } else if (noiseGen.noiseAt(x, z, false) >= 2f) {
             SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, RED_SAND_WHITE_TERRACOTTA_GRAVEL_CONFIG);
         } else {
             SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, SAND_SAND_GRAVEL_CONFIG);

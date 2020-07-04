@@ -58,6 +58,6 @@ public class BiomeAutumnalForest extends Biome {
 
     @Override
     public int getFoliageColor() {
-        return 0xff6700;
+        return 0xffb019;
     }
 }

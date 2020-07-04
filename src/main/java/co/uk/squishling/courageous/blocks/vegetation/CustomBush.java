@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
@@ -40,13 +41,17 @@ public class CustomBush extends BushBlock implements IShearable, IBlock {
     }
 
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        Block block = state.getBlock();
-        for (Block blck : acceptedBlocks) if (block == blck) return true;
+        for (Block block : acceptedBlocks) if (state.getBlock() == block) return true;
         return false;
     }
 
+    public Block.OffsetType getOffsetType() {
+        return Block.OffsetType.XZ;
+    }
+
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return shape;
+        Vec3d vec3d = state.getOffset(worldIn, pos);
+        return shape.withOffset(vec3d.x, vec3d.y, vec3d.z);
     }
 
     @Override

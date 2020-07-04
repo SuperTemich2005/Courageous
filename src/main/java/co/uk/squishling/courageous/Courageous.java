@@ -28,20 +28,21 @@ import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.client.gui.screen.MainMenuScreen;
-import net.minecraft.client.renderer.RenderSkyboxCube;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.resources.ClientResourcePackInfo;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.particles.ParticleType;
+import net.minecraft.resources.*;
+import net.minecraft.resources.ResourcePackInfo.IFactory;
+import net.minecraft.resources.ResourcePackInfo.Priority;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -51,19 +52,18 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.loading.moddiscovery.ModFile;
-import net.minecraftforge.fml.packs.ModFileResourcePack;
-import net.minecraftforge.fml.packs.ResourcePackLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -122,8 +122,8 @@ public class Courageous {
     private void clientRegistry(final FMLClientSetupEvent event) {
         LOGGER.info("Client setup");
 
-        trySetRandomPanorama();
-//        injectResourcePack();
+//        trySetRandomPanorama();
+        injectResourcePack();
 
         for (Block block : ModBlocks.BLOCKS) {
             if (block instanceof BushBlock || block instanceof LeavesBlock || block instanceof LeavesLike) RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
@@ -208,84 +208,84 @@ public class Courageous {
 
     }
 
-//    public void injectResourcePack() {
-//        Minecraft mc = Minecraft.getInstance();
-//        if (mc == null) return;
-//
-//        try {
-//            File resourcesFolder = FMLLoader.getLoadingModList().getModFileById(Reference.MOD_ID).getFile().findResource("overrides").toFile();
-//
-//            if (!resourcesFolder.exists() && !resourcesFolder.mkdirs()) return;
-//            if (!resourcesFolder.exists() || !resourcesFolder.isDirectory()) return;
-//
-//            final String id = "courageous_mc_override";
-//            final ITextComponent name = new StringTextComponent("Courageous' Panorama");
-//            final ITextComponent description = new StringTextComponent("Custom main menu panorama.");
-//
-//            final IResourcePack pack = new FolderPack(resourcesFolder) {
-//                String prefix = "assets/minecraft/";
-//
-//                @Override
-//                protected InputStream getInputStream(String resourcePath) throws IOException {
-//                    if ("pack.mcmeta".equals(resourcePath)) return new ByteArrayInputStream(("{\"pack\":{\"description\": \"dummy\",\"pack_format\": 4}}").getBytes(StandardCharsets.UTF_8));
-//                    if (!resourcePath.startsWith(prefix)) throw new FileNotFoundException(resourcePath);
-//
-//                    return super.getInputStream(resourcePath);
-//                }
-//
-//                @Override
-//                public boolean resourceExists(String resourcePath) {
-//                    if ("pack.mcmeta".equals(resourcePath)) return true;
-//                    if (!resourcePath.startsWith(prefix)) return false;
-//
-//                    return super.resourceExists(resourcePath);
-//                }
-//
-//                @Override
-//                public Set<String> getResourceNamespaces(ResourcePackType type) {
-//                    return Collections.singleton("minecraft");
-//                }
-//            };
-//
-//            Minecraft.getInstance().getResourcePackList().addPackFinder(new IPackFinder() {
-//                @Override
-//                public <T extends ResourcePackInfo> void addPackInfosToMap(Map<String, T> nameToPackMap, IFactory<T> packInfoFactory) {
-//                    nameToPackMap.put(id, (T) new ClientResourcePackInfo(id, true, () ->
-//                            pack, name, description, PackCompatibility.COMPATIBLE, Priority.TOP, false, null, false
-//                    ));
-//                }
-//            });
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public void injectResourcePack() {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc == null) return;
 
-    @OnlyIn(Dist.CLIENT)
-    public static void trySetRandomPanorama() {
-        //Get this mod's resource pack
-        Optional<ModFileResourcePack> optionalResourcePack = ResourcePackLoader.getResourcePackFor(Util.MOD_ID);
-        //If found, try replacing the panorama
-        if (optionalResourcePack.isPresent()) {
-            //First of all, get the actual resource pack
-            ModFileResourcePack resourcePack = optionalResourcePack.get();
-            //Then, get a set of subfolders from the panoramas directory
-            Set<String> folders = getSubfoldersFromDirectory(resourcePack.getModFile(), "assets/" + Util.MOD_ID + "/panoramas");
-            //If there's at least 1 such folder, replace the panorama
-            if (folders.size() > 0) {
-                //Get a random panorama from the list of folders
-                String chosenPanorama = (String) folders.toArray()[new Random().nextInt(folders.size())];
-                //Generate a base resource location for it
-                ResourceLocation panoramaLoc = new ResourceLocation(Util.MOD_ID, "panoramas/" + chosenPanorama + "/panorama");
-                //Generate the array of resource locations
-                ResourceLocation[] ResourceLocationsArray = new ResourceLocation[6];
-                for (int i = 0; i < 6; ++i) {
-                    ResourceLocationsArray[i] = new ResourceLocation(panoramaLoc.getNamespace(), panoramaLoc.getPath() + '_' + i + ".png");
+        try {
+            File resourcesFolder = FMLLoader.getLoadingModList().getModFileById(Util.MOD_ID).getFile().findResource("overrides").toFile();
+
+            if (!resourcesFolder.exists() && !resourcesFolder.mkdirs()) return;
+            if (!resourcesFolder.exists() || !resourcesFolder.isDirectory()) return;
+
+            final String id = "courageous_mc_override";
+            final ITextComponent name = new StringTextComponent("Courageous' Panorama");
+            final ITextComponent description = new StringTextComponent("Custom main menu panorama.");
+
+            final IResourcePack pack = new FolderPack(resourcesFolder) {
+                String prefix = "assets/minecraft/";
+
+                @Override
+                protected InputStream getInputStream(String resourcePath) throws IOException {
+                    if ("pack.mcmeta".equals(resourcePath)) return new ByteArrayInputStream(("{\"pack\":{\"description\": \"dummy\",\"pack_format\": 4}}").getBytes(StandardCharsets.UTF_8));
+                    if (!resourcePath.startsWith(prefix)) throw new FileNotFoundException(resourcePath);
+
+                    return super.getInputStream(resourcePath);
                 }
-                //Replace the resource locations in the main menu's skybox field using reflection
-                ObfuscationReflectionHelper.setPrivateValue(RenderSkyboxCube.class, MainMenuScreen.PANORAMA_RESOURCES, ResourceLocationsArray, "field_209143_a");
-            }
+
+                @Override
+                public boolean resourceExists(String resourcePath) {
+                    if ("pack.mcmeta".equals(resourcePath)) return true;
+                    if (!resourcePath.startsWith(prefix)) return false;
+
+                    return super.resourceExists(resourcePath);
+                }
+
+                @Override
+                public Set<String> getResourceNamespaces(ResourcePackType type) {
+                    return Collections.singleton("minecraft");
+                }
+            };
+
+            Minecraft.getInstance().getResourcePackList().addPackFinder(new IPackFinder() {
+                @Override
+                public <T extends ResourcePackInfo> void addPackInfosToMap(Map<String, T> nameToPackMap, IFactory<T> packInfoFactory) {
+                    nameToPackMap.put(id, (T) new ClientResourcePackInfo(id, true, () ->
+                            pack, name, description, PackCompatibility.COMPATIBLE, Priority.TOP, true, null, false
+                    ));
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
+//    @OnlyIn(Dist.CLIENT)
+//    public static void trySetRandomPanorama() {
+//        //Get this mod's resource pack
+//        Optional<ModFileResourcePack> optionalResourcePack = ResourcePackLoader.getResourcePackFor(Util.MOD_ID);
+//        //If found, try replacing the panorama
+//        if (optionalResourcePack.isPresent()) {
+//            //First of all, get the actual resource pack
+//            ModFileResourcePack resourcePack = optionalResourcePack.get();
+//            //Then, get a set of subfolders from the panoramas directory
+//            Set<String> folders = getSubfoldersFromDirectory(resourcePack.getModFile(), "assets/" + Util.MOD_ID + "/panoramas");
+//            //If there's at least 1 such folder, replace the panorama
+//            if (folders.size() > 0) {
+//                //Get a random panorama from the list of folders
+//                String chosenPanorama = (String) folders.toArray()[new Random().nextInt(folders.size())];
+//                //Generate a base resource location for it
+//                ResourceLocation panoramaLoc = new ResourceLocation(Util.MOD_ID, "panoramas/" + chosenPanorama + "/panorama");
+//                //Generate the array of resource locations
+//                ResourceLocation[] ResourceLocationsArray = new ResourceLocation[6];
+//                for (int i = 0; i < 6; ++i) {
+//                    ResourceLocationsArray[i] = new ResourceLocation(panoramaLoc.getNamespace(), panoramaLoc.getPath() + '_' + i + ".png");
+//                }
+//                //Replace the resource locations in the main menu's skybox field using reflection
+//                ObfuscationReflectionHelper.setPrivateValue(RenderSkyboxCube.class, MainMenuScreen.PANORAMA_RESOURCES, ResourceLocationsArray, "field_209143_a");
+//            }
+//        }
+//    }
 
     /**
      * Get a list of the subfolder names in a specific directory from a specific mod file

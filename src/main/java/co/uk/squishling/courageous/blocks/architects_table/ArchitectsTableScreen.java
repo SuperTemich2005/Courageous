@@ -1,198 +1,121 @@
 package co.uk.squishling.courageous.blocks.architects_table;
 
-import co.uk.squishling.courageous.recipes.ArchitectTable.ArchitectsTableRecipe;
-import com.mojang.blaze3d.systems.RenderSystem;
+import co.uk.squishling.courageous.util.Util;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class ArchitectsTableScreen extends ContainerScreen<ArchitectsTableContainer> {
-    private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation("textures/gui/container/stonecutter.png");
-    private float sliderProgress;
-    private boolean clickedOnSroll;
-    private int recipeIndexOffset;
-    private boolean hasItemsInInputSlot;
-    private int selected;
 
-    private HashMap<ItemStack, Pair<Integer, Integer>> ICONS = new HashMap<ItemStack, Pair<Integer, Integer>>();
-    public ArrayList<Button> ABUTTONS = new ArrayList<Button>();
+    private ResourceLocation GUI = new ResourceLocation(Util.MOD_ID, "textures/gui/architects_table.png");
+
+    private float sliderProgress;
+    /** Is {@code true} if the player clicked on the scroll wheel in the GUI. */
+    private boolean clickedOnSroll;
 
     public ArchitectsTableScreen(ArchitectsTableContainer container, PlayerInventory playerInventory, ITextComponent name) {
         super(container, playerInventory, name);
-        container.setInventoryUpdateListener(this::onInventoryUpdate);
+
+        xSize = 208;
+        ySize = 199;
     }
 
     @Override
     public void render(int mouseX, int mouseY, float partialTicks) {
         super.render(mouseX, mouseY, partialTicks);
+
         renderHoveredToolTip(mouseX, mouseY);
-        //renderButtonToolTip(mouseX, mouseY);
     }
-
-    /*public void addItemButton(ItemStack item) {
-        int xOff = (width / 2 - xSize / 2) - 115;
-        int yOff = (height / 2 - ySize / 2);
-
-        int x = xOff + 23 * (ABUTTONS.size() % 5);
-        int y = yOff + 23 * (ABUTTONS.size() / 5);
-        System.out.println("Item " + item.getItem().getRegistryName() + " added on position " + x + "," + y);
-        ABUTTONS.add(new SquareButton(x, y, (button) -> {
-
-        }));
-
-        ICONS.put(item, new Pair<Integer, Integer>() {
-            @Override
-            public Integer setValue(Integer value) {
-                return null;
-            }
-
-            @Override
-            public Integer getLeft() {
-                return x + 3;
-            }
-
-            @Override
-            public Integer getRight() {
-                return y + 3;
-            }
-        });
-    }
-
-    public void removeItemButton(int index) {
-        ABUTTONS.remove(index);
-        ICONS.remove(index);
-    }*/
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.font.drawString(this.title.getFormattedText(), 8.0F, 4.0F, 4210752);
-        this.font.drawString(this.playerInventory.getDisplayName().getFormattedText(), 8.0F, (float)(this.ySize - 94), 4210752);
+        String s = new TranslationTextComponent("block.courageous.architects_table").getFormattedText();
+        this.font.drawString(s, (float)(this.xSize / 2 - this.font.getStringWidth(s) / 2), 6.0F, 4210752);
+        this.font.drawString(this.playerInventory.getDisplayName().getFormattedText(), 25 + 4.0F, (float)(this.ySize - 96 + 2), 4210752);
     }
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        this.renderBackground();
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.minecraft.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
-        int left = this.guiLeft;
-        int top = this.guiTop;
-        this.blit(left, top, 0, 0, this.xSize, this.ySize);
-        int sliderY = (int)(41.0F * this.sliderProgress);
-        this.blit(left + 119, top + 15 + sliderY, 176 + (this.canScroll() ? 0 : 12), 0, 12, 15);
-        int outputLeft = this.guiLeft + 52;
-        int outputTop = this.guiTop + 14;
-        int indexOffset = this.recipeIndexOffset + 12;
-        this.drawRecipesBackground(mouseX, mouseY, outputLeft, outputTop, indexOffset);
-        this.drawRecipesItems(outputLeft, outputTop, indexOffset);
+        renderBackground();
+        GlStateManager.color4f(1f, 1f, 1f, 1f);
+        minecraft.getTextureManager().bindTexture(GUI);
+
+        int relX = (width - xSize) / 2;
+        int relY = (height - ySize) / 2;
+        blit(relX, relY, 0, 0, xSize, ySize);
+
+        int k = (int)(68f * this.sliderProgress);
+        this.blit(relX + 151, relY + 18 + k, 18 + (this.canScroll() ? 0 : 12), 199, 12, 15);
+
+        if (container.getSlot(0).getStack().isEmpty()) blit(relX + 21, relY + 41, xSize, 0, 16, 16);
     }
 
-    private void drawRecipesBackground(int mouseX, int mouseY, int left, int top, int offset) {
-        for(int index = this.recipeIndexOffset; index < offset && index < ((ArchitectsTableContainer)this.container).getRecipeListSize(); ++index) {
-            int indexRelative = index - this.recipeIndexOffset;
-            int posX = left + indexRelative % 4 * 16;
-            int posY = top + (indexRelative / 4) * 18 + 2;
-            int ySize = this.ySize; //Look, I don't know what it does either, I simply gave it a name so it's a bit more readable
-            if (index == ((ArchitectsTableContainer)this.container).getSelectedRecipe()) {
-                ySize += 18;
-            } else if (mouseX >= posX && mouseY >= posY && mouseX < posX + 16 && mouseY < posY + 18) {
-                ySize += 36;
-            }
-
-            this.blit(posX, posY - 1, 0, ySize, 16, 18);
-        }
-    }
-
-    private void drawRecipesItems(int left, int top, int indexOffset) {
-        List<ArchitectsTableRecipe> recipeList = (this.container).getRecipeList();
-
-        for(int index = this.recipeIndexOffset; index < indexOffset && index < ((ArchitectsTableContainer)this.container).getRecipeListSize(); ++index) {
-            int indexRelative = index - this.recipeIndexOffset;
-            int posX = left + indexRelative % 4 * 16;
-            int posY = top + (indexRelative / 4) * 18 + 2;
-            this.minecraft.getItemRenderer().renderItemAndEffectIntoGUI((recipeList.get(index)).getRecipeOutput(), posX, posY);
-        }
-
-    }
-
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        this.clickedOnSroll = false;
-        if (this.hasItemsInInputSlot) {
-            int left = this.guiLeft + 52;
-            int top = this.guiTop + 14;
-            int indexOffset = this.recipeIndexOffset + 12;
-
-            for(int index = this.recipeIndexOffset; index < indexOffset; ++index) {
-                int indexRelative = index - this.recipeIndexOffset;
-                double posX = mouseX - (double)(left + indexRelative % 4 * 16);
-                double posY = mouseY - (double)(top + indexRelative / 4 * 18);
-                if (posX >= 0.0D && posY >= 0.0D && posX < 16.0D && posY < 18.0D && ((ArchitectsTableContainer)this.container).enchantItem(this.minecraft.player, index)) {
-                    Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
-                    this.minecraft.playerController.sendEnchantPacket(((ArchitectsTableContainer)this.container).windowId, index);
-                    return true;
-                }
-            }
-
-            left = this.guiLeft + 119;
-            top = this.guiTop + 9;
-            if (mouseX >= (double)left && mouseX < (double)(left + 12) && mouseY >= (double)top && mouseY < (double)(top + 54)) {
-                this.clickedOnSroll = true;
-            }
-        }
-
-        return super.mouseClicked(mouseX, mouseY, button);
-    }
-
-    @Override
-    public boolean mouseDragged(double posX, double posY, int button, double p_mouseDragged_6_, double p_mouseDragged_8_) {
+    public boolean mouseDragged(double p_mouseDragged_1_, double p_mouseDragged_3_, int p_mouseDragged_5_, double p_mouseDragged_6_, double p_mouseDragged_8_) {
         if (this.clickedOnSroll && this.canScroll()) {
-            int top = this.guiTop + 14;
-            int bottom = top + 54;
-            this.sliderProgress = ((float)posY - (float)top - 7.5F) / ((float)(bottom - top) - 15.0F);
+            int i = this.guiTop + 17;
+            int j = i + 83;
+            this.sliderProgress = ((float)p_mouseDragged_3_ - (float)i - 7.5F) / ((float)(j - i) - 15.0F);
             this.sliderProgress = MathHelper.clamp(this.sliderProgress, 0.0F, 1.0F);
-            this.recipeIndexOffset = (int)((double)(this.sliderProgress * (float)this.getHiddenRows()) + 0.5D) * 4;
+//            this.recipeIndexOffset = (int)((double)(this.sliderProgress * (float)this.getHiddenRows()) + 0.5D) * 4;
             return true;
         } else {
-            return super.mouseDragged(posX, posY, button, p_mouseDragged_6_, p_mouseDragged_8_);
+            return super.mouseDragged(p_mouseDragged_1_, p_mouseDragged_3_, p_mouseDragged_5_, p_mouseDragged_6_, p_mouseDragged_8_);
         }
     }
 
-    public boolean mouseScrolled(double posX, double posY, double scrollAmount) {
+    public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double p_mouseScrolled_5_) {
         if (this.canScroll()) {
-            int extraRows = this.getHiddenRows();
-            this.sliderProgress = (float)((double)this.sliderProgress - scrollAmount / (double)extraRows);
+            int i = this.getHiddenRows();
+            this.sliderProgress = (float)((double)this.sliderProgress - p_mouseScrolled_5_ / (double)i);
             this.sliderProgress = MathHelper.clamp(this.sliderProgress, 0.0F, 1.0F);
-            this.recipeIndexOffset = (int)((double)(this.sliderProgress * (float)extraRows) + 0.5D) * 4;
+//            this.recipeIndexOffset = (int)((double)(this.sliderProgress * (float)i) + 0.5D) * 4;
         }
 
         return true;
     }
 
-    private boolean canScroll() {
-        return this.hasItemsInInputSlot && ((ArchitectsTableContainer)this.container).getRecipeListSize() > 12;
-    }
-
     protected int getHiddenRows() {
-        return (((ArchitectsTableContainer)this.container).getRecipeListSize() + 4 - 1) / 4 - 3;
+//        return (this.container.getRecipeListSize() + 4 - 1) / 4 - 3;
+        return 10;
     }
 
-    private void onInventoryUpdate() {
-        this.hasItemsInInputSlot = ((ArchitectsTableContainer)this.container).hasItemsinInputSlot();
-        if (!this.hasItemsInInputSlot) {
-            this.sliderProgress = 0.0F;
-            this.recipeIndexOffset = 0;
-        }
+    private boolean canScroll() {
+        return true;
     }
+
+    public boolean mouseClicked(double x, double y, int p_mouseClicked_5_) {
+        this.clickedOnSroll = false;
+//        if (this.hasItemsInInputSlot) {
+//            int i = this.guiLeft + 52;
+//            int j = this.guiTop + 14;
+//            int k = this.recipeIndexOffset + 12;
+//
+//            for(int l = this.recipeIndexOffset; l < k; ++l) {
+//                int i1 = l - this.recipeIndexOffset;
+//                double d0 = p_mouseClicked_1_ - (double)(i + i1 % 4 * 16);
+//                double d1 = p_mouseClicked_3_ - (double)(j + i1 / 4 * 18);
+//                if (d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D && this.container.enchantItem(this.minecraft.player, l)) {
+//                    Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
+//                    this.minecraft.playerController.sendEnchantPacket((this.container).windowId, l);
+//                    return true;
+//                }
+//            }
+//
+//
+//        }
+
+        if (x >= guiLeft + 151d && x < guiLeft + 151d + 12d && y >= guiTop + 18d && y < guiTop + 18d + 83d) {
+            this.clickedOnSroll = true;
+        }
+
+        return super.mouseClicked(x, y, p_mouseClicked_5_);
+    }
+
 }

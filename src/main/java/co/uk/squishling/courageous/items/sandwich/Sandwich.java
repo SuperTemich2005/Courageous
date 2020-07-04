@@ -4,6 +4,7 @@ import co.uk.squishling.courageous.items.ItemBase;
 import co.uk.squishling.courageous.items.ModItems;
 import co.uk.squishling.courageous.tabs.FoodTab;
 import co.uk.squishling.courageous.util.Util;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,6 +13,7 @@ import net.minecraft.item.Food.Builder;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.*;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -24,6 +26,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Sandwich extends ItemBase {
 
@@ -31,6 +34,11 @@ public class Sandwich extends ItemBase {
 
     public Sandwich() {
         super("sandwich", new Item.Properties().group(FoodTab.FOOD).food(new Builder().hunger(2).saturation(0.24f).build()).setISTER(() -> SandwichISTER::new));
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
     @Override

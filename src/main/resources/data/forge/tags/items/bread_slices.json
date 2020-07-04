@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "courageous:bread_slice"
+  ],
+  "optional": [
+    "#carrots:portions_bread"
+  ]
+}

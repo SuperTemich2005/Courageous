@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:melon_slice",
+    "minecraft:apple",
+    "minecraft:chorus_fruit",
+    "courageous:plum",
+    "courageous:orange",
+    "courageous:lemon",
+    "courageous:pear",
+    "courageous:kiwi_fruit",
+    "courageous:avocado"
+  ],
+  "optional": [
+    "pamhc2crops:tomatoitem",
+    "#forge:vegetables/tomato",
+    "#forge:crops/tomato"
+  ]
+}

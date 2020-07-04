@@ -201,7 +201,7 @@ public class AlpineTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig
     }
 
     @Override
-    protected boolean func_225557_a_(IWorldGenerationReader worldIn, Random rand, BlockPos position, Set<BlockPos> set, Set<BlockPos> set1, MutableBoundingBox boundsIn, BaseTreeFeatureConfig noFeatureConfig) {
+    protected boolean place(IWorldGenerationReader worldIn, Random rand, BlockPos position, Set<BlockPos> set, Set<BlockPos> set1, MutableBoundingBox boundsIn, BaseTreeFeatureConfig noFeatureConfig) {
         int trunkHeight = rand.nextInt(13) + 12;
         if (!canCreate(worldIn, position, trunkHeight)) return false;
 

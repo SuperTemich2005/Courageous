@@ -51,7 +51,6 @@ public class CuttingBoardContainer extends Container implements IHasTileEntity {
         inventory = new InvWrapper(playerInventory);
 
         tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-//            addIngredientSlot(handler, KNIFE_SLOT, 41, 45);
             addSlot(new SlotItemHandler(handler, KNIFE_SLOT, 41, 45) {
                 @Override
                 public void onSlotChanged() {
@@ -188,36 +187,6 @@ public class CuttingBoardContainer extends Container implements IHasTileEntity {
 
         return itemstack;
     }
-
-//    @Override
-//    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-//        ItemStack itemstack = ItemStack.EMPTY;
-//        Slot slot = this.inventorySlots.get(index);
-//        if (slot != null && slot.getHasStack()) {
-//            ItemStack itemstack1 = slot.getStack();
-//            itemstack = itemstack1.copy();
-//            if (index == SANDWICH_OUTPUT_SLOT) {
-//                onTakeSandwich();
-//            }
-//
-//            if(index < 10) {
-//                onIngredientsChanged();
-//                if (!this.mergeItemStack(itemstack1, 10, this.inventorySlots.size(), true)) {
-//                    return ItemStack.EMPTY;
-//                }
-//            } else if (!this.mergeItemStack(itemstack1, 0, 9, false)) {
-//                return ItemStack.EMPTY;
-//            }
-//
-//            if (itemstack1.isEmpty()) {
-//                slot.putStack(ItemStack.EMPTY);
-//            } else {
-//                slot.onSlotChanged();
-//            }
-//        }
-//
-//        return itemstack;
-//    }
 
     protected boolean mergeItemStack(ItemStack stack, boolean reverseDirection, Integer... ints) {
         boolean flag = false;

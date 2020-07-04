@@ -73,7 +73,7 @@ public class AppleTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig>
     }
 
     @Override
-    protected boolean func_225557_a_(IWorldGenerationReader worldIn, Random rand, BlockPos position, Set<BlockPos> set, Set<BlockPos> set1, MutableBoundingBox mutableBoundingBox, BaseTreeFeatureConfig treeFeatureConfig) {
+    protected boolean place(IWorldGenerationReader worldIn, Random rand, BlockPos position, Set<BlockPos> set, Set<BlockPos> set1, MutableBoundingBox mutableBoundingBox, BaseTreeFeatureConfig treeFeatureConfig) {
         int i = this.getHeight(rand);
         boolean flag = true;
         if (position.getY() >= 1 && position.getY() + i + 1 <= worldIn.getMaxHeight()) {

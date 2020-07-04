@@ -56,7 +56,7 @@ public class CuttingBoardTER extends TileEntityRenderer<CuttingBoardTileEntity> 
             stack = handler.getStackInSlot(CuttingBoardContainer.KNIFE_SLOT).isEmpty() ?
                     ItemStack.EMPTY :
                     handler.getStackInSlot(CuttingBoardContainer.KNIFE_SLOT);
-            matrix.translate(0f, -1f, -0.1f);
+            matrix.translate(0f, -1f, 0f);
             matrix.scale(1f, 1f, 1f);
             itemRenderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED, light, NO_OVERLAY, matrix, iRenderTypeBuffer);
 

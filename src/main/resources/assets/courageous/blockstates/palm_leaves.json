@@ -1,5 +1,10 @@
 {
-  "variants": {
-    "": { "model": "courageous:block/leaves_palm" }
-  }
+    "variants": {
+        "facing=down": { "model": "courageous:block/leaves_palm", "x": 180 },
+        "facing=up": { "model": "courageous:block/leaves_palm" },
+        "facing=north": { "model": "courageous:block/leaves_palm", "x": 90 },
+        "facing=south": { "model": "courageous:block/leaves_palm", "x": 90, "y": 180 },
+        "facing=west": { "model": "courageous:block/leaves_palm", "x": 90, "y": 270 },
+        "facing=east": { "model": "courageous:block/leaves_palm", "x": 90, "y": 90 }
+    }
 }

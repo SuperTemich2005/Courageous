@@ -69,13 +69,13 @@ public class EventHandler {
 
     //Panorama Replacement
     //Remove the code here to prevent it switching every time you switch back to the main menu
-    @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
-    public static void onMenuOpenEvent(GuiOpenEvent event) {
-        if (event.getGui() instanceof MainMenuScreen) {
-            Courageous.trySetRandomPanorama();
-        }
-    }
+//    @OnlyIn(Dist.CLIENT)
+//    @SubscribeEvent
+//    public static void onMenuOpenEvent(GuiOpenEvent event) {
+//        if (event.getGui() instanceof MainMenuScreen) {
+//            Courageous.trySetRandomPanorama();
+//        }
+//    }
 
 
 }

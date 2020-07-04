@@ -27,10 +27,6 @@ public class ModItems {
 
     public static ArrayList<Item> ITEMS_ARRAY = new ArrayList<Item>();
 
-    public static ItemStackTileEntityRenderer getSandwichISTER() {
-        return new SandwichISTER();
-    }
-
     public static final Item KNIFE = new Knife("knife");
 
     public static final Item BREAD_SLICE = new CustomFood("bread_slice", 1, 0.12f, FoodTab.FOOD);

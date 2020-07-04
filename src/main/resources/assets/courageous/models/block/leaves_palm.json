@@ -1,6 +1,7 @@
 {
-  "parent": "block/leaves",
+  "parent": "courageous:block/leaves_column",
   "textures": {
-    "all": "courageous:block/leaves_palm"
+    "end": "courageous:block/leaves_palm",
+    "side": "courageous:block/leaves_palm"
   }
 }

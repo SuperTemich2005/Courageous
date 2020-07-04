@@ -1,5 +1,6 @@
 package co.uk.squishling.courageous.world.gen.biomes;
 
+import co.uk.squishling.courageous.world.gen.BiomeRegistry;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
@@ -7,8 +8,11 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+
+import javax.annotation.Nullable;
 
 public class BiomeLushDesert extends Biome {
 
@@ -38,7 +42,7 @@ public class BiomeLushDesert extends Biome {
         ModFeatures.addDesertStructures(this);
         ModFeatures.addPillagerOutpost(this);
 
-        ModFeatures.addPalmTrees(this);
+//        ModFeatures.addPalmTrees(this);
         ModFeatures.addDesertVegetation(this);
 
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
@@ -56,6 +60,12 @@ public class BiomeLushDesert extends Biome {
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ZOMBIE, 19, 4, 4));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ZOMBIE_VILLAGER, 1, 1, 1));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.HUSK, 80, 4, 4));
+    }
+
+    @Nullable
+    @Override
+    public Biome getHill(INoiseRandom rand) {
+        return BiomeRegistry.OASIS;
     }
 
     @Override

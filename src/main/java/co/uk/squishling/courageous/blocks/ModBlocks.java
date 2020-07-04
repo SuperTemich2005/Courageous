@@ -27,7 +27,7 @@ public class ModBlocks {
     public static ArrayList<Block> BLOCKS = new ArrayList<Block>();
 
     public static final Block PALM_SAPLING = new CustomSapling("palm_sapling", new PalmTree());
-    public static final Block PALM_LEAVES = new CustomLeaves("palm_leaves");
+    public static final Block PALM_LEAVES = new DirectionLeavesBlock("palm_leaves");
     public static final Block PALM_LOG = new CustomLog("palm_log", MaterialColor.SAND);
     public static final Block STRIPPED_PALM_LOG = new CustomLog("stripped_palm_log", MaterialColor.SAND);
     public static final Block PALM_WOOD = new CustomWood("palm_wood", MaterialColor.SAND);

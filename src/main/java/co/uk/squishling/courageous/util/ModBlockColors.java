@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ILightReader;
 import net.minecraft.world.biome.BiomeColors;
+import org.lwjgl.system.CallbackI.P;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -26,6 +27,21 @@ public class ModBlockColors implements IBlockColor {
     public int getColor(BlockState blockState, @Nullable ILightReader iLightReader, @Nullable BlockPos blockPos, int i) {
         for (Block block : BLOCKS.keySet()) if (blockState.getBlock().equals(block)) return BLOCKS.get(block);
         for (Block block : LEAVES) if (blockState.getBlock().equals(block)) return BiomeColors.getFoliageColor(iLightReader, blockPos);
+
+        if (blockState.getBlock() == ModBlocks.MAPLE_LEAVES) {
+            int rgb = BiomeColors.getFoliageColor(iLightReader, blockPos);
+            int green = (rgb >> 8) & 0xFF;
+            int blue = rgb & 0xFF;
+
+            green *= 0.4;
+            blue *= 0.4;
+
+            rgb = 0xFF;
+            rgb = (rgb << 8) + green;
+            rgb = (rgb << 8) + blue;
+
+            return rgb;
+        }
 
         return 0;
     }
@@ -51,6 +67,8 @@ public class ModBlockColors implements IBlockColor {
             ModBlocks.LEMON_LEAVES,  ModBlocks.PLUM_LEAVES,    ModBlocks.FALLEN_LEAVES,
             ModBlocks.DOUGLAS_FIR_LEAVES
         );
+
+        Minecraft.getInstance().getBlockColors().register(INSTANCE, ModBlocks.MAPLE_LEAVES);
 
         for (Block block : BLOCKS.keySet()) Minecraft.getInstance().getBlockColors().register(INSTANCE, block);
         for (Block block : LEAVES) Minecraft.getInstance().getBlockColors().register(INSTANCE, block);

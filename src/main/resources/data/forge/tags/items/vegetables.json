@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:melon_slice",
+    "minecraft:potato",
+    "minecraft:baked_potato",
+    "minecraft:carrot",
+    "minecraft:poisonous_potato",
+    "courageous:avocado"
+  ],
+  "optional": [
+    "veggie_way:corn",
+    "veggie_way:soybean",
+    "veggie_way:quinoa",
+    "veggie_way:lentil",
+    "pamhc2trees:avocadoitem",
+    "#forge:fruits/avocado",
+    "#forge:fruits/tomato",
+    "pamhc2crops:beanitem",
+    "#forge:grain/bean",
+    "#forge:crops/bean",
+    "#forge:protein/corn",
+    "#forge:carbs/corn",
+    "#forge:grain/corn",
+    "#forge:crops/quinoa",
+    "#forge:grain/quinoa",
+    "#forge:protein/quinoa",
+    "pamhc2crops:cornitem",
+    "#forge:crops/corn",
+    "#forge:corn",
+    "#forge:crops/soybean"
+  ]
+}

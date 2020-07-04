@@ -35,7 +35,7 @@ public class ModFeatures {
 
 //    public static final AbstractTreeFeature GIANT_REDWOOD_TREE = new GiantRedwoodTreeFeature(TreeFeatureConfig::deserialize);
 
-    public static final AbstractTreeFeature PALM_TREE = new PalmTreeFeature(TreeFeatureConfig::deserialize);
+    public static final Feature PALM_TREE = new PalmTreeFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature MAPLE_TREE = new MapleTreeFeature(TreeFeatureConfig::deserialize);
 
     public static final AbstractTreeFeature PEAR_TREE = new PearTreeFeature(TreeFeatureConfig::deserialize);
@@ -84,7 +84,7 @@ public class ModFeatures {
     }
 
     public static void addPalmTrees(Biome biome) {
-        addTree(biome, PALM_TREE, 0, 0.1f, 1);
+        biome.addFeature(Decoration.VEGETAL_DECORATION, PALM_TREE.withConfiguration(new NoFeatureConfig()).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(0, 0.75f, 1))));
     }
 
     public static void addVegetation(Biome biome) {

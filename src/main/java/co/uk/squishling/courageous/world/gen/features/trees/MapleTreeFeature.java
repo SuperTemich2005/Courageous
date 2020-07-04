@@ -43,7 +43,7 @@ public class MapleTreeFeature extends AbstractTreeFeature<BaseTreeFeatureConfig>
     }
 
     @Override
-    public boolean func_225557_a_(IWorldGenerationReader worldIn, Random rand, BlockPos position, Set<BlockPos> set, Set<BlockPos> set1,  MutableBoundingBox boundsIn, BaseTreeFeatureConfig config) {
+    public boolean place(IWorldGenerationReader worldIn, Random rand, BlockPos position, Set<BlockPos> set, Set<BlockPos> set1,  MutableBoundingBox boundsIn, BaseTreeFeatureConfig config) {
         int i = this.getHeight(rand);
         boolean flag = true;
         if (position.getY() >= 1 && position.getY() + i + 1 <= worldIn.getMaxHeight()) {

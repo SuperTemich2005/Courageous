@@ -23,7 +23,6 @@ public class ModContainers {
             new CuttingBoardContainer(windowId, inv.player.world, data.readBlockPos(), inv)).setRegistryName(Util.MOD_ID, "cutting_board");
 
     public static final ContainerType ARCHITECTS_TABLE_CONTAINER = IForgeContainerType.create((windowId, inv, data) ->
-            //new ArchitectsTableContainer(windowId, inv.player.world, data.readBlockPos(), inv)).setRegistryName(Reference.MOD_ID, "architects_table");
-            new ArchitectsTableContainer(windowId, inv.player.world, data.readBlockPos(), inv)).setRegistryName(Util.MOD_ID, "pottery_wheela");
+            new ArchitectsTableContainer(windowId, inv.player.world, data.readBlockPos(), inv)).setRegistryName(Util.MOD_ID, "architects_table");
 
 }
