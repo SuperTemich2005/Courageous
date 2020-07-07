@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": [
+      { "model": "courageous:block/tanned_sand" },
+      { "model": "courageous:block/tanned_sand", "y": 90 },
+      { "model": "courageous:block/tanned_sand", "y": 180 },
+      { "model": "courageous:block/tanned_sand", "y": 270 }
+    ]
+  }
+}

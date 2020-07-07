@@ -7,6 +7,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -42,6 +43,7 @@ public class CustomBush extends BushBlock implements IShearable, IBlock {
 
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         for (Block block : acceptedBlocks) if (state.getBlock() == block) return true;
+        if (BlockTags.SAND.contains(state.getBlock())) return true;
         return false;
     }
 

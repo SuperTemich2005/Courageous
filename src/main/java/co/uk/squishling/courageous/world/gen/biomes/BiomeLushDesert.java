@@ -8,7 +8,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.world.gen.GenerationStage.Decoration;
 import net.minecraft.world.gen.INoiseRandom;
+import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
@@ -32,11 +34,13 @@ public class BiomeLushDesert extends Biome {
 
                 .parent((String) null));
 
-        DefaultBiomeFeatures.addLakes(this);
+//        DefaultBiomeFeatures.addLakes(this);
         DefaultBiomeFeatures.addSedimentDisks(this);
         DefaultBiomeFeatures.addReedsAndPumpkins(this);
-        DefaultBiomeFeatures.addSprings(this);
+//        DefaultBiomeFeatures.addSprings(this);
         DefaultBiomeFeatures.addStructures(this);
+        addStructure(ModFeatures.ARABIAN_VILLAGE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+//        addFeature(Decoration.SURFACE_STRUCTURES, ModFeatures.ARABIAN_VILLAGE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
 
         ModFeatures.addUndergroundFeatures(this);
         ModFeatures.addDesertStructures(this);
@@ -69,7 +73,7 @@ public class BiomeLushDesert extends Biome {
     }
 
     @Override
-    public int getGrassColor(double p_225528_1_, double p_225528_3_) {
+    public int getGrassColor(double x, double z) {
         return 0x53c11b;
     }
 }

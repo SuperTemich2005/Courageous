@@ -89,6 +89,7 @@ public class ModBlocks {
     public static final Block ARCHITECTS_TABLE = new ArchitectsTable();
 
     public static final Block MUD = new MudBlock();
+    public static final Block TANNED_SAND = new CustomSand("tanned_sand", 0xc9a875);
 
     public static final DeferredRegister<Block> DEFFERED_BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, Util.MOD_ID);
 

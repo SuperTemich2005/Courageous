@@ -24,7 +24,7 @@ public class BiomeOasis extends Biome {
                 .temperature(2f)
 
                 .depth(-0.1f)
-                .scale(0.1f)
+                .scale(0.075f)
 
                 .waterColor(0x5fcfdf)
                 .waterFogColor(0x58bdcc)
@@ -33,13 +33,12 @@ public class BiomeOasis extends Biome {
 
         DefaultBiomeFeatures.addLakes(this);
         DefaultBiomeFeatures.addLakes(this);
-        DefaultBiomeFeatures.addLakes(this);
-        DefaultBiomeFeatures.addLakes(this);
 
         DefaultBiomeFeatures.addSedimentDisks(this);
         DefaultBiomeFeatures.addReedsAndPumpkins(this);
         DefaultBiomeFeatures.addSprings(this);
         DefaultBiomeFeatures.addStructures(this);
+        DefaultBiomeFeatures.addPlainsTallGrass(this);
 
         ModFeatures.addUndergroundFeatures(this);
         ModFeatures.addDesertStructures(this);
@@ -47,6 +46,9 @@ public class BiomeOasis extends Biome {
 
         ModFeatures.addPalmTrees(this);
         ModFeatures.addDesertVegetation(this);
+        ModFeatures.addGrass(this, 7);
+        ModFeatures.addJungleBushes(this, 1, 0.5f, 1);
+        ModFeatures.addRocks(this, Blocks.SMOOTH_SANDSTONE.getDefaultState(), 10);
 
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.PIG, 10, 4, 4));

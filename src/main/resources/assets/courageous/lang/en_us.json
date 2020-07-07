@@ -129,6 +129,7 @@
     "block.courageous.bulrushes": "Bulrushes",
 
     "block.courageous.mud": "Mud",
+    "block.courageous.tanned_sand": "Tanned Sand",
 
     "block.courageous.spiked_wall": "Spiked Wall",
 
@@ -164,6 +165,7 @@
     "biome.courageous.sparse_alpine_forest": "Sparse Alpine Forest",
     "biome.courageous.tundra": "Tundra",
     "biome.courageous.wetlands": "Wetlands",
+    "biome.courageous.oasis": "Oasis",
 
     "subtitle.courageous.pottery_wheel_spin": "Pottery Wheel Spins"
 }

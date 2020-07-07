@@ -1,5 +1,6 @@
 package co.uk.squishling.courageous.world.gen.surface;
 
+import co.uk.squishling.courageous.Courageous;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.SharedSeedRandom;
@@ -14,7 +15,7 @@ import java.util.function.Function;
 
 public class OasisSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
 
-    public static final PerlinNoiseGenerator noiseGen = new PerlinNoiseGenerator(new SharedSeedRandom(13378l), 0, 5);
+    public static final PerlinNoiseGenerator noiseGen = new PerlinNoiseGenerator(new SharedSeedRandom(13378l), 5, 0);
 
     public OasisSurfaceBuilder(Function<Dynamic<?>, ? extends SurfaceBuilderConfig> deserializer) {
         super(deserializer);
@@ -22,7 +23,7 @@ public class OasisSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
 
     @Override
     public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-        if (noiseGen.noiseAt(x, z, false) > 3f) {
+        if (noiseGen.noiseAt(x, z, false) > 0.05f) {
             SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, GRASS_DIRT_SAND_CONFIG);
         } else {
             SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, SAND_CONFIG);

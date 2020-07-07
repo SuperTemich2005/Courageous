@@ -1,6 +1,7 @@
 package co.uk.squishling.courageous.world.gen;
 
 import co.uk.squishling.courageous.blocks.ModBlocks;
+import co.uk.squishling.courageous.world.gen.features.ArabianVillage;
 import co.uk.squishling.courageous.world.gen.features.MudLake;
 import co.uk.squishling.courageous.world.gen.features.BulrushesFeature;
 import co.uk.squishling.courageous.world.gen.features.trees.*;
@@ -17,6 +18,7 @@ import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.BlockClusterFeatureConfig.Builder;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.placement.*;
 import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
@@ -48,6 +50,8 @@ public class ModFeatures {
 
     public static final Feature MUD_LAKE = new MudLake(NoFeatureConfig::deserialize);
     public static final Feature BULRUSHES = new BulrushesFeature(SeaGrassConfig::deserialize);
+
+    public static Structure<NoFeatureConfig> ARABIAN_VILLAGE = new ArabianVillage(NoFeatureConfig::deserialize);
 
     public static void addAlpineTrees(Biome biome) {
         addTree(biome, ALPINE_TREE, 5, 0.1f, 1);
@@ -83,8 +87,12 @@ public class ModFeatures {
         addTree(biome, MAPLE_TREE, 4, 0.1f, 1);
     }
 
+    public static void addRocks(Biome biome, BlockState state, int frequency) {
+        biome.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Feature.FOREST_ROCK.withConfiguration(new BlockBlobConfig(state, 0)).withPlacement(Placement.FOREST_ROCK.configure(new FrequencyConfig(frequency))));
+    }
+
     public static void addPalmTrees(Biome biome) {
-        biome.addFeature(Decoration.VEGETAL_DECORATION, PALM_TREE.withConfiguration(new NoFeatureConfig()).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(0, 0.75f, 1))));
+        biome.addFeature(Decoration.VEGETAL_DECORATION, PALM_TREE.withConfiguration(new NoFeatureConfig()).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(1, 0.25f, 1))));
     }
 
     public static void addVegetation(Biome biome) {
@@ -122,12 +130,20 @@ public class ModFeatures {
         addPillagerOutpost(biome);
     }
 
+    public static void addJungleBushes(Biome biome, int count, float extraChance, int extra) {
+        biome.addFeature(Decoration.VEGETAL_DECORATION, Feature.JUNGLE_GROUND_BUSH.withConfiguration(DefaultBiomeFeatures.JUNGLE_GROUND_BUSH_CONFIG).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(0, 0.9F, 1))));
+    }
+
     public static void addSparseSavannaTrees(Biome biome) {
         biome.addFeature(Decoration.VEGETAL_DECORATION, Feature.ACACIA_TREE.withConfiguration(DefaultBiomeFeatures.ACACIA_TREE_CONFIG).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(0, 0.05F, 1))));
     }
 
     public static void addPillagerOutpost(Biome biome) {
         biome.addFeature(Decoration.SURFACE_STRUCTURES, Feature.PILLAGER_OUTPOST.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+    }
+
+    public static void addVilage(Biome biome, String namespace, String type) {
+        biome.addFeature(Decoration.SURFACE_STRUCTURES, Feature.VILLAGE.withConfiguration(new VillageConfig(namespace + "village/" + type + "/town_centers", 6)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
     }
 
     public static void addVilage(Biome biome, String type) {
@@ -162,6 +178,10 @@ public class ModFeatures {
         addSeaPlant(biome, Feature.SEAGRASS);
         DefaultBiomeFeatures.addSwampVegetation(biome);
         DefaultBiomeFeatures.addSwampClayDisks(biome);
+    }
+
+    public static void addGrass(Biome biome, int frequency) {
+        biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.RANDOM_PATCH.withConfiguration(DefaultBiomeFeatures.GRASS_CONFIG).withPlacement(Placement.COUNT_HEIGHTMAP_DOUBLE.configure(new FrequencyConfig(frequency))));
     }
 
 }
