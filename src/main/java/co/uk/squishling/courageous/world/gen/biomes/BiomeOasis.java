@@ -31,8 +31,8 @@ public class BiomeOasis extends Biome {
 
                 .parent((String) null));
 
-        DefaultBiomeFeatures.addLakes(this);
-        DefaultBiomeFeatures.addLakes(this);
+//        DefaultBiomeFeatures.addLakes(this);
+//        DefaultBiomeFeatures.addLakes(this);
 
         DefaultBiomeFeatures.addSedimentDisks(this);
         DefaultBiomeFeatures.addReedsAndPumpkins(this);
@@ -43,12 +43,13 @@ public class BiomeOasis extends Biome {
         ModFeatures.addUndergroundFeatures(this);
         ModFeatures.addDesertStructures(this);
         ModFeatures.addPillagerOutpost(this);
+        ModFeatures.addArabianVillage(this);
 
         ModFeatures.addPalmTrees(this);
         ModFeatures.addDesertVegetation(this);
         ModFeatures.addGrass(this, 7);
         ModFeatures.addJungleBushes(this, 1, 0.5f, 1);
-        ModFeatures.addRocks(this, Blocks.SMOOTH_SANDSTONE.getDefaultState(), 10);
+        ModFeatures.addRocks(this, Blocks.COBBLESTONE.getDefaultState(), 3);
 
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.PIG, 10, 4, 4));

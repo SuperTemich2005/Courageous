@@ -1,7 +1,9 @@
 package co.uk.squishling.courageous.world.gen.biomes;
 
+import co.uk.squishling.courageous.blocks.ModBlocks;
 import co.uk.squishling.courageous.world.gen.BiomeRegistry;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
+import co.uk.squishling.courageous.world.gen.surface.OasisSurfaceBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -19,7 +21,7 @@ import javax.annotation.Nullable;
 public class BiomeLushDesert extends Biome {
 
     public BiomeLushDesert() {
-        super(new Builder().surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.DIRT.getDefaultState()))
+        super(new Builder().surfaceBuilder(SurfaceBuilder.DEFAULT, OasisSurfaceBuilder.TANNED_SAND_DIRT_CONFIG)
                 .category(Category.DESERT)
                 .precipitation(RainType.RAIN)
                 .downfall(0.1f)
@@ -34,19 +36,15 @@ public class BiomeLushDesert extends Biome {
 
                 .parent((String) null));
 
-//        DefaultBiomeFeatures.addLakes(this);
         DefaultBiomeFeatures.addSedimentDisks(this);
         DefaultBiomeFeatures.addReedsAndPumpkins(this);
-//        DefaultBiomeFeatures.addSprings(this);
         DefaultBiomeFeatures.addStructures(this);
-        addStructure(ModFeatures.ARABIAN_VILLAGE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-//        addFeature(Decoration.SURFACE_STRUCTURES, ModFeatures.ARABIAN_VILLAGE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
 
         ModFeatures.addUndergroundFeatures(this);
         ModFeatures.addDesertStructures(this);
         ModFeatures.addPillagerOutpost(this);
+//        ModFeatures.addArabianVillage(this);
 
-//        ModFeatures.addPalmTrees(this);
         ModFeatures.addDesertVegetation(this);
 
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP, 12, 4, 4));

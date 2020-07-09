@@ -9,6 +9,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeManager;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MarginedStructureStart;
@@ -31,7 +32,7 @@ public class ArabianVillage extends Structure<NoFeatureConfig> {
 
     @Override
     protected ChunkPos getStartPositionForPosition(ChunkGenerator<?> chunkGenerator, Random random, int x, int z, int spacingOffsetsX, int spacingOffsetsZ) {
-        int maxDistance = 15;
+        int maxDistance = 12;
         int minDistance = (int) (maxDistance * 0.75f);
         if (minDistance == 0) {
             minDistance = 1;
@@ -53,14 +54,15 @@ public class ArabianVillage extends Structure<NoFeatureConfig> {
 
     @Override
     public boolean canBeGenerated(BiomeManager biomeManager, ChunkGenerator<?> chunkGenerator, Random random, int chunkPosX, int chunkPosZ, Biome biome) {
+        if (biome == Biomes.JUNGLE_EDGE) return false;
+
         ChunkPos chunkpos = this.getStartPositionForPosition(chunkGenerator, random, chunkPosX, chunkPosZ, 0, 0);
         if (chunkPosX == chunkpos.x && chunkPosZ == chunkpos.z && chunkGenerator.hasStructure(biome, this)) {
 
             for (int x = -1; x <= 1; x++) {
                 for (int z = -1; z <= 1; z++) {
 
-                    if (!chunkGenerator.hasStructure(biomeManager.getBiome(new BlockPos((chunkPosX + x) * 16, 60, (chunkPosZ + z) * 16)), this))
-                    {
+                    if (!chunkGenerator.hasStructure(biomeManager.getBiome(new BlockPos((chunkPosX + x) * 16, 60, (chunkPosZ + z) * 16)), this)) {
                         return false;
                     }
                 }
@@ -82,7 +84,7 @@ public class ArabianVillage extends Structure<NoFeatureConfig> {
 
 
     public int getSize() {
-        return 8;
+        return 18;
     }
 
     public static class Start extends MarginedStructureStart
@@ -93,8 +95,10 @@ public class ArabianVillage extends Structure<NoFeatureConfig> {
 
 
         public void init(ChunkGenerator<?> generator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biomeIn) {
+            ArabianVillagePools.init();
+
             BlockPos blockpos = new BlockPos(chunkX * 16, 0, chunkZ * 16);
-            VillagePieces.addPieces(generator, templateManager, blockpos, this.components, this.rand, new VillageConfig(Util.MOD_ID + ":village/arabian/town_centers", 6));
+            VillagePieces.addPieces(generator, templateManager, blockpos, this.components, this.rand, new VillageConfig("courageous:village/arabian/town_centers", 12));
             this.recalculateStructureSize();
         }
     }
