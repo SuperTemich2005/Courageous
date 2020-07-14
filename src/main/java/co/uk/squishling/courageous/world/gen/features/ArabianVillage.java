@@ -58,14 +58,8 @@ public class ArabianVillage extends Structure<NoFeatureConfig> {
 
         ChunkPos chunkpos = this.getStartPositionForPosition(chunkGenerator, random, chunkPosX, chunkPosZ, 0, 0);
         if (chunkPosX == chunkpos.x && chunkPosZ == chunkpos.z && chunkGenerator.hasStructure(biome, this)) {
-
-            for (int x = -1; x <= 1; x++) {
-                for (int z = -1; z <= 1; z++) {
-
-                    if (!chunkGenerator.hasStructure(biomeManager.getBiome(new BlockPos((chunkPosX + x) * 16, 60, (chunkPosZ + z) * 16)), this)) {
-                        return false;
-                    }
-                }
+            if (!chunkGenerator.hasStructure(biomeManager.getBiome(new BlockPos(chunkPosX * 16, 60, chunkPosZ * 16)), this)) {
+                return false;
             }
 
             return true;
@@ -87,16 +81,12 @@ public class ArabianVillage extends Structure<NoFeatureConfig> {
         return 18;
     }
 
-    public static class Start extends MarginedStructureStart
-    {
+    public static class Start extends MarginedStructureStart {
         public Start(Structure<?> structureIn, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int referenceIn, long seedIn) {
             super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
         }
 
-
         public void init(ChunkGenerator<?> generator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biomeIn) {
-            ArabianVillagePools.init();
-
             BlockPos blockpos = new BlockPos(chunkX * 16, 0, chunkZ * 16);
             VillagePieces.addPieces(generator, templateManager, blockpos, this.components, this.rand, new VillageConfig("courageous:village/arabian/town_centers", 12));
             this.recalculateStructureSize();

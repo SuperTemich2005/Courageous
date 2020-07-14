@@ -22,6 +22,7 @@ import co.uk.squishling.courageous.util.rendering.FallingFluidParticle;
 import co.uk.squishling.courageous.util.rendering.FallingWaterParticle;
 import co.uk.squishling.courageous.util.rendering.ModParticles;
 import co.uk.squishling.courageous.world.gen.ModFeatures;
+import co.uk.squishling.courageous.world.gen.features.ArabianVillagePools;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BushBlock;
@@ -110,15 +111,19 @@ public class Courageous {
 
         ModFeatures.addTree(Biomes.FOREST, ModFeatures.APPLE_TREE, 0, 0.2f, 1);
 
-        for (Biome biome : ForgeRegistries.BIOMES) {
-            biome.addFeature(Decoration.SURFACE_STRUCTURES, ModFeatures.ARABIAN_VILLAGE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+        /* Arabian Village */ {
+            ArabianVillagePools.init();
+
+            for (Biome biome : ForgeRegistries.BIOMES) {
+                biome.addFeature(Decoration.SURFACE_STRUCTURES, ModFeatures.ARABIAN_VILLAGE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+            }
+
+            Biomes.JUNGLE_EDGE.addStructure(ModFeatures.ARABIAN_VILLAGE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+
+            List<Structure<?>> tempList = new ArrayList<>(Feature.ILLAGER_STRUCTURES);
+            tempList.add(ModFeatures.ARABIAN_VILLAGE);
+            Feature.ILLAGER_STRUCTURES = ImmutableList.copyOf(tempList);
         }
-
-        Biomes.JUNGLE_EDGE.addStructure(ModFeatures.ARABIAN_VILLAGE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-
-        List<Structure<?>> tempList = new ArrayList<>(Feature.ILLAGER_STRUCTURES);
-        tempList.add(ModFeatures.ARABIAN_VILLAGE);
-        Feature.ILLAGER_STRUCTURES = ImmutableList.copyOf(tempList);
 
         EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.MAPLE_LOG, (RotatedPillarBlock) ModBlocks.STRIPPED_MAPLE_LOG);
         EventHandler.STRIPPED_LOG_MAP.put((RotatedPillarBlock) ModBlocks.MAPLE_LOG_SYRUP, (RotatedPillarBlock) ModBlocks.STRIPPED_MAPLE_LOG);

@@ -7,11 +7,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
-import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
-
-import javax.annotation.Nullable;
 
 public class BiomeOasis extends Biome {
 
@@ -29,10 +25,7 @@ public class BiomeOasis extends Biome {
                 .waterColor(0x5fcfdf)
                 .waterFogColor(0x58bdcc)
 
-                .parent((String) null));
-
-//        DefaultBiomeFeatures.addLakes(this);
-//        DefaultBiomeFeatures.addLakes(this);
+                .parent(null));
 
         DefaultBiomeFeatures.addSedimentDisks(this);
         DefaultBiomeFeatures.addReedsAndPumpkins(this);

@@ -7,8 +7,8 @@ import com.mojang.datafixers.Dynamic;
 import co.uk.squishling.courageous.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -27,6 +27,9 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.template.*;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.Tags.Blocks;
+import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -79,7 +82,7 @@ public class PalmTreeFeature extends Feature<NoFeatureConfig> {
     private boolean canCreate(IWorld world, BlockPos position, int height) {
         if (!(world.hasBlockState(position.down(), (blockState) -> {
             Block block = blockState.getBlock();
-            return block == Blocks.DIRT || block == Blocks.GRASS_BLOCK || block == Blocks.SAND;
+            return Tags.Blocks.DIRT.contains(block) || Blocks.SAND.contains(block);
         }))) return false;
 
         for (int i = 0; i <= height; i++) {

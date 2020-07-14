@@ -12,11 +12,6 @@ import net.minecraft.world.gen.feature.jigsaw.JigsawPattern.PlacementBehaviour;
 public class ArabianVillagePools {
 
     public static void init() {
-
-    }
-
-    static {
-
         JigsawManager.REGISTRY.register(new JigsawPattern(new ResourceLocation(Util.MOD_ID+":village/arabian/houses"), new ResourceLocation(Util.MOD_ID+":village/arabian/terminators"),
                 ImmutableList.of(
                         new Pair<>(new SingleJigsawPiece("courageous:village/arabian/houses/arabian_animal_pen_1"), 2),
@@ -95,6 +90,11 @@ public class ArabianVillagePools {
                 ImmutableList.of(
                         new Pair<>(new FeatureJigsawPiece(ModFeatures.PALM_TREE.withConfiguration(new NoFeatureConfig()), PlacementBehaviour.TERRAIN_MATCHING), 1)),
                 PlacementBehaviour.TERRAIN_MATCHING));
+    }
+
+    static {
+
+
 
 
     }
