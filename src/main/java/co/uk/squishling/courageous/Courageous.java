@@ -119,8 +119,8 @@ public class Courageous {
                 biome.addFeature(Decoration.SURFACE_STRUCTURES, ModFeatures.ARABIAN_VILLAGE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
             }
 
-//            Biomes.JUNGLE_EDGE.addStructure(ModFeatures.ARABIAN_VILLAGE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-            Biomes.JUNGLE_EDGE.func_235063_a_(ModFeatures.ARABIAN_VILLAGE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+            Biomes.JUNGLE_EDGE.addStructure(ModFeatures.ARABIAN_VILLAGE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+//            Biomes.JUNGLE_EDGE.func_235063_a_(ModFeatures.ARABIAN_VILLAGE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
 
             List<Structure<?>> tempList = new ArrayList<>(Feature.ILLAGER_STRUCTURES);
             tempList.add(ModFeatures.ARABIAN_VILLAGE);
