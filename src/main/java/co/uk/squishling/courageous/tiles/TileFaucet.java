@@ -48,11 +48,21 @@ public class TileFaucet extends TileEntity implements IForgeTileEntity, IFluidHa
             FluidStack drained = FluidStack.EMPTY;
             LazyOptional<IFluidHandler> handler = FluidUtil.getFluidHandler(world, pos.down(), Direction.UP);
             if (handler.isPresent()) {
-                drained = FluidUtil.tryFluidTransfer(handler.orElseThrow(IllegalArgumentException::new), this, speed, true);
+                drained = FluidUtil.tryFluidTransfer(handler.orElseThrow(IllegalArgumentException::new), this, speed, !world.isRemote);
             }
             if (drained.isEmpty()) {
-                drained = this.drain(speed, FluidAction.EXECUTE);
+                drained = this.drain(speed, world.isRemote ? FluidAction.SIMULATE : FluidAction.EXECUTE);
             }
+            //Nothing happened
+            if (drained.isEmpty()) return;
+
+            markDirty();
+            if (world != null) {
+                world.notifyBlockUpdate(pos, getBlockState(), getBlockState(), 3);
+                world.markBlockRangeForRenderUpdate(pos, getBlockState(), getBlockState());
+                markDirty();
+            }
+
             IParticleData drippingParticle;
             if (!PseudoFluidUtil.isFluidFake(drained)) {
                 if (drained.getFluid() == Fluids.WATER) {
