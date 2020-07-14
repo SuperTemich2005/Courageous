@@ -3,8 +3,9 @@ package co.uk.squishling.courageous.recipes.distiller;
 import co.uk.squishling.courageous.recipes.ModRecipes;
 import co.uk.squishling.courageous.recipes.RecipeUtils;
 import co.uk.squishling.courageous.recipes.wrappers.FluidRecipeWrapper;
+import co.uk.squishling.courageous.util.pseudofluids.PseudoFluidStack;
+import co.uk.squishling.courageous.util.pseudofluids.PseudoFluidUtil;
 import com.google.gson.JsonObject;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -13,19 +14,18 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
 
 public class DistillerRecipe implements IRecipe<FluidRecipeWrapper> {
     public static final IRecipeType<DistillerRecipe> recipeType = IRecipeType.register("courageous_distiller");
 
     public final String group;
     public final ResourceLocation id;
-    public final FluidStack input;
-    public final FluidStack outputFlow;
-    public final FluidStack outputResidue;
+    public final PseudoFluidStack input;
+    public final PseudoFluidStack outputFlow;
+    public final PseudoFluidStack outputResidue;
     public final int recipeCycles;
 
-    public DistillerRecipe(ResourceLocation id, String group, FluidStack input, FluidStack outputFlow, FluidStack outputResidue, int recipeCycles) {
+    public DistillerRecipe(ResourceLocation id, String group, PseudoFluidStack input, PseudoFluidStack outputFlow, PseudoFluidStack outputResidue, int recipeCycles) {
         this.group = group;
         this.id = id;
         this.input = input;
@@ -39,18 +39,18 @@ public class DistillerRecipe implements IRecipe<FluidRecipeWrapper> {
         return inv.getFluidInTank(0).isFluidEqual(input);
     }
 
-    public FluidStack getOutputFlowPerCycle(FluidRecipeWrapper inv, World worldIn) {
-        Fluid fluid = outputFlow.getFluid();
+    public PseudoFluidStack getOutputFlowPerCycle(FluidRecipeWrapper inv, World worldIn) {
+        ResourceLocation fluid = outputFlow.getPseudoFluid();
         float multiplier = (float) outputFlow.getAmount() / input.getAmount() / recipeCycles;
         int amount = (int) (multiplier * inv.getFluidInTank(0).getAmount());
-        return new FluidStack(fluid, amount);
+        return new PseudoFluidStack(fluid, amount);
     }
 
-    public FluidStack getOutputResidue(FluidRecipeWrapper inv, World worldIn) {
-        Fluid fluid = outputResidue.getFluid();
+    public PseudoFluidStack getOutputResidue(FluidRecipeWrapper inv, World worldIn) {
+        ResourceLocation fluid = outputResidue.getPseudoFluid();
         float multiplier = (float) outputResidue.getAmount() / input.getAmount();
         int amount = (int) (multiplier * inv.getFluidInTank(0).getAmount());
-        return new FluidStack(fluid, amount);
+        return new PseudoFluidStack(fluid, amount);
     }
 
     @Override
@@ -77,18 +77,19 @@ public class DistillerRecipe implements IRecipe<FluidRecipeWrapper> {
 
         public T read(ResourceLocation recipeId, JsonObject json) {
             String group = JSONUtils.getString(json, "group", "");
-            FluidStack input = RecipeUtils.getFluidStack(json, "input");
-            FluidStack outputFlow = RecipeUtils.getFluidStack(json, "outputFlow");
-            FluidStack outputResidue = RecipeUtils.getFluidStack(json, "outputResidue");
+            PseudoFluidStack input = RecipeUtils.getPseudoFluidStack(json, "input");
+            PseudoFluidStack outputFlow = RecipeUtils.getPseudoFluidStack(json, "outputFlow");
+            PseudoFluidStack outputResidue = RecipeUtils.getPseudoFluidStack(json, "outputResidue");
             int cycles = JSONUtils.getInt(json, "cycles");
             return this.factory.create(recipeId, group, input, outputFlow, outputResidue, cycles);
         }
 
         public T read(ResourceLocation recipeId, PacketBuffer buffer) {
             String group = buffer.readString();
-            FluidStack input = buffer.readFluidStack();
-            FluidStack outputFlow = buffer.readFluidStack();
-            FluidStack outputResidue = buffer.readFluidStack();
+
+            PseudoFluidStack input = PseudoFluidUtil.readFluidStack(buffer);
+            PseudoFluidStack outputFlow = PseudoFluidUtil.readFluidStack(buffer);
+            PseudoFluidStack outputResidue = PseudoFluidUtil.readFluidStack(buffer);
             int cycles = buffer.readInt();
             return this.factory.create(recipeId, group, input, outputFlow, outputResidue, cycles);
         }
@@ -102,7 +103,7 @@ public class DistillerRecipe implements IRecipe<FluidRecipeWrapper> {
         }
 
         public interface IRecipeFactory<T extends DistillerRecipe> {
-            T create(ResourceLocation id, String group, FluidStack input, FluidStack outputFlow, FluidStack outputResidue, int cycles);
+            T create(ResourceLocation id, String group, PseudoFluidStack input, PseudoFluidStack outputFlow, PseudoFluidStack outputResidue, int cycles);
         }
     }
 

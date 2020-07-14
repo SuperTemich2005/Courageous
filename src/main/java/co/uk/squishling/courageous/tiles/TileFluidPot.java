@@ -1,6 +1,9 @@
 package co.uk.squishling.courageous.tiles;
 
 import co.uk.squishling.courageous.blocks.pot.BlockFluidPot;
+import co.uk.squishling.courageous.util.pseudofluids.IPseudoFluidHandler;
+import co.uk.squishling.courageous.util.pseudofluids.PseudoFluidStack;
+import co.uk.squishling.courageous.util.pseudofluids.PseudoFluidTank;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -13,29 +16,29 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileFluidPot extends TileEntity implements IForgeTileEntity, IFluidHandler {
-    protected FluidTank tank;
+public class TileFluidPot extends TileEntity implements IForgeTileEntity, IPseudoFluidHandler {
+    protected PseudoFluidTank tank;
     protected final LazyOptional<IFluidHandler> fluidHandler = LazyOptional.of(() -> this).cast();
 
 
     public TileFluidPot() {
         super(ModTiles.FLUID_POT.get());
-        tank = new FluidTank(4000);
+        tank = new PseudoFluidTank(4000);
     }
 
     public TileFluidPot(TileEntityType type) {
         super(type);
-        tank = new FluidTank(4000);
+        tank = new PseudoFluidTank(4000);
     }
 
     public void copyPotInfo(TileFluidPot pot) {
-        if (!world.isRemote)
+        if (!world.isRemote) {
             this.tank = pot.tank;
+        }
         SynchroniseTile();
     }
 
@@ -46,22 +49,33 @@ public class TileFluidPot extends TileEntity implements IForgeTileEntity, IFluid
 
     @Nonnull
     @Override
-    public FluidStack getFluidInTank(int index) {
-        return tank.getFluidInTank(index);
+    public PseudoFluidStack getFluidInTank(int index) {
+        return tank.getFluid();
     }
 
     @Override
     public int getTankCapacity(int index) {
-        return tank.getTankCapacity(index);
+        return tank.getCapacity();
     }
 
     @Override
     public boolean isFluidValid(int index, @Nonnull FluidStack stack) {
-        return tank.isFluidValid(stack);
+        return true;
+    } //All fluids accepted
+
+    public boolean canBeVanillaDrained() {
+        return !tank.getFluid().isFake();
     }
 
     @Override
     public int fill(FluidStack resource, FluidAction action) {
+        if (resource instanceof PseudoFluidStack) {
+            return fill((PseudoFluidStack) resource, action);
+        }
+        return fill(new PseudoFluidStack(resource), action);
+    }
+
+    public int fill(PseudoFluidStack resource, FluidAction action) {
         SynchroniseTile();
         return tank.fill(resource, action);
     }

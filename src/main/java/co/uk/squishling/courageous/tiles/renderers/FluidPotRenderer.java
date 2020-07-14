@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.fluid.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 public class FluidPotRenderer extends TileEntityRenderer<TileFluidPot> {
@@ -22,21 +21,19 @@ public class FluidPotRenderer extends TileEntityRenderer<TileFluidPot> {
     }
 
     @Override
-    public void render(TileFluidPot tileFluidPot, float v, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int i, int i1) {
+    public void render(TileFluidPot tileFluidPot, float v, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int combinedLightIn, int combinedOverlayIn) {
         FluidStack fluidStack = tileFluidPot.getFluidInTank(0);
         if (tileFluidPot.getBlockState().get(BlockFluidPot.OPEN) && !fluidStack.isEmpty()) {
             matrixStack.push();
 
             RenderType renderType = RenderType.getTranslucent();
             IVertexBuilder builder = iRenderTypeBuffer.getBuffer(renderType);
-            Fluid fluid = fluidStack.getFluid(); //Find out what fluid is in the tank
 
             Float percentFull = (float) fluidStack.getAmount() / tileFluidPot.getTankCapacity(0); //Find out how full the tank is now
             Float layerHeight = (1 - topInset - bottomInset) * percentFull + bottomInset;
 
             //Put fluid into buffer
-            TileEntityRenderHelper.DrawFluidPlane(builder, matrixStack, fluid, tileFluidPot.getWorld(), tileFluidPot.getPos(), sideInset, sideInset, 1 - sideInset, 1 - sideInset, layerHeight, i1);
-
+            TileEntityRenderHelper.DrawFluidPlane(builder, matrixStack, TileEntityRenderHelper.getFluidTexture(fluidStack), sideInset, sideInset, 1 - sideInset, 1 - sideInset, layerHeight, combinedLightIn, combinedOverlayIn);
             matrixStack.pop();
         }
     }
