@@ -4,6 +4,8 @@ import co.uk.squishling.courageous.blocks.pot.BlockDistiller;
 import co.uk.squishling.courageous.recipes.distiller.DistillerRecipe;
 import co.uk.squishling.courageous.recipes.wrappers.FluidRecipeWrapper;
 import co.uk.squishling.courageous.util.config.ConfigHandler;
+import co.uk.squishling.courageous.util.pseudofluids.PseudoFluidStack;
+import co.uk.squishling.courageous.util.pseudofluids.PseudoFluidTank;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
@@ -16,20 +18,20 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.world.Explosion;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
 public class TileDistiller extends TileFluidPot implements ITickableTileEntity {
-    private FluidTank output;
+    private PseudoFluidTank output;
     private DistillerRecipe currentRecipe;
     private int progress;
     private boolean recipeNeedsChecking = false;
@@ -39,7 +41,7 @@ public class TileDistiller extends TileFluidPot implements ITickableTileEntity {
 
     public TileDistiller() {
         super(ModTiles.DISTILLER.get());
-        output = new FluidTank(1000); //Output tank
+        output = new PseudoFluidTank(1000); //Output tank
         wrapper = new FluidRecipeWrapper(this, null);
     }
 
@@ -58,13 +60,15 @@ public class TileDistiller extends TileFluidPot implements ITickableTileEntity {
         if (isRecipePresent() && blockUnder.getBlock() == Blocks.CAMPFIRE && blockUnder.get(CampfireBlock.LIT) && random.nextInt(ConfigHandler.COMMON.distillerProgressChance.get()) == 0) {
             if (++progress > currentRecipe.recipeCycles) {
                 tank.setFluid(currentRecipe.getOutputResidue(wrapper, world));
+                world.addParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 0, 0, 0);
                 recipeNeedsChecking = true;
                 progress = 0;
             } else {
-                FluidStack outFlow = currentRecipe.getOutputFlowPerCycle(wrapper, world);
+                PseudoFluidStack outFlow = currentRecipe.getOutputFlowPerCycle(wrapper, world);
                 //Explode if there is still too much fluid in output tank, otherwise fill output tank
                 if (output.fill(outFlow, FluidAction.EXECUTE) != outFlow.getAmount()) {
                     explode();
+                    return;
                 }
             }
             world.addParticle(ParticleTypes.POOF, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 0, 0, 0);
@@ -92,7 +96,7 @@ public class TileDistiller extends TileFluidPot implements ITickableTileEntity {
 
     //For when someone messes up doing a recipe
     private void explode() {
-        //TODO: Destroy the distiller
+        world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 1.0F, Explosion.Mode.BREAK);
     }
 
     public boolean isRecipePresent() {
@@ -130,21 +134,21 @@ public class TileDistiller extends TileFluidPot implements ITickableTileEntity {
 
     @Nonnull
     @Override
-    public FluidStack drain(FluidStack resource, FluidAction action) {
+    public PseudoFluidStack drain(FluidStack resource, FluidAction action) {
         SynchroniseTile();
         return output.drain(resource, action);
     }
 
     @Nonnull
     @Override
-    public FluidStack drain(int maxDrain, FluidAction action) {
+    public PseudoFluidStack drain(int maxDrain, FluidAction action) {
         SynchroniseTile();
         return output.drain(maxDrain, action);
     }
 
     @Nonnull
     @Override
-    public FluidStack getFluidInTank(int index) {
+    public PseudoFluidStack getFluidInTank(int index) {
         if (index == 0) return super.getFluidInTank(0);
         return output.getFluidInTank(0);
     }

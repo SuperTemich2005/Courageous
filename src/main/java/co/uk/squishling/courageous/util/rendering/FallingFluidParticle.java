@@ -1,24 +1,22 @@
 package co.uk.squishling.courageous.util.rendering;
 
 import net.minecraft.client.particle.*;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.IParticleData;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fluids.FluidAttributes;
 
 public class FallingFluidParticle extends SpriteTexturedParticle {
-    private final Fluid fluid;
+    private final FluidAttributes fluidAttr;
     //protected final IParticleData landParticle;
 
-    protected FallingFluidParticle(World world, double x, double y, double z, Fluid fluid, IParticleData landParticle) {
+    protected FallingFluidParticle(World world, double x, double y, double z, FluidAttributes fluidAttr, IParticleData landParticle) {
         super(world, x, y, z);
         this.setSize(0.01F, 0.01F);
         this.particleGravity = 0.06F;
-        this.fluid = fluid;
+        this.fluidAttr = fluidAttr;
         this.maxAge = (int) (64.0D / (Math.random() * 0.8D + 0.2D));
         //this.landParticle = landParticle;
     }
@@ -30,7 +28,7 @@ public class FallingFluidParticle extends SpriteTexturedParticle {
 
     @Override
     public int getBrightnessForRender(float p_189214_1_) {
-        return Math.max(this.fluid.getAttributes().getLuminosity() * 16, super.getBrightnessForRender(p_189214_1_));
+        return Math.max(this.fluidAttr.getLuminosity() * 16, super.getBrightnessForRender(p_189214_1_));
     }
 
     @Override
@@ -47,12 +45,6 @@ public class FallingFluidParticle extends SpriteTexturedParticle {
                 this.motionX *= 0.9800000190734863D;
                 this.motionY *= 0.9800000190734863D;
                 this.motionZ *= 0.9800000190734863D;
-                BlockPos lvt_1_1_ = new BlockPos(this.posX, this.posY, this.posZ);
-                IFluidState lvt_2_1_ = this.world.getFluidState(lvt_1_1_);
-                if (lvt_2_1_.getFluid() == this.fluid && this.posY < (double) ((float) lvt_1_1_.getY() + lvt_2_1_.getActualHeight(this.world, lvt_1_1_))) {
-                    this.setExpired();
-                }
-
             }
         }
     }
@@ -79,8 +71,10 @@ public class FallingFluidParticle extends SpriteTexturedParticle {
         }
 
         public Particle makeParticle(BlockParticleData typeIn, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            FallingFluidParticle fallingParticle = new FallingFluidParticle(worldIn, x, y, z, typeIn.getBlockState().getFluidState().getFluid(), null);
-            int color = fallingParticle.fluid.getAttributes().getColor();
+            FallingFluidParticle fallingParticle = new FallingFluidParticle(worldIn, x, y, z, typeIn.getBlockState().getFluidState().getFluid().getAttributes(), null);
+            int color = fallingParticle.fluidAttr.getColor();
+            if (color == 0)
+                color = 0xffffffff; //Fluids should never be black (happens when a block is used as a fluid), so when that happens just turn them white.
             float r = ((color >> 16) & 0xFF) / 255f;
             float g = ((color >> 8) & 0xFF) / 255f;
             float b = ((color >> 0) & 0xFF) / 255f;

@@ -1,5 +1,6 @@
 package co.uk.squishling.courageous.recipes;
 
+import co.uk.squishling.courageous.util.pseudofluids.PseudoFluidStack;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.fluid.Fluid;
@@ -21,5 +22,13 @@ public class RecipeUtils {
         }
 
         return new FluidStack(fluid, amount);
+    }
+
+    public static PseudoFluidStack getPseudoFluidStack(JsonObject json, String id) {
+        JsonObject fluidJson = JSONUtils.getJsonObject(json, id);
+        ResourceLocation fluidRS = ResourceLocation.create(JSONUtils.getString(fluidJson, "fluid", "minecraft:empty"), ':');
+        int amount = JSONUtils.getInt(fluidJson, "amount", 1000);
+
+        return new PseudoFluidStack(fluidRS, amount);
     }
 }

@@ -2,6 +2,7 @@ package co.uk.squishling.courageous.blocks;
 
 import co.uk.squishling.courageous.blocks.architects_table.ArchitectsTable;
 import co.uk.squishling.courageous.blocks.cutting_board.CuttingBoard;
+import co.uk.squishling.courageous.blocks.planter_box.PlanterBoxBlock;
 import co.uk.squishling.courageous.blocks.pot.BlockDistiller;
 import co.uk.squishling.courageous.blocks.pot.BlockFluidPot;
 import co.uk.squishling.courageous.blocks.pot.BlockFluidPotBase;
@@ -90,6 +91,8 @@ public class ModBlocks {
 
     public static final Block MUD = new MudBlock();
     public static final Block TANNED_SAND = new CustomSand("tanned_sand", 0xc9a875);
+
+    public static final Block PLANTER_BOX = new PlanterBoxBlock();
 
     public static final DeferredRegister<Block> DEFFERED_BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, Util.MOD_ID);
 

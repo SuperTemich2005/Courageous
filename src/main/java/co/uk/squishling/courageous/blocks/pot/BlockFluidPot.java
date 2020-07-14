@@ -5,6 +5,7 @@ import co.uk.squishling.courageous.items.ModItems;
 import co.uk.squishling.courageous.tiles.TileDistiller;
 import co.uk.squishling.courageous.tiles.TileFluidPot;
 import co.uk.squishling.courageous.util.Util;
+import co.uk.squishling.courageous.util.pseudofluids.PseudoFluidUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -28,7 +29,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.fluids.FluidUtil;
 
 import javax.annotation.Nullable;
 
@@ -60,7 +60,11 @@ public class BlockFluidPot extends BlockFluidPotBase {
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
         ItemStack heldItem = player.getHeldItem(hand);
         if (state.get(OPEN)) {
-            if (FluidUtil.interactWithFluidHandler(player, hand, world, pos, Direction.UP)) {
+            //Try a vanilla fluid transfer
+//            if (((TileFluidPot)world.getTileEntity(pos)).canBeVanillaDrained() && FluidUtil.interactWithFluidHandler(player, hand, world, pos, Direction.UP)) {
+//                return ActionResultType.SUCCESS;
+//            }
+            if (PseudoFluidUtil.interactWithFluidHandler(player, hand, world, pos, Direction.UP)) {
                 return ActionResultType.SUCCESS;
             }
             if (ItemTags.getCollection().getOrCreate(coverTag).contains(heldItem.getItem())) {
